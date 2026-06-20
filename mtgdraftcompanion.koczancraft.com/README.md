@@ -15,10 +15,14 @@ The store privacy URL points at `https://mtgdraftcompanion.koczancraft.com/priva
 When ads/analytics/data handling changes, edit `privacy.html` **here** (and keep it consistent
 with the app's `PrivacyInfo.xcprivacy` + `docs/STORE.md` in the app repo).
 
+## Email routing
+- **Contact form** → `support@koczancraft.com` (app user support). Set the Web3Forms key's
+  destination to support@ (see below).
+- **Privacy policy contact** (`privacy.html`) → `privacy@koczancraft.com`.
+
 ## Before launch
 - Set `WEB3FORMS_KEY` in `index.html` (free key at https://web3forms.com → destination
-  `contact@koczancraft.com`).
-- Remove any `todo-note` blocks in `privacy.html` once the contact mailbox is live.
+  `support@koczancraft.com`).
 
 ## Deploy
 Vercel project with **Root Directory = `mtgdraftcompanion.koczancraft.com`**, framework
