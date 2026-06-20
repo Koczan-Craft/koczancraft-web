@@ -12,14 +12,25 @@ every push to `main` auto-deploys the affected sites.
 ```
 koczancraft-web/
 ├─ koczancraft.com/                    → https://koczancraft.com
-│  ├─ index.html                       brand / portfolio home (white/premium)
+│  ├─ index.html                       brand home: Leather Craft + an Apps teaser (white/premium)
 │  └─ assets/  (ig/, mtg-icon.png, …)  self-hosted images
+├─ apps.koczancraft.com/               → https://apps.koczancraft.com
+│  ├─ index.html                       apps hub: one card per app, grows + categories (white/premium)
+│  └─ assets/  (mtg-icon.png)
 ├─ mtgdraftcompanion.koczancraft.com/  → https://mtgdraftcompanion.koczancraft.com
 │  ├─ index.html                       MTG Draft Companion app landing (dark/gold)
 │  ├─ privacy.html                     canonical privacy policy (store links here)
 │  └─ icon.png
 └─ <new-site>/  (future)               → https://<sub>.koczancraft.com
 ```
+
+**Three-tier flow:** the brand home (`koczancraft.com`) has a Leather Craft section + an Apps
+teaser → the Apps teaser links to the **apps hub** (`apps.koczancraft.com`) → each app card in
+the hub links to that app's own landing (e.g. `mtgdraftcompanion.koczancraft.com`).
+
+**Adding an app:** add a card to `apps.koczancraft.com/index.html` (copy the MTG `.app-card`).
+Group cards under `<h2 class="cat-title">` blocks when categories are wanted. If the app gets its
+own landing, add a folder for its subdomain too.
 
 The MTG landing is **canonical here** now (moved out of the app repo's `docs/landing/`) so all
 web pages live in one place. The app repo's old copy is superseded — edit the page **here**.

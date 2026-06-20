@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apps — Koczan Craft</title>
+  <meta name="description" content="Apps built by Koczan Craft — hands-on software, made one at a time. Starting with MTG Draft Companion, with more on the way." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Apps — Koczan Craft" />
+  <meta property="og:description" content="Hands-on software by Koczan Craft. Starting with MTG Draft Companion." />
+  <meta property="og:url" content="https://apps.koczancraft.com" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23d8a86a'%3EK%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #faf8f5;
+      --ink: #17130f;
+      --muted: #6f6860;
+      --line: #ece7e0;
+      --leather: #8a5a34;     /* warm brand accent (matches koczancraft.com) */
+      --leather-soft: #b07e4f;
+      --gold: #c4a44a;        /* app accent */
+      --maxw: 1080px;
+      --serif: "Fraunces", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      --sans: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    :lang(ja) { --serif: "Noto Sans JP", "Fraunces", serif; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Top bar */
+    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .brand .mono { width: 34px; height: 34px; border-radius: 9px; background: var(--ink); color: #d8a86a; font-family: var(--serif); font-weight: 600; display: grid; place-items: center; font-size: 19px; }
+    .brand .name { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: .2px; }
+    .brand .name .sub { color: var(--muted); font-weight: 500; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .back-home { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .back-home:hover { color: var(--ink); }
+    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang-toggle button { font: inherit; font-size: 13px; font-weight: 500; padding: 7px 13px; border: 0; background: transparent; color: var(--muted); cursor: pointer; line-height: 1; }
+    .lang-toggle button.active { background: var(--ink); color: #fff; }
+
+    /* Hero */
+    .hero { padding: 92px 0 56px; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--leather); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-weight: 400; line-height: 1.05; font-size: clamp(40px, 7vw, 72px); letter-spacing: -.5px; margin-bottom: 22px; }
+    .hero .lead { font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); max-width: 600px; line-height: 1.55; }
+
+    /* Apps grid (extensible — add a .cat-title before a grid to introduce categories later) */
+    .apps { padding: 24px 0 92px; }
+    .cat-title { font-family: var(--serif); font-size: 24px; font-weight: 500; margin: 40px 0 18px; }
+    .app-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+    .app-card { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: radial-gradient(120% 140% at 88% 0%, rgba(196,164,74,.10), transparent 60%), var(--panel); transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+    .app-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(23,19,15,.4); border-color: #e0d8cb; }
+    .app-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 30px; align-items: center; padding: 34px 38px; }
+    .app-icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 12px 30px -12px rgba(23,19,15,.5); border: 1px solid var(--line); }
+    .app-meta .app-eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
+    .app-meta h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(24px, 3vw, 32px); margin-bottom: 11px; letter-spacing: -.2px; }
+    .app-meta p { color: var(--muted); max-width: 600px; }
+    .app-tags { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .app-tags span { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: #fff; }
+    .app-go { flex: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .app-go .arrow { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--ink); transition: transform .22s ease, background .22s ease, color .22s ease; }
+    .app-card:hover .app-go .arrow { transform: translateX(6px); background: var(--ink); color: #fff; }
+
+    .more-soon { margin-top: 26px; border: 1px dashed var(--line); border-radius: 18px; padding: 30px; text-align: center; color: var(--muted); background: var(--panel); }
+    .more-soon b { display: block; color: var(--ink); font-family: var(--serif); font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--line); padding: 56px 0 52px; }
+    .foot-grid { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .foot-links { display: flex; gap: 22px; font-size: 15px; }
+    .foot-links a { color: var(--muted); text-decoration: none; }
+    .foot-links a:hover { color: var(--ink); }
+    .copyright { margin-top: 30px; font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 760px) {
+      .app-inner { grid-template-columns: 1fr; gap: 22px; justify-items: start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="brand" href="https://koczancraft.com" aria-label="Koczan Craft">
+        <span class="mono">K</span>
+        <span class="name">Koczan Craft <span class="sub">· Apps</span></span>
+      </a>
+      <div class="nav-right">
+        <a class="back-home" href="https://koczancraft.com" data-i18n="nav.home"></a>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button data-setlang="en" class="active">EN</button>
+          <button data-setlang="ja">日本語</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+        <h1 data-i18n="hero.title"></h1>
+        <p class="lead" data-i18n="hero.lead"></p>
+      </div>
+    </section>
+
+    <section class="apps">
+      <div class="wrap">
+        <!-- One grid for now. To add categories later, repeat:
+             <h2 class="cat-title">Category</h2><div class="app-grid"> …cards… </div> -->
+        <div class="app-grid">
+          <a class="app-card" href="https://mtgdraftcompanion.koczancraft.com">
+            <div class="app-inner">
+              <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
+              <div class="app-meta">
+                <p class="app-eyebrow" data-i18n="mtg.eyebrow"></p>
+                <h3>MTG Draft Companion</h3>
+                <p data-i18n="mtg.desc"></p>
+                <div class="app-tags">
+                  <span data-i18n="mtg.tag1"></span>
+                  <span data-i18n="mtg.tag2"></span>
+                  <span data-i18n="mtg.tag3"></span>
+                  <span data-i18n="mtg.tag4"></span>
+                </div>
+              </div>
+              <span class="app-go">
+                <span data-i18n="mtg.cta"></span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <div class="more-soon">
+          <b data-i18n="more.title"></b>
+          <span data-i18n="more.body"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand" href="https://koczancraft.com" aria-label="Koczan Craft">
+          <span class="mono">K</span>
+          <span class="name">Koczan Craft</span>
+        </a>
+        <div class="foot-links">
+          <a href="https://koczancraft.com" data-i18n="nav.home"></a>
+          <a href="https://mtgdraftcompanion.koczancraft.com">MTG Draft Companion</a>
+          <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
+        </div>
+      </div>
+      <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    var I18N = {
+      en: {
+        "nav.home": "← Koczan Craft",
+        "hero.eyebrow": "Apps",
+        "hero.title": "Hands-on software, one app at a time.",
+        "hero.lead": "The same maker's approach as the bench — built carefully, because it should exist. Here's what's live and what's coming.",
+        "mtg.eyebrow": "Tabletop · Coming soon",
+        "mtg.desc": "A companion for Magic: The Gathering draft nights — live standings, a built-in split-screen life counter, deck building with mana curve and one-tap land balancing, and full Japanese card support, all synced for your playgroup.",
+        "mtg.tag1": "Drafts & standings", "mtg.tag2": "Life counter", "mtg.tag3": "Deck building", "mtg.tag4": "日本語 cards",
+        "mtg.cta": "Learn more",
+        "more.title": "More apps on the way",
+        "more.body": "New apps will appear here as they're built — and grouped into categories as the collection grows.",
+        "footer.contact": "Contact",
+        "footer.tagline": "Apps by Koczan Craft."
+      },
+      ja: {
+        "nav.home": "← Koczan Craft",
+        "hero.eyebrow": "アプリ",
+        "hero.title": "手づくりのソフトを、ひとつずつ。",
+        "hero.lead": "作業台と同じ姿勢で、ていねいに。あるべきだからつくる。公開中のもの、そしてこれから来るものをご紹介します。",
+        "mtg.eyebrow": "テーブルトップ · 近日公開",
+        "mtg.desc": "マジックのドラフトのためのコンパニオンアプリ。リアルタイムの順位表、分割画面のライフカウンター、マナカーブやワンタップの土地調整付きのデッキ構築、そして充実の日本語カード対応を、仲間全員で同期。",
+        "mtg.tag1": "ドラフトと順位", "mtg.tag2": "ライフカウンター", "mtg.tag3": "デッキ構築", "mtg.tag4": "日本語カード",
+        "mtg.cta": "詳しく見る",
+        "more.title": "新しいアプリを準備中",
+        "more.body": "完成したアプリからここに並びます。数が増えたらカテゴリーごとに整理していきます。",
+        "footer.contact": "お問い合わせ",
+        "footer.tagline": "Koczan Craft のアプリ。"
+      }
+    };
+
+    function applyLang(lang) {
+      var dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] != null) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en");
+    applyLang(initial);
+  </script>
+</body>
+</html>
