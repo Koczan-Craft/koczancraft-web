@@ -50,3 +50,4 @@ These are **static** sites — no build step.
 - One HTML file per site, CSS + JS inline (no bundler, no dependencies beyond Google Fonts).
 - `data-i18n` keys + an `I18N` dictionary + the `applyLang()` toggle for EN/日本語.
 - White/premium for the brand home; each app can carry its own theme (the MTG page is dark/gold).
+# koczancraft-web
