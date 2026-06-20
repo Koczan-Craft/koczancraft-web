@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — MTG Draft Companion</title>
+  <meta name="description" content="Privacy policy for the MTG Draft Companion app (English / 日本語)." />
+  <link rel="icon" href="icon.png" />
+  <style>
+    :root {
+      --gold: #C4A44A; --gold-bright: #DcC079; --gold-deep: #8f7530;
+      --ink: #0b0a08; --bg: #0c0b09; --panel: #15130f;
+      --text: #ece8df; --muted: #9b9488; --border: #2a2620;
+      --border-gold: rgba(196,164,74,0.32);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.75; }
+    a { color: var(--gold-bright); }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 24px; background: rgba(12,11,9,0.72);
+      backdrop-filter: saturate(140%) blur(10px); -webkit-backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .home { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; font-weight: 700; font-size: 0.94rem; }
+    .home:hover { text-decoration: none; }
+    .home img { width: 26px; height: 26px; border-radius: 7px; box-shadow: 0 0 0 1px var(--border-gold); }
+    .home .accent { color: var(--gold); }
+    .lang-toggle { display: inline-flex; border: 1px solid var(--border-gold); border-radius: 999px; overflow: hidden; font-size: 0.82rem; font-weight: 600; }
+    .lang-toggle button { background: transparent; border: 0; color: var(--muted); padding: 6px 14px; cursor: pointer; font: inherit; transition: color .15s, background .15s; }
+    .lang-toggle button.active { background: var(--gold); color: var(--ink); }
+    .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-family: var(--serif); font-size: 2rem; font-weight: 600; margin: 0 0 4px; }
+    h1 .accent { color: var(--gold); }
+    .updated { color: var(--muted); font-size: 0.9rem; margin: 0 0 32px; }
+    h2 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin: 38px 0 10px; border-top: 1px solid var(--border); padding-top: 26px; }
+    p, li { color: #d8d3c8; }
+    .muted { color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+    th { background: var(--panel); color: var(--gold); font-weight: 600; }
+    code { background: var(--panel); padding: 1px 6px; border-radius: 5px; font-size: 0.88em; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); }
+    .todo-note { background: rgba(196,164,74,0.08); border: 1px dashed var(--border-gold); border-radius: 10px; padding: 12px 16px; font-size: 0.85rem; color: var(--muted); margin: 18px 0; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="home" href="index.html"><img src="icon.png" alt="" onerror="this.style.display='none'" /><span><span class="accent">MTG</span> Draft Companion</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-setlang="en" class="active">EN</button>
+      <button data-setlang="ja">日本語</button>
+    </div>
+  </div>
+
+  <!-- ============================ ENGLISH ============================ -->
+  <div class="wrap" data-lang="en">
+    <h1>Privacy Policy — <span class="accent">MTG</span> Draft Companion</h1>
+    <p class="updated">Last updated: 20 June 2026</p>
+
+    <p>MTG Draft Companion ("the app") is a companion app for Magic: The Gathering draft
+    nights, developed by Koczancraft / Michal Koczan ("we", "us"). This policy explains what
+    data the app handles, why, and the choices you have. By using the app you agree to it.</p>
+
+    <h2>1. Data we collect</h2>
+    <table>
+      <tr><th>Data</th><th>Why</th><th>Where it's stored</th></tr>
+      <tr><td>Email address</td><td>Account sign-in and recovery</td><td>Firebase Authentication (Google)</td></tr>
+      <tr><td>Display name &amp; player color</td><td>Shown to members of your groups</td><td>Firebase Authentication + Cloud Firestore</td></tr>
+      <tr><td>Group content you create — groups, drafts, match results, deck lists</td><td>The app's core function; shared with members of the group it belongs to</td><td>Cloud Firestore (under <code>groups/{groupId}</code>)</td></tr>
+      <tr><td>Push notification token</td><td>To notify you when a new draft is created in your group</td><td>Cloud Firestore (<code>users/{uid}.fcmTokens</code>) + Firebase Cloud Messaging</td></tr>
+      <tr><td>App usage &amp; diagnostics — events like screens viewed and features used, app version, device model, coarse region, crash data</td><td>Understand which features are used and improve the app (see §5)</td><td>Google Analytics for Firebase</td></tr>
+      <tr><td>Advertising identifier &amp; ad interaction data</td><td>To show and measure ads (see §5)</td><td>Processed by Google AdMob</td></tr>
+    </table>
+    <p class="muted">We do <strong>not</strong> collect your precise location, contacts, or
+    photos. The usage analytics in §5 are used in aggregate to improve the app — we do not sell
+    your data.</p>
+
+    <h2>2. Accounts &amp; sign-in</h2>
+    <p>You can create an account with an email and password, or sign in with your
+    <strong>Google</strong> or <strong>Apple</strong> account. That provider authenticates you
+    and shares your email address (and, for Apple, optionally a name); we never receive your
+    Google or Apple password.</p>
+    <p><strong>Guest access:</strong> you can browse cards and sets without an account. In guest
+    mode we collect no personal data. An account is only required for group features — drafts,
+    matches, decks, rankings, and the life counter.</p>
+
+    <h2>3. Who can see your data</h2>
+    <p>Gameplay data is visible <strong>only to members of the group it belongs to</strong>,
+    enforced by server-side security rules — not just hidden in the app. Nothing you create is
+    public. Match history you took part in remains part of your group's shared record even if
+    you leave or delete your account, but is no longer linked to a usable account.</p>
+
+    <h2>4. Service providers</h2>
+    <ul>
+      <li><strong>Google Firebase</strong> (Authentication, Cloud Firestore, Cloud Messaging,
+        Cloud Functions) hosts your account and group data and delivers push notifications.
+        Google acts as our data processor. Firebase also hosts the card images we serve to your
+        device; no personal data is involved in serving images.</li>
+      <li><strong>Scryfall</strong> provides Magic card names, rules text, images, and set data.
+        Card lookups are made from your device; no account data is sent to Scryfall.</li>
+      <li><strong>Google Analytics for Firebase</strong> collects aggregate app-usage and
+        diagnostic data (see §5).</li>
+      <li><strong>Google AdMob</strong> serves advertising in the app (see §5).</li>
+    </ul>
+
+    <h2>5. Advertising &amp; analytics</h2>
+    <p><strong>Analytics.</strong> We use <strong>Google Analytics for Firebase</strong> to
+    understand how the app is used — which features and screens are popular, crash and
+    diagnostic information, and aggregate statistics such as active users and retention. This is
+    tied to an app-instance identifier, used in aggregate to improve the app, and not sold.</p>
+    <p><strong>Advertising.</strong> The app is free and supported by advertising through
+    <strong>Google AdMob</strong>.
+    AdMob may collect a device advertising identifier and limited device and ad-interaction
+    information to deliver, cap, and measure ads.</p>
+    <ul>
+      <li>On <strong>iOS</strong>, before any tracking we ask for your permission via Apple's
+        App Tracking Transparency prompt. If you decline, ads are non-personalised.</li>
+      <li>Where required (e.g. the EEA/UK), we show a Google-certified consent prompt (UMP) and
+        honour your choice between personalised and non-personalised ads.</li>
+    </ul>
+    <p>Google's handling of ad data is described at
+    <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>.
+    We do not sell your personal data.</p>
+
+    <h2>6. Offline &amp; on-device data</h2>
+    <p>Downloaded card lists and images are cached <strong>on your device only</strong> so the
+    app works at the table without internet. You can remove them per set in the Sets tab or by
+    deleting the app. Group data is also cached locally for offline use and cleared on sign-out.</p>
+
+    <h2>7. Data retention &amp; deletion</h2>
+    <ul>
+      <li>You can <strong>delete your account in the app</strong> (Account → Delete account).
+        This removes your authentication account and profile and removes you from your groups
+        (reassigning or deleting groups you owned).</li>
+      <li>Leaving a group removes your membership immediately.</li>
+      <li>Shared match history may remain as part of a group's record, no longer linked to a
+        usable account, as described in §3.</li>
+      <li>You can also email us (below) to request deletion.</li>
+    </ul>
+
+    <h2>8. Children</h2>
+    <p>The app is not directed at children under 13, and we do not knowingly collect personal
+    data from children under 13. If you believe a child has provided us data, contact us and we
+    will delete it.</p>
+
+    <h2>9. International users</h2>
+    <p>The app and its developer are based in Japan; data is stored on Google Firebase servers
+    (primarily the Tokyo region). By using the app you consent to processing of your data as
+    described here.</p>
+
+    <h2>10. Contact</h2>
+    <p>Questions or deletion requests:
+      <a href="mailto:contact@koczancraft.com">contact@koczancraft.com</a></p>
+    <div class="todo-note">⚠️ Pre-launch TODO: confirm this contact address once the
+      koczancraft.com domain is set up, then remove this note.</div>
+
+    <h2>11. Changes</h2>
+    <p>We'll update this page when the policy changes; the "last updated" date above always
+    reflects the latest revision.</p>
+
+    <footer>
+      <p>MTG Draft Companion is unofficial Fan Content permitted under the
+      <a href="https://company.wizards.com/en/legal/fancontentpolicy">Wizards of the Coast Fan
+      Content Policy</a>. Not approved/endorsed by Wizards. Portions of the materials used are
+      property of Wizards of the Coast. ©Wizards of the Coast LLC. Card data and images from
+      <a href="https://scryfall.com">Scryfall</a>.</p>
+    </footer>
+  </div>
+
+  <!-- ============================ 日本語 ============================ -->
+  <div class="wrap" data-lang="ja" hidden>
+    <h1>プライバシーポリシー — <span class="accent">MTG</span> Draft Companion</h1>
+    <p class="updated">最終更新日：2026年6月20日</p>
+
+    <p>MTG Draft Companion（以下「本アプリ」）は、マジック：ザ・ギャザリングのドラフト用
+    コンパニオンアプリであり、Koczancraft／Michal Koczan（以下「当方」）が開発・提供しています。
+    本ポリシーは、本アプリが取り扱うデータの内容・目的・お客様の選択肢について説明します。
+    本アプリのご利用をもって、本ポリシーに同意したものとみなされます。</p>
+
+    <h2>1. 収集するデータ</h2>
+    <table>
+      <tr><th>データ</th><th>目的</th><th>保存場所</th></tr>
+      <tr><td>メールアドレス</td><td>アカウントのサインイン・復旧</td><td>Firebase Authentication（Google）</td></tr>
+      <tr><td>表示名・プレイヤーカラー</td><td>所属グループのメンバーに表示するため</td><td>Firebase Authentication + Cloud Firestore</td></tr>
+      <tr><td>作成したグループ内のコンテンツ（グループ、ドラフト、対戦結果、デッキリスト）</td><td>本アプリの中核機能。所属グループのメンバー間で共有</td><td>Cloud Firestore（<code>groups/{groupId}</code> 配下）</td></tr>
+      <tr><td>プッシュ通知トークン</td><td>グループで新しいドラフトが作成された際の通知</td><td>Cloud Firestore（<code>users/{uid}.fcmTokens</code>）+ Firebase Cloud Messaging</td></tr>
+      <tr><td>アプリの利用状況・診断データ（閲覧画面や使用機能などのイベント、アプリのバージョン、端末モデル、おおまかな地域、クラッシュ情報）</td><td>どの機能が使われているかを把握し、アプリを改善するため（第5項参照）</td><td>Google Analytics for Firebase</td></tr>
+      <tr><td>広告識別子・広告操作データ</td><td>広告の表示と効果測定（第5項参照）</td><td>Google AdMob が処理</td></tr>
+    </table>
+    <p class="muted">当方は、正確な位置情報・連絡先・写真を<strong>収集しません</strong>。第5項の
+    利用解析は、アプリ改善のために集計データとして利用するものであり、お客様のデータを販売することは
+    ありません。</p>
+
+    <h2>2. アカウントとサインイン</h2>
+    <p>メールアドレスとパスワードでアカウントを作成するか、<strong>Google</strong> または
+    <strong>Apple</strong> アカウントでサインインできます。各プロバイダが認証を行い、メールアドレス
+    （Appleの場合は任意で氏名）を共有します。お客様のGoogle・Appleのパスワードを当方が受け取ることは
+    ありません。</p>
+    <p><strong>ゲストアクセス：</strong>アカウントなしでカードやセットを閲覧できます。ゲストモードでは
+    個人データを一切収集しません。アカウントが必要なのは、ドラフト・対戦・デッキ・ランキング・
+    ライフカウンターといったグループ機能のみです。</p>
+
+    <h2>3. データを閲覧できる相手</h2>
+    <p>ゲームプレイに関するデータは、<strong>そのデータが属するグループのメンバーのみ</strong>が閲覧でき、
+    アプリ上で非表示にしているだけでなく、サーバー側のセキュリティルールによって強制されています。
+    お客様が作成したものが一般公開されることはありません。お客様が参加した対戦履歴は、グループ退会後や
+    アカウント削除後もグループの共有記録として残りますが、利用可能なアカウントとは紐付かなくなります。</p>
+
+    <h2>4. サービス提供事業者</h2>
+    <ul>
+      <li><strong>Google Firebase</strong>（Authentication、Cloud Firestore、Cloud Messaging、
+        Cloud Functions）が、アカウント・グループデータの保存とプッシュ通知の配信を行います。Googleは当方の
+        データ処理者です。Firebaseは端末へ配信するカード画像のホストにも使用されますが、画像配信に個人
+        データは関与しません。</li>
+      <li><strong>Scryfall</strong> が、カード名・ルールテキスト・画像・セットデータを提供します。
+        カード情報の取得はお客様の端末から行われ、アカウントデータがScryfallに送信されることはありません。</li>
+      <li><strong>Google Analytics for Firebase</strong> が、集計されたアプリ利用状況・診断データを
+        収集します（第5項参照）。</li>
+      <li><strong>Google AdMob</strong> がアプリ内の広告を配信します（第5項参照）。</li>
+    </ul>
+
+    <h2>5. 広告と解析</h2>
+    <p><strong>解析。</strong>当方は <strong>Google Analytics for Firebase</strong> を使用し、
+    どの機能・画面がよく使われているか、クラッシュ・診断情報、アクティブユーザー数や継続率といった
+    集計統計など、アプリの利用状況を把握します。これはアプリインスタンス識別子に紐付き、集計データとして
+    アプリの改善に利用され、販売されることはありません。</p>
+    <p><strong>広告。</strong>本アプリは無料で、<strong>Google AdMob</strong> による広告で
+    支えられています。AdMobは、広告の
+    配信・表示回数の制御・効果測定のために、端末の広告識別子や限定的な端末・広告操作情報を収集する場合が
+    あります。</p>
+    <ul>
+      <li><strong>iOS</strong> では、トラッキングの前にAppleのApp Tracking Transparencyで許可を求めます。
+        許可しない場合、広告は非パーソナライズになります。</li>
+      <li>必要な地域（EEA／英国など）では、Google認定の同意フォーム（UMP）を表示し、パーソナライズ／
+        非パーソナライズの選択を尊重します。</li>
+    </ul>
+    <p>Googleによる広告データの取り扱いは
+    <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>
+    に記載されています。当方がお客様の個人データを販売することはありません。</p>
+
+    <h2>6. オフライン・端末内のデータ</h2>
+    <p>ダウンロードしたカードリストや画像は、インターネットがない環境でも動作するよう
+    <strong>お客様の端末にのみ</strong>キャッシュされます。Setsタブからセット単位で削除するか、アプリを
+    削除することで消去できます。グループデータもオフライン利用のため端末内にキャッシュされ、サインアウト
+    時に消去されます。</p>
+
+    <h2>7. データの保持と削除</h2>
+    <ul>
+      <li><strong>アプリ内でアカウントを削除</strong>できます（アカウント → アカウントを削除）。認証
+        アカウントとプロフィールが削除され、所属グループから除外されます（所有していたグループは所有権の
+        移譲または削除）。</li>
+      <li>グループから退会すると、メンバーシップは直ちに解除されます。</li>
+      <li>共有された対戦履歴は、第3項のとおり利用可能なアカウントと紐付かない形でグループの記録として残る
+        場合があります。</li>
+      <li>下記の連絡先へ削除をご依頼いただくこともできます。</li>
+    </ul>
+
+    <h2>8. 児童について</h2>
+    <p>本アプリは13歳未満の児童を対象としておらず、13歳未満の児童から故意に個人データを収集することは
+    ありません。児童がデータを提供したと思われる場合はご連絡ください。速やかに削除します。</p>
+
+    <h2>9. 海外のお客様</h2>
+    <p>本アプリおよび開発者は日本に所在し、データはGoogle Firebaseのサーバー（主に東京リージョン）に
+    保存されます。本アプリのご利用をもって、本ポリシーに記載のとおりデータが処理されることに同意したものと
+    みなされます。</p>
+
+    <h2>10. お問い合わせ</h2>
+    <p>ご質問・削除のご依頼：
+      <a href="mailto:contact@koczancraft.com">contact@koczancraft.com</a></p>
+    <div class="todo-note">⚠️ 公開前TODO：koczancraft.com ドメイン設定後に連絡先アドレスを確定し、この
+      注記を削除すること。</div>
+
+    <h2>11. 本ポリシーの変更</h2>
+    <p>ポリシーを変更した場合は本ページを更新します。上部の「最終更新日」は常に最新の改訂を反映します。</p>
+
+    <footer>
+      <p>MTG Draft Companion は、<a href="https://company.wizards.com/en/legal/fancontentpolicy">
+      ウィザーズ・オブ・ザ・コースト ファンコンテンツポリシー</a>に基づき許可された非公式のファン
+      コンテンツです。Wizardsによる承認・推奨を受けたものではありません。使用素材の一部はWizards of the
+      Coastに帰属します。©Wizards of the Coast LLC. カードデータ・画像は
+      <a href="https://scryfall.com">Scryfall</a> によるものです。</p>
+    </footer>
+  </div>
+
+  <script>
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-lang]").forEach(function (el) {
+        el.hidden = el.getAttribute("data-lang") !== lang;
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    applyLang(saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en"));
+  </script>
+</body>
+</html>

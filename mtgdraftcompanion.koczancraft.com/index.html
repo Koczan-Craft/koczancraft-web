@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MTG Draft Companion</title>
+  <meta name="description" content="MTG Draft Companion — run better Magic: The Gathering draft nights. Live standings, a built-in life counter, deck building, and full Japanese card support. iOS, iPad & Android." />
+  <link rel="icon" href="icon.png" />
+  <meta property="og:title" content="MTG Draft Companion" />
+  <meta property="og:description" content="Run better Magic draft nights — standings, life counter, deck building, and Japanese card support." />
+  <meta property="og:image" content="icon.png" />
+  <style>
+    :root {
+      --gold: #C4A44A;
+      --gold-bright: #DcC079;
+      --gold-deep: #8f7530;
+      --ink: #0b0a08;
+      --bg: #0c0b09;
+      --panel: #15130f;
+      --panel-2: #1b1813;
+      --text: #ece8df;
+      --muted: #9b9488;
+      --border: #2a2620;
+      --border-gold: rgba(196,164,74,0.32);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: var(--gold-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    /* Top gold hairline + lang toggle */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 24px;
+      background: rgba(12,11,9,0.72);
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; box-shadow: 0 0 0 1px var(--border-gold); }
+    .brand span { font-size: 0.96rem; }
+    .brand .accent { color: var(--gold); }
+    @media (max-width: 420px) { .brand span { display: none; } }
+    .lang-toggle {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--border-gold); border-radius: 999px;
+      overflow: hidden; font-size: 0.82rem; font-weight: 600;
+    }
+    .lang-toggle button {
+      background: transparent; border: 0; color: var(--muted);
+      padding: 6px 14px; cursor: pointer; font: inherit; letter-spacing: .02em;
+      transition: color .15s, background .15s;
+    }
+    .lang-toggle button.active { background: var(--gold); color: var(--ink); }
+
+    /* Hero */
+    header.hero {
+      position: relative;
+      text-align: center;
+      padding: 64px 24px 60px;
+      background:
+        radial-gradient(900px 360px at 50% -8%, rgba(196,164,74,0.16), transparent 62%),
+        radial-gradient(600px 300px at 50% 0%, rgba(196,164,74,0.07), transparent 70%);
+    }
+    .crest {
+      position: relative;
+      width: 104px; height: 104px;
+      margin: 0 auto 26px;
+    }
+    .crest img {
+      width: 100%; height: 100%;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 0 1px var(--border-gold);
+      display: block;
+    }
+    .crest::after {
+      content: ""; position: absolute; inset: -10px;
+      border-radius: 30px;
+      box-shadow: 0 0 50px 6px rgba(196,164,74,0.22);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--sans);
+      font-size: clamp(2.2rem, 6.5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px;
+      line-height: 1.05;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--gold);
+    }
+    .hero .tagline {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+      font-style: italic;
+      color: #cfc8ba;
+      max-width: 640px;
+      margin: 0 auto 36px;
+      line-height: 1.5;
+    }
+
+    /* Store buttons */
+    .stores { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 22px; border-radius: 13px;
+      border: 1px solid var(--border-gold);
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      color: var(--text); font-weight: 600;
+      transition: border-color .15s, transform .06s, box-shadow .15s;
+    }
+    .store-btn:hover {
+      border-color: var(--gold); text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .store-btn svg { width: 26px; height: 26px; color: var(--text); }
+    .store-btn .sub { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 500; letter-spacing: .03em; text-transform: uppercase; }
+    .store-btn .main { display: block; font-size: 1.02rem; }
+    .store-note { margin-top: 16px; font-size: 0.82rem; color: var(--muted); letter-spacing: .02em; }
+
+    /* Section scaffolding */
+    section { padding: 64px 0; position: relative; }
+    .divider { text-align: center; color: var(--gold-deep); font-size: 0.9rem; letter-spacing: .5em; }
+    .eyebrow {
+      text-align: center; text-transform: uppercase; letter-spacing: .28em;
+      font-size: 0.72rem; font-weight: 700; color: var(--gold);
+      margin: 0 0 10px;
+    }
+    section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.6vw, 2.1rem);
+      font-weight: 600; text-align: center; margin: 0 0 12px;
+      letter-spacing: -0.01em;
+    }
+    section .lead { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 44px; font-size: 1.02rem; }
+
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; }
+    .feature {
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 26px 24px;
+      transition: border-color .18s, transform .18s;
+    }
+    .feature:hover { border-color: var(--border-gold); transform: translateY(-3px); }
+    .feature .ic-wrap {
+      width: 52px; height: 52px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      background: radial-gradient(circle at 30% 25%, rgba(196,164,74,0.16), rgba(196,164,74,0.04));
+      border: 1px solid var(--border-gold);
+    }
+    .feature .ic { width: 28px; height: 28px; color: var(--gold-bright); }
+    .feature h3 { font-family: var(--serif); margin: 0 0 7px; font-size: 1.16rem; color: var(--text); font-weight: 600; }
+    .feature p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; counter-reset: step; }
+    .step {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 16px; padding: 26px 24px; position: relative;
+    }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+      color: var(--ink); font-weight: 800; font-size: 1.05rem;
+      margin-bottom: 14px; box-shadow: 0 4px 14px rgba(196,164,74,0.25);
+    }
+    .step h3 { font-family: var(--serif); margin: 0 0 7px; font-size: 1.12rem; font-weight: 600; }
+    .step p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+    .browse-note { text-align: center; color: #cfc8ba; max-width: 560px; margin: 34px auto 0; font-style: italic; font-family: var(--serif); }
+
+    /* Contact */
+    #contact { border-top: 1px solid var(--border); }
+    .contact-card {
+      max-width: 620px; margin: 0 auto;
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      border: 1px solid var(--border-gold);
+      border-radius: 18px; padding: 32px;
+    }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-bottom: 6px; letter-spacing: .02em; }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 11px 13px; font: inherit; color: var(--text);
+      background: var(--ink); border: 1px solid var(--border); border-radius: 10px;
+      transition: border-color .15s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .send-btn {
+      width: 100%; padding: 13px; border: 0; border-radius: 11px; cursor: pointer;
+      font: inherit; font-weight: 700; letter-spacing: .03em; color: var(--ink);
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+      transition: filter .15s, transform .06s;
+    }
+    .send-btn:hover { filter: brightness(1.06); }
+    .send-btn:active { transform: translateY(1px); }
+    .form-hint { font-size: 0.78rem; color: var(--muted); text-align: center; margin: 14px 0 0; }
+    .form-status { font-size: 0.92rem; text-align: center; margin: 14px 0 0; font-weight: 600; }
+    .form-status.ok { color: #7BD389; }
+    .form-status.err { color: #E08A8A; }
+    .send-btn[disabled] { opacity: .6; cursor: default; }
+
+    /* Footer */
+    footer { padding: 52px 0 64px; border-top: 1px solid var(--border); }
+    .disclaimer {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 24px;
+      font-size: 0.85rem; color: var(--muted); max-width: 780px; margin: 0 auto 26px;
+    }
+    .disclaimer strong { color: var(--text); }
+    .disclaimer p { margin: 0 0 10px; }
+    .disclaimer p:last-child { margin: 0; }
+    .foot-links { text-align: center; font-size: 0.92rem; }
+    .foot-links a { margin: 0 12px; color: var(--gold-bright); }
+    .copyright { text-align: center; margin-top: 22px; font-size: 0.78rem; color: #6c665b; }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="topbar" id="top">
+    <a class="brand" href="#top" aria-label="MTG Draft Companion">
+      <img src="icon.png" alt="" onerror="this.style.display='none'" />
+      <span><span class="accent">MTG</span> Draft Companion</span>
+    </a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-setlang="en" class="active">EN</button>
+      <button data-setlang="ja">日本語</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="crest">
+        <img src="icon.png" alt="MTG Draft Companion icon" onerror="this.parentElement.style.display='none'" />
+      </div>
+      <h1><span class="accent">MTG</span> Draft Companion</h1>
+      <p class="tagline" data-i18n="hero.tagline"></p>
+      <div class="stores">
+        <!-- TODO: replace hrefs with the live store URLs once published (see JoinInvite.swift). -->
+        <a class="store-btn" href="https://apps.apple.com/app/mtg-draft-companion" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.54c-.02-2.05 1.67-3.03 1.75-3.08-0.95-1.39-2.43-1.58-2.96-1.6-1.26-.13-2.46.74-3.1.74-.64 0-1.62-.72-2.67-.7-1.37.02-2.64.8-3.35 2.03-1.43 2.48-.37 6.15 1.02 8.16.68.98 1.49 2.08 2.55 2.04 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.67.64 1.1-.02 1.8-1 2.47-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.83-2.17-3.28zM15.03 6.6c.56-.68.94-1.62.84-2.6-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.1z"/></svg>
+          <span><span class="sub" data-i18n="store.appleSub"></span><span class="main">App Store</span></span>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=jp.michalkoczan.draftcompanion" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3c-.3.3-.5.7-.5 1.3v16.8c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.2l-.1.1zM16.3 15.9l-3.1-3.1v-.2l3.1-3.1.1.04 3.7 2.1c1.06.6 1.06 1.6 0 2.2l-3.7 2.1-.1.06zM15.8 16.4l-3.2-3.2-9.3 9.3c.35.37.92.42 1.57.05l10.9-6.2M15.8 7.6L4.85 1.4C4.2 1.03 3.63 1.08 3.28 1.45l9.3 9.3 3.22-3.15z"/></svg>
+          <span><span class="sub" data-i18n="store.playSub"></span><span class="main">Google Play</span></span>
+        </a>
+      </div>
+      <p class="store-note" data-i18n="store.note"></p>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="features.eyebrow"></p>
+      <h2 data-i18n="features.title"></h2>
+      <p class="lead" data-i18n="features.lead"></p>
+      <div class="features">
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 5h14v6a7 7 0 0 1-14 0V5Z"/><path d="M9 7H5v2a4 4 0 0 0 4 4"/><path d="M23 7h4v2a4 4 0 0 1-4 4"/><path d="M16 18v3.5"/><path d="M11.5 27h9"/><path d="M13 21.5h6l1 5.5h-8l1-5.5Z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f1.title"></h3>
+          <p data-i18n="f1.desc"></p>
+        </div>
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 27S5 20 5 12.6A5.6 5.6 0 0 1 16 9a5.6 5.6 0 0 1 11 3.6C27 20 16 27 16 27Z"/><path d="M11 14h3l1.5-3 2 6 1.5-3h3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f2.title"></h3>
+          <p data-i18n="f2.desc"></p>
+        </div>
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="11" y="6" width="13" height="19" rx="2.5" transform="rotate(9 17 15)"/><rect x="8" y="7" width="13" height="19" rx="2.5"/><path d="M14.5 13l1 2.2 2.4.3-1.8 1.7.5 2.4-2.1-1.2-2.1 1.2.5-2.4-1.8-1.7 2.4-.3 1-2.2Z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f3.title"></h3>
+          <p data-i18n="f3.desc"></p>
+        </div>
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="5" width="9" height="9" rx="1.6"/><rect x="18" y="5" width="9" height="9" rx="1.6"/><rect x="5" y="18" width="9" height="9" rx="1.6"/><circle cx="22" cy="22" r="4"/><path d="M25 25l3 3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f4.title"></h3>
+          <p data-i18n="f4.desc"></p>
+        </div>
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="16" cy="16" r="11"/><path d="M5 16h22"/><path d="M16 5c3.2 3 4.8 7 4.8 11S19.2 24 16 27c-3.2-3-4.8-7-4.8-11S12.8 8 16 5Z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f5.title"></h3>
+          <p data-i18n="f5.desc"></p>
+        </div>
+        <div class="feature">
+          <div class="ic-wrap">
+            <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11.5" cy="11" r="4"/><path d="M4.5 25.5c0-4 3.1-7 7-7s7 3 7 7"/><circle cx="22" cy="13" r="3.2"/><path d="M19.6 19.4c3 .1 5.9 2.7 5.9 6.1"/>
+            </svg>
+          </div>
+          <h3 data-i18n="f6.title"></h3>
+          <p data-i18n="f6.desc"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">◆</div>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="how.eyebrow"></p>
+      <h2 data-i18n="how.title"></h2>
+      <p class="lead" data-i18n="how.lead"></p>
+      <div class="steps">
+        <div class="step"><h3 data-i18n="s1.title"></h3><p data-i18n="s1.desc"></p></div>
+        <div class="step"><h3 data-i18n="s2.title"></h3><p data-i18n="s2.desc"></p></div>
+        <div class="step"><h3 data-i18n="s3.title"></h3><p data-i18n="s3.desc"></p></div>
+      </div>
+      <p class="browse-note" data-i18n="how.browse"></p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="contact.eyebrow"></p>
+      <h2 data-i18n="contact.title"></h2>
+      <p class="lead" data-i18n="contact.lead"></p>
+      <form class="contact-card" id="contactForm">
+        <div class="field">
+          <label for="cf-name" data-i18n="contact.name"></label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="cf-email" data-i18n="contact.email"></label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="cf-reason" data-i18n="contact.reason"></label>
+          <select id="cf-reason" name="reason">
+            <option value="feedback" data-i18n="contact.r1"></option>
+            <option value="idea" data-i18n="contact.r2"></option>
+            <option value="advertising" data-i18n="contact.r3"></option>
+            <option value="other" data-i18n="contact.r4"></option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-msg" data-i18n="contact.message"></label>
+          <textarea id="cf-msg" name="message"></textarea>
+        </div>
+        <button type="submit" class="send-btn" data-i18n="contact.send"></button>
+        <p class="form-hint" data-i18n="contact.hint"></p>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="disclaimer" data-i18n="footer.disclaimer"></div>
+      <div class="foot-links">
+        <a href="privacy.html" data-i18n="footer.privacy"></a>
+        <a href="#contact" data-i18n="footer.contact"></a>
+        <a href="https://koczancraft.com">Koczan Craft</a>
+      </div>
+      <p class="copyright">© 2026 Koczancraft · <span data-i18n="footer.tm"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    // Contact form delivery — Web3Forms emails submissions straight to your inbox, no
+    // backend and no email address exposed in this page (the destination is bound to the
+    // access key on web3forms.com). TODO before launch: create a free key at
+    // https://web3forms.com (enter contact@koczancraft.com as the destination) and paste it here.
+    var WEB3FORMS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
+
+    var I18N = {
+      en: {
+        "hero.tagline": "Run better Magic draft nights with your playgroup — live standings, a built-in life counter, deck building, and full Japanese card support.",
+        "store.appleSub": "Download on the", "store.playSub": "Get it on",
+        "store.note": "Coming soon to the App Store and Google Play.",
+        "features.eyebrow": "What's inside", "features.title": "Everything your draft table needs",
+        "features.lead": "One companion for the whole group — no spreadsheets, no scorekeeping by hand.",
+        "f1.title": "Drafts & standings", "f1.desc": "Create a draft for any set, add the players, and track every match. Standings update live — this set or all time.",
+        "f2.title": "Life counter", "f2.desc": "A split-screen life counter with a 180° opponent panel, best-of-1 / best-of-3 tracking, and a d12 for who goes first.",
+        "f3.title": "Deck building", "f3.desc": "Build each player's pool with list, grid, and details views — mana curve, color breakdown, and one-tap land balancing.",
+        "f4.title": "Set browser", "f4.desc": "Browse and search every draftable set with official card images and mana symbols — online or cached for offline play.",
+        "f5.title": "Japanese cards", "f5.desc": "Japanese card names and rules text where available, with official images — switch the whole app between English and 日本語.",
+        "f6.title": "Groups & invites", "f6.desc": "Make a group, share a join code, and everyone's drafts, decks, and rankings stay in sync. New drafts notify the group.",
+        "how.eyebrow": "Three steps", "how.title": "Get your playgroup started", "how.lead": "Set up in under a minute.",
+        "s1.title": "Create a group", "s1.desc": "Sign up, name your playgroup, and pick your player color.",
+        "s2.title": "Share the code", "s2.desc": "Send the 8-character join code to your friends. They enter it in the app to join.",
+        "s3.title": "Draft & play", "s3.desc": "Start a draft, build decks, track matches, and let the app keep score.",
+        "how.browse": "Just want to browse cards? You can explore every set without an account.",
+        "contact.eyebrow": "Say hello", "contact.title": "Get in touch",
+        "contact.lead": "Have feedback, a new idea, or want to join the advertising family? Send us a note.",
+        "contact.name": "Name", "contact.email": "Your email", "contact.reason": "Reason", "contact.message": "Message",
+        "contact.r1": "Feedback", "contact.r2": "New idea or feature", "contact.r3": "Advertising partnership", "contact.r4": "Something else",
+        "contact.send": "Send message", "contact.hint": "We usually reply within a few days.",
+        "contact.sending": "Sending…", "contact.success": "Thanks — your message has been sent.", "contact.error": "Sorry, something went wrong. Please email contact@koczancraft.com.",
+        "footer.disclaimer": "<p><strong>Unofficial Fan Content.</strong> MTG Draft Companion is unofficial Fan Content permitted under the <a href='https://company.wizards.com/en/legal/fancontentpolicy'>Wizards of the Coast Fan Content Policy</a>. Not approved or endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.</p><p><strong>Card data & images</strong> are provided by <a href='https://scryfall.com'>Scryfall</a> and other public sources. This app is not produced by, endorsed by, or affiliated with Scryfall.</p>",
+        "footer.privacy": "Privacy Policy", "footer.contact": "Contact",
+        "footer.tm": "Magic: The Gathering is a trademark of Wizards of the Coast LLC."
+      },
+      ja: {
+        "hero.tagline": "仲間とのマジックのドラフトをもっと快適に。リアルタイムの順位表、内蔵ライフカウンター、デッキ構築、そして充実の日本語カード対応。",
+        "store.appleSub": "ダウンロード", "store.playSub": "手に入れよう",
+        "store.note": "App Store・Google Play にて近日公開。",
+        "features.eyebrow": "主な機能", "features.title": "ドラフトの卓に必要なすべて",
+        "features.lead": "卓のみんなで使える一つのアプリ。表計算も手書きのスコアも要りません。",
+        "f1.title": "ドラフトと順位表", "f1.desc": "好きなセットでドラフトを作成し、プレイヤーを追加して全対戦を記録。順位表はリアルタイム更新（このセット／通算）。",
+        "f2.title": "ライフカウンター", "f2.desc": "対戦相手用に180°回転するパネル付きの分割画面ライフカウンター。1本／3本勝負の記録、先攻を決めるd12も内蔵。",
+        "f3.title": "デッキ構築", "f3.desc": "各プレイヤーのプールをリスト・グリッド・詳細ビューで構築。マナカーブ、色の内訳、ワンタップの土地調整。",
+        "f4.title": "セットブラウザ", "f4.desc": "ドラフト可能なすべてのセットを公式カード画像とマナシンボルで閲覧・検索。オンラインでも、キャッシュしてオフラインでも。",
+        "f5.title": "日本語カード", "f5.desc": "利用可能な範囲で日本語のカード名・ルールテキストを公式画像とともに表示。アプリ全体を英語と日本語で切替。",
+        "f6.title": "グループと招待", "f6.desc": "グループを作成して参加コードを共有。ドラフト・デッキ・ランキングが全員で同期。新しいドラフトはグループに通知。",
+        "how.eyebrow": "3ステップ", "how.title": "プレイグループを始めよう", "how.lead": "1分もかからずセットアップ。",
+        "s1.title": "グループを作成", "s1.desc": "登録して、プレイグループに名前を付け、自分の色を選びます。",
+        "s2.title": "コードを共有", "s2.desc": "8文字の参加コードを友達に送るだけ。アプリで入力して参加します。",
+        "s3.title": "ドラフトして対戦", "s3.desc": "ドラフトを開始し、デッキを組み、対戦を記録。スコアはアプリにおまかせ。",
+        "how.browse": "カードを見たいだけ？ アカウントなしですべてのセットを閲覧できます。",
+        "contact.eyebrow": "お気軽に", "contact.title": "お問い合わせ",
+        "contact.lead": "ご意見・新しいアイデア、または広告パートナーとしての参加をご希望ですか？ お気軽にどうぞ。",
+        "contact.name": "お名前", "contact.email": "メールアドレス", "contact.reason": "ご用件", "contact.message": "メッセージ",
+        "contact.r1": "ご意見・ご感想", "contact.r2": "新しいアイデア・機能", "contact.r3": "広告パートナーシップ", "contact.r4": "その他",
+        "contact.send": "送信する", "contact.hint": "通常、数日以内にご返信します。",
+        "contact.sending": "送信中…", "contact.success": "送信しました。ありがとうございます。", "contact.error": "送信に失敗しました。contact@koczancraft.com までメールでお問い合わせください。",
+        "footer.disclaimer": "<p><strong>非公式ファンコンテンツ。</strong> MTG Draft Companion は、<a href='https://company.wizards.com/en/legal/fancontentpolicy'>ウィザーズ・オブ・ザ・コースト ファンコンテンツポリシー</a>に基づき許可された非公式のファンコンテンツです。Wizardsによる承認・推奨を受けたものではありません。使用素材の一部はWizards of the Coastに帰属します。©Wizards of the Coast LLC.</p><p><strong>カードデータ・画像</strong>は <a href='https://scryfall.com'>Scryfall</a> ほか公開情報を出典としています。本アプリはScryfallが制作・推奨・提携するものではありません。</p>",
+        "footer.privacy": "プライバシーポリシー", "footer.contact": "お問い合わせ",
+        "footer.tm": "Magic: The Gathering は Wizards of the Coast LLC の商標です。"
+      }
+    };
+
+    function applyLang(lang) {
+      var dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] != null) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+
+    // Contact form → Web3Forms (emails you directly; inline success, no page reload, no draft).
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var lang = document.documentElement.lang === "ja" ? "ja" : "en";
+      var dict = I18N[lang] || I18N.en;
+      var f = e.target;
+      var btn = f.querySelector(".send-btn");
+      var status = document.getElementById("formStatus");
+      var reasonText = f.reason.options[f.reason.selectedIndex].text;
+
+      function setStatus(msg, cls) { status.hidden = false; status.textContent = msg; status.className = "form-status " + cls; }
+
+      if (WEB3FORMS_KEY === "REPLACE_WITH_WEB3FORMS_ACCESS_KEY") {
+        setStatus(dict["contact.error"], "err");
+        console.warn("Contact form: set WEB3FORMS_KEY (see https://web3forms.com).");
+        return;
+      }
+
+      btn.disabled = true;
+      setStatus(dict["contact.sending"], "");
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "[MTG Draft Companion] " + reasonText,
+          from_name: f.name.value || "MTG Draft Companion site",
+          name: f.name.value,
+          email: f.email.value,
+          reason: reasonText,
+          message: f.message.value,
+        }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.success) { setStatus(dict["contact.success"], "ok"); f.reset(); }
+          else { setStatus(dict["contact.error"], "err"); }
+        })
+        .catch(function () { setStatus(dict["contact.error"], "err"); })
+        .finally(function () { btn.disabled = false; });
+    });
+
+    // initial language: saved → browser → en
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en");
+    applyLang(initial);
+  </script>
+</body>
+</html>

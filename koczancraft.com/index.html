@@ -118,14 +118,19 @@
     }
     .ig-follow:hover { transform: translateY(-1px); opacity: .92; }
 
-    .ig-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; min-width: 0; }
-    .ig-posts .instagram-media { margin: 0 !important; min-width: 0 !important; }
-    /* Empty-state fallback (shown until post URLs are added) */
-    .ig-empty {
-      grid-column: 1 / -1; border: 1px dashed var(--line); border-radius: 16px;
-      padding: 40px 24px; text-align: center; color: var(--muted); background: var(--panel);
+    /* Recent-posts thumbnail grid — self-hosted square images linking to each post. */
+    .ig-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-content: start; min-width: 0; }
+    .ig-thumb {
+      position: relative; display: block; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--line); background: var(--panel);
     }
-    .ig-empty b { display: block; color: var(--ink); font-family: var(--serif); font-size: 20px; margin-bottom: 6px; font-weight: 500; }
+    .ig-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+    .ig-thumb::after {
+      content: ""; position: absolute; inset: 0; background: rgba(23,19,15,0);
+      transition: background .25s ease;
+    }
+    .ig-thumb:hover img { transform: scale(1.05); }
+    .ig-thumb:hover::after { background: rgba(23,19,15,.10); }
 
     /* ── App (MTG) card ──────────────────────────────────── */
     .app-card {
@@ -137,7 +142,8 @@
       transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
     .app-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(23,19,15,.4); border-color: #e0d8cb; }
-    .app-inner { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 38px 40px; }
+    .app-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; padding: 38px 40px; }
+    .app-icon { width: 88px; height: 88px; border-radius: 20px; box-shadow: 0 12px 30px -12px rgba(23,19,15,.5); border: 1px solid var(--line); }
     .app-meta .eyebrow { color: var(--gold); }
     .app-meta h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; letter-spacing: -.2px; }
     .app-meta p { color: var(--muted); max-width: 560px; }
@@ -163,8 +169,8 @@
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
       .leather-wrap { grid-template-columns: 1fr; }
       .ig-card { position: static; }
-      .ig-posts { grid-template-columns: 1fr; }
-      .app-inner { grid-template-columns: 1fr; gap: 24px; }
+      .ig-posts { gap: 10px; }
+      .app-inner { grid-template-columns: 1fr; gap: 24px; justify-items: start; }
     }
   </style>
 </head>
@@ -227,13 +233,18 @@
             <a class="ig-follow" href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener" data-i18n="leather.follow"></a>
           </aside>
 
-          <div class="ig-posts" id="igPosts">
-            <!-- Recent posts render here from IG_POSTS (see the script below). Until you add
-                 post URLs, the empty-state card shows instead. -->
-            <div class="ig-empty" id="igEmpty">
-              <b data-i18n="leather.emptyTitle"></b>
-              <span data-i18n="leather.emptyBody"></span>
-            </div>
+          <!-- Recent posts: self-hosted thumbnails linking to each post. To refresh, swap the
+               images in assets/ig/ and update the hrefs (see this folder's README). -->
+          <div class="ig-posts">
+            <a class="ig-thumb" href="https://www.instagram.com/p/C3NOzULyfdW/" target="_blank" rel="noopener" aria-label="View on Instagram">
+              <img src="assets/ig/post1.jpg" alt="Handmade leather work by @koczancraft" loading="lazy" />
+            </a>
+            <a class="ig-thumb" href="https://www.instagram.com/p/C5IklPUShXg/" target="_blank" rel="noopener" aria-label="View on Instagram">
+              <img src="assets/ig/post2.jpg" alt="Handmade leather work by @koczancraft" loading="lazy" />
+            </a>
+            <a class="ig-thumb" href="https://www.instagram.com/p/C99Hwc8yYso/" target="_blank" rel="noopener" aria-label="View on Instagram">
+              <img src="assets/ig/post3.jpg" alt="Handmade leather work by @koczancraft" loading="lazy" />
+            </a>
           </div>
         </div>
       </div>
@@ -249,6 +260,7 @@
         </div>
         <a class="app-card" href="https://mtgdraftcompanion.koczancraft.com">
           <div class="app-inner">
+            <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
             <div class="app-meta">
               <p class="eyebrow" data-i18n="apps.cardEyebrow"></p>
               <h3>MTG Draft Companion</h3>
@@ -287,19 +299,6 @@
   </footer>
 
   <script>
-    /* ─────────────────────────────────────────────────────────────────────────
-       INSTAGRAM RECENT POSTS
-       Paste up to 3 recent post URLs below (from instagram.com/koczancraft).
-       Example: "https://www.instagram.com/p/Cxxxxxxxxxx/"
-       Leave them empty to show the clean fallback card. Swap the URLs anytime to
-       "refresh" the feed — Instagram's official embed renders the rest.
-       ───────────────────────────────────────────────────────────────────────── */
-    var IG_POSTS = [
-      "https://www.instagram.com/p/C3NOzULyfdW/", // most recent
-      "https://www.instagram.com/p/C5IklPUShXg/",
-      "https://www.instagram.com/p/C99Hwc8yYso/"
-    ];
-
     var I18N = {
       en: {
         "hero.eyebrow": "Koczan Craft",
@@ -372,25 +371,6 @@
     document.querySelectorAll("[data-setlang]").forEach(function (b) {
       b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
     });
-
-    // Render Instagram posts (if any URLs provided), then load the official embed script.
-    (function renderInstagram() {
-      var urls = IG_POSTS.filter(function (u) { return u && u.trim(); });
-      var container = document.getElementById("igPosts");
-      if (!urls.length) return; // keep the clean empty-state card
-      var empty = document.getElementById("igEmpty");
-      if (empty) empty.remove();
-      urls.slice(0, 3).forEach(function (u) {
-        var bq = document.createElement("blockquote");
-        bq.className = "instagram-media";
-        bq.setAttribute("data-instgrm-permalink", u);
-        bq.setAttribute("data-instgrm-version", "14");
-        container.appendChild(bq);
-      });
-      var s = document.createElement("script");
-      s.async = true; s.src = "https://www.instagram.com/embed.js";
-      document.body.appendChild(s);
-    })();
 
     // initial language: saved → browser → en
     var saved;
