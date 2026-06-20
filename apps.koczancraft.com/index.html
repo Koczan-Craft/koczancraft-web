@@ -167,6 +167,8 @@
         <div class="foot-links">
           <a href="https://koczancraft.com" data-i18n="nav.home"></a>
           <a href="https://mtgdraftcompanion.koczancraft.com">MTG Draft Companion</a>
+          <!-- Privacy → the MTG app's policy; href is set per-language in applyLang() so EN→EN, JA→JA. -->
+          <a id="privacyLink" href="https://mtgdraftcompanion.koczancraft.com/privacy.html" data-i18n="footer.privacy"></a>
           <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
         </div>
       </div>
@@ -187,6 +189,7 @@
         "mtg.cta": "Learn more",
         "more.title": "More apps on the way",
         "more.body": "New apps will appear here as they're built — and grouped into categories as the collection grows.",
+        "footer.privacy": "Privacy Policy",
         "footer.contact": "Contact",
         "footer.tagline": "Apps by Koczan Craft."
       },
@@ -201,6 +204,7 @@
         "mtg.cta": "詳しく見る",
         "more.title": "新しいアプリを準備中",
         "more.body": "完成したアプリからここに並びます。数が増えたらカテゴリーごとに整理していきます。",
+        "footer.privacy": "プライバシーポリシー",
         "footer.contact": "お問い合わせ",
         "footer.tagline": "Koczan Craft のアプリ。"
       }
@@ -216,6 +220,9 @@
       document.querySelectorAll("[data-setlang]").forEach(function (b) {
         b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
       });
+      // Carry the language across to the MTG privacy page (different origin → no shared storage).
+      var pl = document.getElementById("privacyLink");
+      if (pl) pl.href = "https://mtgdraftcompanion.koczancraft.com/privacy.html?lang=" + lang;
       try { localStorage.setItem("lang", lang); } catch (e) {}
     }
     document.querySelectorAll("[data-setlang]").forEach(function (b) {

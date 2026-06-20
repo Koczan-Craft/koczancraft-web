@@ -299,7 +299,11 @@
     });
     var saved;
     try { saved = localStorage.getItem("lang"); } catch (e) {}
-    applyLang(saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en"));
+    // A ?lang=en|ja URL param wins (e.g. arriving from apps.koczancraft.com in a chosen language),
+    // then a previously saved choice, then the browser language, then English.
+    var param = new URLSearchParams(location.search).get("lang");
+    var forced = (param === "en" || param === "ja") ? param : null;
+    applyLang(forced || saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en"));
   </script>
 </body>
 </html>
