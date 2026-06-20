@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Koczan Craft — handmade things, by one person</title>
+  <meta name="description" content="Koczan Craft is the home for everything I make — from hand-cut leather goods to handcrafted apps. One person, many crafts, made slowly and by hand." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Koczan Craft" />
+  <meta property="og:description" content="One person, many crafts. From hand-cut leather to handcrafted apps." />
+  <meta property="og:url" content="https://koczancraft.com" />
+
+  <!-- Inline monogram favicon (no asset dependency) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23d8a86a'%3EK%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #faf8f5;
+      --ink: #17130f;
+      --muted: #6f6860;
+      --line: #ece7e0;
+      --leather: #8a5a34;     /* warm craft accent */
+      --leather-soft: #b07e4f;
+      --gold: #c4a44a;        /* reserved for the MTG app card */
+      --maxw: 1080px;
+      --serif: "Fraunces", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      --sans: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    :lang(ja) { --serif: "Noto Sans JP", "Fraunces", serif; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg); color: var(--ink); font-family: var(--sans);
+      line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Top bar ─────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.82); backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .brand .mono {
+      width: 34px; height: 34px; border-radius: 9px; background: var(--ink);
+      color: #d8a86a; font-family: var(--serif); font-weight: 600;
+      display: grid; place-items: center; font-size: 19px;
+    }
+    .brand .name { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: .2px; }
+    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang-toggle button {
+      font: inherit; font-size: 13px; font-weight: 500; padding: 7px 13px; border: 0;
+      background: transparent; color: var(--muted); cursor: pointer; line-height: 1;
+    }
+    .lang-toggle button.active { background: var(--ink); color: #fff; }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .hero { padding: 104px 0 84px; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--leather); margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 400; line-height: 1.05;
+      font-size: clamp(44px, 8vw, 88px); letter-spacing: -.5px; margin-bottom: 26px;
+    }
+    .hero .tagline {
+      font-size: clamp(18px, 2.4vw, 23px); color: var(--muted); max-width: 620px; line-height: 1.55;
+    }
+    .hero .scroll-cue { margin-top: 56px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 9px; }
+    .hero .scroll-cue::after { content: ""; width: 34px; height: 1px; background: var(--leather-soft); }
+
+    /* ── Section scaffolding ─────────────────────────────── */
+    section { scroll-margin-top: 80px; }
+    .band { padding: 92px 0; border-top: 1px solid var(--line); }
+    .sec-head { max-width: 640px; margin-bottom: 44px; }
+    .sec-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.1; letter-spacing: -.3px; margin-bottom: 16px; }
+    .sec-head p { color: var(--muted); font-size: 18px; }
+
+    /* About row */
+    .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+    .about-grid .lede { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 28px); line-height: 1.4; font-weight: 400; }
+    .about-grid .body { color: var(--muted); }
+    .about-grid .body p + p { margin-top: 16px; }
+
+    /* ── Leather section ─────────────────────────────────── */
+    .leather-wrap { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: start; }
+    .ig-card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px;
+      position: sticky; top: 90px;
+    }
+    .ig-card .ig-handle { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+    .ig-badge {
+      width: 46px; height: 46px; border-radius: 13px; flex: none;
+      background: linear-gradient(45deg, #f09433, #e6683c 30%, #dc2743 55%, #bc1888 90%);
+      display: grid; place-items: center;
+    }
+    .ig-badge svg { width: 24px; height: 24px; }
+    .ig-card .ig-handle b { font-size: 17px; }
+    .ig-card .ig-handle span { display: block; font-size: 13px; color: var(--muted); }
+    .ig-card p { font-size: 14.5px; color: var(--muted); margin-bottom: 20px; }
+    .ig-follow {
+      display: inline-flex; align-items: center; gap: 9px; width: 100%; justify-content: center;
+      background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 15px;
+      padding: 13px 18px; border-radius: 12px; transition: transform .15s ease, opacity .15s ease;
+    }
+    .ig-follow:hover { transform: translateY(-1px); opacity: .92; }
+
+    .ig-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; min-width: 0; }
+    .ig-posts .instagram-media { margin: 0 !important; min-width: 0 !important; }
+    /* Empty-state fallback (shown until post URLs are added) */
+    .ig-empty {
+      grid-column: 1 / -1; border: 1px dashed var(--line); border-radius: 16px;
+      padding: 40px 24px; text-align: center; color: var(--muted); background: var(--panel);
+    }
+    .ig-empty b { display: block; color: var(--ink); font-family: var(--serif); font-size: 20px; margin-bottom: 6px; font-weight: 500; }
+
+    /* ── App (MTG) card ──────────────────────────────────── */
+    .app-card {
+      display: block; text-decoration: none; color: inherit;
+      border: 1px solid var(--line); border-radius: 22px; overflow: hidden;
+      background:
+        radial-gradient(120% 140% at 85% 0%, rgba(196,164,74,.10), transparent 60%),
+        var(--panel);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .app-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(23,19,15,.4); border-color: #e0d8cb; }
+    .app-inner { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 38px 40px; }
+    .app-meta .eyebrow { color: var(--gold); }
+    .app-meta h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; letter-spacing: -.2px; }
+    .app-meta p { color: var(--muted); max-width: 560px; }
+    .app-go {
+      flex: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px;
+      color: var(--ink); white-space: nowrap;
+    }
+    .app-go .arrow { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--ink); transition: transform .22s ease, background .22s ease, color .22s ease; }
+    .app-card:hover .app-go .arrow { transform: translateX(6px); background: var(--ink); color: #fff; }
+    .app-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .app-tags span { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: #fff; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--line); padding: 64px 0 56px; }
+    .foot-grid { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+    .foot-grid .more { font-family: var(--serif); font-size: 22px; max-width: 360px; line-height: 1.35; }
+    .foot-links { display: flex; gap: 22px; font-size: 15px; }
+    .foot-links a { color: var(--muted); text-decoration: none; transition: color .15s ease; }
+    .foot-links a:hover { color: var(--ink); }
+    .copyright { margin-top: 36px; font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 860px) {
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .leather-wrap { grid-template-columns: 1fr; }
+      .ig-card { position: static; }
+      .ig-posts { grid-template-columns: 1fr; }
+      .app-inner { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="brand" href="#top" aria-label="Koczan Craft">
+        <span class="mono">K</span>
+        <span class="name">Koczan Craft</span>
+      </a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button data-setlang="en" class="active">EN</button>
+        <button data-setlang="ja">日本語</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ── Hero ─────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+        <h1 data-i18n="hero.title"></h1>
+        <p class="tagline" data-i18n="hero.tagline"></p>
+        <a class="scroll-cue" href="#about" data-i18n="hero.cue"></a>
+      </div>
+    </section>
+
+    <!-- ── About ────────────────────────────────────────── -->
+    <section id="about" class="band">
+      <div class="wrap about-grid">
+        <p class="lede" data-i18n="about.lede"></p>
+        <div class="body">
+          <p data-i18n="about.p1"></p>
+          <p data-i18n="about.p2"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Koczan Craft Leather ─────────────────────────── -->
+    <section id="leather" class="band">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow" data-i18n="leather.eyebrow"></p>
+          <h2 data-i18n="leather.title"></h2>
+          <p data-i18n="leather.lead"></p>
+        </div>
+        <div class="leather-wrap">
+          <aside class="ig-card">
+            <div class="ig-handle">
+              <span class="ig-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff" stroke="none"/></svg>
+              </span>
+              <div>
+                <b>@koczancraft</b>
+                <span data-i18n="leather.handleSub"></span>
+              </div>
+            </div>
+            <p data-i18n="leather.cardText"></p>
+            <a class="ig-follow" href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener" data-i18n="leather.follow"></a>
+          </aside>
+
+          <div class="ig-posts" id="igPosts">
+            <!-- Recent posts render here from IG_POSTS (see the script below). Until you add
+                 post URLs, the empty-state card shows instead. -->
+            <div class="ig-empty" id="igEmpty">
+              <b data-i18n="leather.emptyTitle"></b>
+              <span data-i18n="leather.emptyBody"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Upcoming app: MTG Draft Companion ────────────── -->
+    <section id="apps" class="band">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow" data-i18n="apps.eyebrow"></p>
+          <h2 data-i18n="apps.title"></h2>
+          <p data-i18n="apps.lead"></p>
+        </div>
+        <a class="app-card" href="https://mtgdraftcompanion.koczancraft.com">
+          <div class="app-inner">
+            <div class="app-meta">
+              <p class="eyebrow" data-i18n="apps.cardEyebrow"></p>
+              <h3>MTG Draft Companion</h3>
+              <p data-i18n="apps.cardDesc"></p>
+              <div class="app-tags">
+                <span data-i18n="apps.tag1"></span>
+                <span data-i18n="apps.tag2"></span>
+                <span data-i18n="apps.tag3"></span>
+                <span data-i18n="apps.tag4"></span>
+              </div>
+            </div>
+            <span class="app-go">
+              <span data-i18n="apps.cardCta"></span>
+              <span class="arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <p class="more" data-i18n="footer.more"></p>
+        <div class="foot-links">
+          <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://mtgdraftcompanion.koczancraft.com">MTG Draft Companion</a>
+          <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
+        </div>
+      </div>
+      <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    /* ─────────────────────────────────────────────────────────────────────────
+       INSTAGRAM RECENT POSTS
+       Paste up to 3 recent post URLs below (from instagram.com/koczancraft).
+       Example: "https://www.instagram.com/p/Cxxxxxxxxxx/"
+       Leave them empty to show the clean fallback card. Swap the URLs anytime to
+       "refresh" the feed — Instagram's official embed renders the rest.
+       ───────────────────────────────────────────────────────────────────────── */
+    var IG_POSTS = [
+      "", // most recent
+      "",
+      ""
+    ];
+
+    var I18N = {
+      en: {
+        "hero.eyebrow": "Koczan Craft",
+        "hero.title": "I make the things I love.",
+        "hero.tagline": "One person, many crafts — from hand-cut leather to handcrafted apps. No factory, no shortcuts. Just a maker, a workbench, and a new challenge every day.",
+        "hero.cue": "See what I make",
+        "about.lede": "Koczan Craft is the home for everything I build — a small, honest portfolio that grows one piece at a time.",
+        "about.p1": "I'm one person with a lot of curiosity: a leather worker, a maker, a developer. Some days that means cutting and stitching by hand; other days it means shipping an app. The thread between them is the same — make something well, make it because it should exist.",
+        "about.p2": "This is where those hobbies live together. Nothing here is mass-produced. It's made slowly, by hand, and added here as it's ready.",
+        "leather.eyebrow": "Handcraft",
+        "leather.title": "Koczan Craft Leather",
+        "leather.lead": "Hand-cut, hand-stitched leather goods — wallets, small accessories, and one-off pieces, each made one at a time with real tools, time, and care.",
+        "leather.handleSub": "Handmade leather goods",
+        "leather.cardText": "Follow along to see the latest work, behind-the-scenes, and pieces as they come off the bench.",
+        "leather.follow": "Follow on Instagram",
+        "leather.emptyTitle": "Latest work on Instagram",
+        "leather.emptyBody": "Recent posts will appear here. For now, tap Follow to see everything @koczancraft is making.",
+        "apps.eyebrow": "Apps · Coming soon",
+        "apps.title": "Things I build, beyond the bench.",
+        "apps.lead": "The same hands-on approach, in software. The first app is on its way to the App Store and Google Play.",
+        "apps.cardEyebrow": "First app · Coming soon",
+        "apps.cardDesc": "A companion for Magic: The Gathering draft nights — live standings, a built-in life counter, deck building, and full Japanese card support, for your whole playgroup.",
+        "apps.tag1": "Drafts & standings", "apps.tag2": "Life counter", "apps.tag3": "Deck building", "apps.tag4": "日本語 cards",
+        "apps.cardCta": "Explore the app",
+        "footer.more": "More crafts are on the way.",
+        "footer.contact": "Contact",
+        "footer.tagline": "Handmade things, by one person."
+      },
+      ja: {
+        "hero.eyebrow": "Koczan Craft",
+        "hero.title": "好きなものを、つくる。",
+        "hero.tagline": "一人で、いくつもの「つくる」を。手裁ちの革から、手づくりのアプリまで。工場も近道もなし。作り手と作業台、そして毎日の新しい挑戦だけ。",
+        "hero.cue": "つくるものを見る",
+        "about.lede": "Koczan Craft は、私がつくるすべての場所。一つずつ、ゆっくりと育てる小さなポートフォリオです。",
+        "about.p1": "好奇心が尽きない、ただ一人。革職人であり、つくり手であり、開発者でもあります。手で裁ち縫う日もあれば、アプリを世に出す日も。共通しているのは同じ一本の糸——ちゃんとつくること、そして「あるべきだからつくる」ということ。",
+        "about.p2": "そんな趣味たちが一緒に暮らす場所です。量産品はひとつもありません。手作業で、ゆっくりと、できたものからここに並べていきます。",
+        "leather.eyebrow": "ハンドクラフト",
+        "leather.title": "Koczan Craft Leather",
+        "leather.lead": "手裁ち・手縫いの革小物。財布や小さなアクセサリー、一点ものまで、道具と時間をかけて一つずつ仕上げます。",
+        "leather.handleSub": "手づくりの革小物",
+        "leather.cardText": "最新の作品や制作の裏側を Instagram で発信中。できたての作品をどうぞ。",
+        "leather.follow": "Instagram をフォロー",
+        "leather.emptyTitle": "Instagram で最新の作品を",
+        "leather.emptyBody": "最新の投稿がここに表示されます。まずはフォローして @koczancraft の作品をご覧ください。",
+        "apps.eyebrow": "アプリ · 近日公開",
+        "apps.title": "作業台の外でも、つくる。",
+        "apps.lead": "同じ手仕事の姿勢を、ソフトウェアでも。最初のアプリが App Store ・ Google Play にもうすぐ登場します。",
+        "apps.cardEyebrow": "最初のアプリ · 近日公開",
+        "apps.cardDesc": "マジックのドラフトのためのコンパニオンアプリ。リアルタイムの順位表、内蔵ライフカウンター、デッキ構築、そして充実の日本語カード対応を、仲間全員で。",
+        "apps.tag1": "ドラフトと順位", "apps.tag2": "ライフカウンター", "apps.tag3": "デッキ構築", "apps.tag4": "日本語カード",
+        "apps.cardCta": "アプリを見る",
+        "footer.more": "つくるものは、まだまだ増えていきます。",
+        "footer.contact": "お問い合わせ",
+        "footer.tagline": "一人でつくる、手作りのものたち。"
+      }
+    };
+
+    function applyLang(lang) {
+      var dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] != null) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+
+    // Render Instagram posts (if any URLs provided), then load the official embed script.
+    (function renderInstagram() {
+      var urls = IG_POSTS.filter(function (u) { return u && u.trim(); });
+      var container = document.getElementById("igPosts");
+      if (!urls.length) return; // keep the clean empty-state card
+      var empty = document.getElementById("igEmpty");
+      if (empty) empty.remove();
+      urls.slice(0, 3).forEach(function (u) {
+        var bq = document.createElement("blockquote");
+        bq.className = "instagram-media";
+        bq.setAttribute("data-instgrm-permalink", u);
+        bq.setAttribute("data-instgrm-version", "14");
+        container.appendChild(bq);
+      });
+      var s = document.createElement("script");
+      s.async = true; s.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(s);
+    })();
+
+    // initial language: saved → browser → en
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en");
+    applyLang(initial);
+  </script>
+</body>
+</html>
