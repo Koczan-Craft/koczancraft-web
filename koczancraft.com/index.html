@@ -9,168 +9,205 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Koczan Craft" />
-  <meta property="og:description" content="One person, many crafts. From hand-cut leather to handcrafted apps." />
+  <meta property="og:description" content="One maker, many crafts. From hand-stitched leather to handcrafted apps." />
   <meta property="og:url" content="https://koczancraft.com" />
 
   <!-- Inline monogram favicon (no asset dependency) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23d8a86a'%3EK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a3a50'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23e0bd84'%3EK%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #ffffff;
-      --panel: #faf8f5;
-      --ink: #17130f;
-      --muted: #6f6860;
-      --line: #ece7e0;
-      --leather: #8a5a34;     /* warm craft accent */
-      --leather-soft: #b07e4f;
-      --gold: #c4a44a;        /* reserved for the MTG app card */
+      --bg: #0a3a50;
+      --panel: rgba(255,255,255,.05);
+      --panel-line: rgba(255,255,255,.1);
+      --ink: #e9f2f6;
+      --muted: #a9c4cf;
+      --muted-2: #9fb8c2;
+      --line: rgba(255,255,255,.08);
+      --gold: #e0bd84;
+      --gold-2: #d8b074;
+      --link: #9fd4e6;
       --maxw: 1080px;
-      --serif: "Fraunces", "Noto Serif JP", Georgia, "Times New Roman", serif;
-      --sans: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --serif: "Cormorant Garamond", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      --sans: "Hanken Grotesk", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    :lang(ja) { --serif: "Noto Sans JP", "Fraunces", serif; }
+    :lang(ja) { --serif: "Noto Serif JP", "Cormorant Garamond", serif; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       background: var(--bg); color: var(--ink); font-family: var(--sans);
       line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
     a { color: inherit; }
     img { max-width: 100%; display: block; }
+    ::selection { background: #0e5676; color: #fff; }
 
     /* ── Top bar ─────────────────────────────────────────── */
     header {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(255,255,255,0.82); backdrop-filter: saturate(180%) blur(12px);
+      background: rgba(10,58,80,0.78); backdrop-filter: saturate(160%) blur(12px);
       border-bottom: 1px solid var(--line);
     }
     .bar { display: flex; align-items: center; justify-content: space-between; height: 66px; }
-    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .brand .mono {
-      width: 34px; height: 34px; border-radius: 9px; background: var(--ink);
-      color: #d8a86a; font-family: var(--serif); font-weight: 600;
-      display: grid; place-items: center; font-size: 19px;
-    }
-    .brand .name { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: .2px; }
-    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .brand { display: flex; align-items: center; text-decoration: none; }
+    .brand .wordmark { height: 24px; width: auto; display: block; opacity: .96; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    nav.section-nav { display: flex; gap: 26px; font-size: 14px; font-weight: 500; color: var(--muted); }
+    nav.section-nav a { text-decoration: none; color: var(--muted); transition: color .15s ease; }
+    nav.section-nav a:hover { color: var(--ink); }
+    .lang-toggle { display: inline-flex; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; overflow: hidden; }
     .lang-toggle button {
-      font: inherit; font-size: 13px; font-weight: 500; padding: 7px 13px; border: 0;
-      background: transparent; color: var(--muted); cursor: pointer; line-height: 1;
+      font: inherit; font-size: 12px; font-weight: 600; padding: 7px 14px; border: 0;
+      background: transparent; color: var(--muted-2); cursor: pointer; line-height: 1;
     }
-    .lang-toggle button.active { background: var(--ink); color: #fff; }
+    .lang-toggle button.active { background: #eaf3f7; color: #0a3a50; }
 
     /* ── Hero ────────────────────────────────────────────── */
-    .hero { padding: 104px 0 84px; }
-    .eyebrow {
-      font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--leather); margin-bottom: 22px;
+    .hero {
+      position: relative; overflow: hidden; text-align: center;
+      padding: 128px 0 116px;
+      background:
+        radial-gradient(55% 45% at 72% 12%, rgba(60,168,205,.40), transparent 62%),
+        radial-gradient(52% 46% at 16% 84%, rgba(18,108,150,.42), transparent 60%),
+        radial-gradient(46% 46% at 90% 94%, rgba(216,176,116,.14), transparent 60%);
     }
+    .hero-glow {
+      position: absolute; top: -40px; left: 50%; width: 540px; height: 540px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(120,205,235,.20), transparent 70%);
+      filter: blur(14px); animation: kc-drift 9s ease-in-out infinite; pointer-events: none;
+      transform: translateX(-50%);
+    }
+    @keyframes kc-drift { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -22px); } }
+    .hero .inner { max-width: 820px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 42px;
+    }
+    .hero-logo { width: min(540px, 82%); height: auto; margin: 0 auto 46px; display: block; }
     .hero h1 {
-      font-family: var(--serif); font-weight: 400; line-height: 1.05;
-      font-size: clamp(44px, 8vw, 88px); letter-spacing: -.5px; margin-bottom: 26px;
+      font-family: var(--serif); font-weight: 500; line-height: 1.07;
+      font-size: clamp(40px, 7vw, 58px); letter-spacing: .2px; margin-bottom: 24px; color: #f3f9fb;
     }
     .hero .tagline {
-      font-size: clamp(18px, 2.4vw, 23px); color: var(--muted); max-width: 620px; line-height: 1.55;
+      font-size: clamp(16px, 2vw, 18px); color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.65;
     }
-    .hero .scroll-cue { margin-top: 56px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: center; gap: 9px; }
-    .hero .scroll-cue::after { content: ""; width: 34px; height: 1px; background: var(--leather-soft); }
+    .hero .scroll-cue {
+      margin-top: 52px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--gold); display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .hero .scroll-cue::after { content: ""; width: 46px; height: 1px; background: rgba(216,176,116,.7); }
 
     /* ── Section scaffolding ─────────────────────────────── */
     section { scroll-margin-top: 80px; }
     .band { padding: 92px 0; border-top: 1px solid var(--line); }
-    .sec-head { max-width: 640px; margin-bottom: 44px; }
-    .sec-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.1; letter-spacing: -.3px; margin-bottom: 16px; }
-    .sec-head p { color: var(--muted); font-size: 18px; }
+    .sec-head { max-width: 640px; margin-bottom: 46px; }
+    .sec-head .kicker { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .sec-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4.2vw, 42px); line-height: 1.1; margin-bottom: 14px; color: #f3f9fb; }
+    .sec-head p { color: var(--muted); font-size: 17px; line-height: 1.6; }
 
     /* About row */
-    .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
-    .about-grid .lede { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 28px); line-height: 1.4; font-weight: 400; }
-    .about-grid .body { color: var(--muted); }
-    .about-grid .body p + p { margin-top: 16px; }
+    .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; }
+    .about-grid .kicker { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .about-grid .lede { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 29px); line-height: 1.34; font-weight: 500; color: #eaf3f7; }
+    .about-grid .body { color: var(--muted); font-size: 16.5px; line-height: 1.75; }
 
     /* ── Leather section ─────────────────────────────────── */
-    .leather-wrap { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: start; }
+    .leather-wrap { display: grid; grid-template-columns: 330px 1fr; gap: 38px; align-items: start; }
     .ig-card {
-      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px;
+      background: var(--panel); border: 1px solid var(--panel-line); border-radius: 18px; padding: 26px;
       position: sticky; top: 90px;
     }
-    .ig-card .ig-handle { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+    .ig-card .ig-handle { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
     .ig-badge {
       width: 46px; height: 46px; border-radius: 13px; flex: none;
       background: linear-gradient(45deg, #f09433, #e6683c 30%, #dc2743 55%, #bc1888 90%);
       display: grid; place-items: center;
     }
-    .ig-badge svg { width: 24px; height: 24px; }
-    .ig-card .ig-handle b { font-size: 17px; }
-    .ig-card .ig-handle span { display: block; font-size: 13px; color: var(--muted); }
-    .ig-card p { font-size: 14.5px; color: var(--muted); margin-bottom: 20px; }
+    .ig-badge svg { width: 23px; height: 23px; }
+    .ig-card .ig-handle b { font-size: 16px; color: #fff; }
+    .ig-card .ig-handle span { display: block; font-size: 13px; color: var(--muted-2); }
+    .ig-card p { font-size: 14.5px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
     .ig-follow {
       display: inline-flex; align-items: center; gap: 9px; width: 100%; justify-content: center;
-      background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 15px;
-      padding: 13px 18px; border-radius: 12px; transition: transform .15s ease, opacity .15s ease;
+      background: #eaf3f7; color: #0a3a50; text-decoration: none; font-weight: 600; font-size: 15px;
+      padding: 14px; border-radius: 12px; transition: transform .15s ease, opacity .15s ease;
     }
     .ig-follow:hover { transform: translateY(-1px); opacity: .92; }
 
-    /* Recent-posts thumbnail grid — self-hosted square images linking to each post. */
     .ig-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-content: start; min-width: 0; }
     .ig-thumb {
       position: relative; display: block; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden;
-      border: 1px solid var(--line); background: var(--panel);
+      border: 1px solid var(--panel-line); background: var(--panel);
     }
     .ig-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-    .ig-thumb::after {
-      content: ""; position: absolute; inset: 0; background: rgba(23,19,15,0);
-      transition: background .25s ease;
-    }
+    .ig-thumb::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .25s ease; }
     .ig-thumb:hover img { transform: scale(1.05); }
-    .ig-thumb:hover::after { background: rgba(23,19,15,.10); }
+    .ig-thumb:hover::after { background: rgba(0,0,0,.12); }
 
-    /* ── App (MTG) card ──────────────────────────────────── */
+    /* ── Apps grid ───────────────────────────────────────── */
+    .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 4px; }
     .app-card {
-      display: block; text-decoration: none; color: inherit;
-      border: 1px solid var(--line); border-radius: 22px; overflow: hidden;
-      background:
-        radial-gradient(120% 140% at 85% 0%, rgba(196,164,74,.10), transparent 60%),
-        var(--panel);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 16px;
+      background: radial-gradient(120% 130% at 85% 0, rgba(216,176,116,.13), transparent 55%), var(--panel);
+      border: 1px solid var(--panel-line); border-radius: 20px; padding: 24px;
+      transition: transform .22s ease, border-color .22s ease;
     }
-    .app-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(23,19,15,.4); border-color: #e0d8cb; }
-    .app-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; padding: 38px 40px; }
-    .app-icon { width: 88px; height: 88px; border-radius: 20px; box-shadow: 0 12px 30px -12px rgba(23,19,15,.5); border: 1px solid var(--line); }
-    .app-meta .eyebrow { color: var(--gold); }
-    .app-meta h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; letter-spacing: -.2px; }
-    .app-meta p { color: var(--muted); max-width: 560px; }
-    .app-go {
-      flex: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px;
-      color: var(--ink); white-space: nowrap;
+    .app-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.22); }
+    .app-icon { width: 62px; height: 62px; border-radius: 15px; border: 1px solid var(--panel-line); box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); }
+    .soon-badge { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 9px; }
+    .app-card h3 { font-family: var(--serif); font-weight: 600; font-size: 23px; margin-bottom: 8px; color: #f3f9fb; }
+    .app-card p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+    .app-go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; color: var(--link); }
+
+    .app-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 13px;
+      border: 1px dashed rgba(255,255,255,.18); border-radius: 20px; padding: 24px; min-height: 248px;
+      background: rgba(255,255,255,.012);
     }
-    .app-go .arrow { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--ink); transition: transform .22s ease, background .22s ease, color .22s ease; }
-    .app-card:hover .app-go .arrow { transform: translateX(6px); background: var(--ink); color: #fff; }
-    .app-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .app-tags span { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: #fff; }
+    .app-placeholder .plus {
+      width: 46px; height: 46px; border-radius: 13px; border: 1px solid rgba(255,255,255,.18);
+      display: grid; place-items: center; color: var(--muted-2); font-size: 26px; font-weight: 300;
+    }
+    .app-placeholder span.label { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
+
+    .apps-more {
+      margin-top: 34px; display: inline-flex; align-items: center; gap: 11px;
+      font-size: 14px; font-weight: 600; color: #eaf3f7; text-decoration: none;
+    }
+    .apps-more .arrow {
+      width: 34px; height: 34px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3);
+      display: grid; place-items: center; transition: transform .22s ease, background .22s ease;
+    }
+    .apps-more:hover .arrow { transform: translateX(4px); background: rgba(255,255,255,.08); }
 
     /* ── Footer ──────────────────────────────────────────── */
-    footer { border-top: 1px solid var(--line); padding: 64px 0 56px; }
+    footer { border-top: 1px solid var(--line); padding: 52px 0; }
     .foot-grid { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
-    .foot-grid .more { font-family: var(--serif); font-size: 22px; max-width: 360px; line-height: 1.35; }
-    .foot-links { display: flex; gap: 22px; font-size: 15px; }
-    .foot-links a { color: var(--muted); text-decoration: none; transition: color .15s ease; }
+    .foot-grid .wordmark { height: 20px; width: auto; display: block; opacity: .92; }
+    .foot-grid .more { font-family: var(--serif); font-size: 18px; max-width: 320px; line-height: 1.4; color: var(--muted-2); margin-top: 16px; }
+    .foot-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; justify-content: flex-end; }
+    .foot-links a { color: var(--muted-2); text-decoration: none; transition: color .15s ease; }
     .foot-links a:hover { color: var(--ink); }
-    .copyright { margin-top: 36px; font-size: 13px; color: var(--muted); }
+    .copyright { margin-top: 18px; font-size: 12.5px; color: #7f9aa6; text-align: right; }
+    .foot-right { text-align: right; }
 
     @media (max-width: 860px) {
+      nav.section-nav { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 28px; }
       .leather-wrap { grid-template-columns: 1fr; }
       .ig-card { position: static; }
       .ig-posts { gap: 10px; }
-      .app-inner { grid-template-columns: 1fr; gap: 24px; justify-items: start; }
+      .app-grid { grid-template-columns: 1fr; }
+      .foot-grid { align-items: flex-start; }
+      .foot-links { justify-content: flex-start; }
+      .foot-right, .copyright { text-align: left; }
     }
   </style>
 </head>
@@ -178,12 +215,17 @@
   <header>
     <div class="wrap bar">
       <a class="brand" href="#top" aria-label="Koczan Craft">
-        <span class="mono">K</span>
-        <span class="name">Koczan Craft</span>
+        <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
       </a>
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button data-setlang="en" class="active">EN</button>
-        <button data-setlang="ja">日本語</button>
+      <div class="nav-links">
+        <nav class="section-nav">
+          <a href="#leather" data-i18n="nav.leather"></a>
+          <a href="#apps" data-i18n="nav.apps"></a>
+        </nav>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button data-setlang="en" class="active">EN</button>
+          <button data-setlang="ja">日本語</button>
+        </div>
       </div>
     </div>
   </header>
@@ -191,10 +233,12 @@
   <main id="top">
     <!-- ── Hero ─────────────────────────────────────────── -->
     <section class="hero">
-      <div class="wrap">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="wrap inner">
         <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+        <img class="hero-logo" src="assets/wordmark-white.png" alt="Koczan Craft" />
         <h1 data-i18n="hero.title"></h1>
-        <p class="tagline" data-i18n="hero.tagline"></p>
+        <p class="tagline" data-i18n="hero.sub"></p>
         <a class="scroll-cue" href="#about" data-i18n="hero.cue"></a>
       </div>
     </section>
@@ -202,11 +246,11 @@
     <!-- ── About ────────────────────────────────────────── -->
     <section id="about" class="band">
       <div class="wrap about-grid">
-        <p class="lede" data-i18n="about.lede"></p>
-        <div class="body">
-          <p data-i18n="about.p1"></p>
-          <p data-i18n="about.p2"></p>
+        <div>
+          <p class="kicker" data-i18n="about.kicker"></p>
+          <p class="lede" data-i18n="about.lede"></p>
         </div>
+        <p class="body" data-i18n="about.body"></p>
       </div>
     </section>
 
@@ -214,7 +258,7 @@
     <section id="leather" class="band">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow" data-i18n="leather.eyebrow"></p>
+          <p class="kicker" data-i18n="leather.kicker"></p>
           <h2 data-i18n="leather.title"></h2>
           <p data-i18n="leather.lead"></p>
         </div>
@@ -250,31 +294,38 @@
       </div>
     </section>
 
-    <!-- ── Upcoming app: MTG Draft Companion ────────────── -->
+    <!-- ── Apps ──────────────────────────────────────────── -->
     <section id="apps" class="band">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow" data-i18n="apps.eyebrow"></p>
+          <p class="kicker" data-i18n="apps.kicker"></p>
           <h2 data-i18n="apps.title"></h2>
           <p data-i18n="apps.lead"></p>
         </div>
-        <!-- Apps teaser → the apps hub (apps.koczancraft.com). Shows the featured app
-             (logo + name + one-liner); the hub holds the detail and will grow with more apps. -->
-        <a class="app-card" href="https://apps.koczancraft.com">
-          <div class="app-inner">
+        <!-- Real app card → the apps hub (apps.koczancraft.com); 2 placeholder slots match
+             the hub's "more on the bench" pattern so the grid grows the same way there. -->
+        <div class="app-grid">
+          <a class="app-card" href="https://apps.koczancraft.com">
             <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
-            <div class="app-meta">
-              <p class="eyebrow" data-i18n="apps.cardEyebrow"></p>
+            <div>
+              <p class="soon-badge" data-i18n="apps.soon"></p>
               <h3>MTG Draft Companion</h3>
-              <p data-i18n="apps.cardShort"></p>
+              <p data-i18n="apps.short"></p>
             </div>
-            <span class="app-go">
-              <span data-i18n="apps.cardCta"></span>
-              <span class="arrow" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </span>
-            </span>
+            <span class="app-go" data-i18n="apps.cta"></span>
+          </a>
+          <div class="app-placeholder">
+            <span class="plus" aria-hidden="true">+</span>
+            <span class="label" data-i18n="apps.soon"></span>
           </div>
+          <div class="app-placeholder">
+            <span class="plus" aria-hidden="true">+</span>
+            <span class="label" data-i18n="apps.soon"></span>
+          </div>
+        </div>
+        <a class="apps-more" href="https://apps.koczancraft.com">
+          <span data-i18n="apps.more"></span>
+          <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </section>
@@ -283,67 +334,74 @@
   <footer>
     <div class="wrap">
       <div class="foot-grid">
-        <p class="more" data-i18n="footer.more"></p>
-        <div class="foot-links">
-          <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://mtgdraftcompanion.koczancraft.com">MTG Draft Companion</a>
-          <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
+        <div>
+          <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
+          <p class="more" data-i18n="footer.more"></p>
+        </div>
+        <div class="foot-right">
+          <div class="foot-links">
+            <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://apps.koczancraft.com" data-i18n="nav.apps"></a>
+            <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
+          </div>
+          <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
         </div>
       </div>
-      <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
     </div>
   </footer>
 
   <script>
     var I18N = {
       en: {
-        "hero.eyebrow": "Koczan Craft",
-        "hero.title": "I make the things I love.",
-        "hero.tagline": "One person, many crafts — from hand-cut leather to handcrafted apps. No factory, no shortcuts. Just a maker, a workbench, and a new challenge every day.",
+        "nav.leather": "Leather",
+        "nav.apps": "Apps",
+        "hero.eyebrow": "Leather goods & handcrafted apps",
+        "hero.title": "One maker, many crafts.",
+        "hero.sub": "From hand-stitched leather to handcrafted apps — everything I make, gathered in one place. Made slowly, by hand, and added as it's ready.",
         "hero.cue": "See what I make",
-        "about.lede": "Koczan Craft is the home for everything I build — a small, honest portfolio that grows one piece at a time.",
-        "about.p1": "I'm one person with a lot of curiosity: a leather worker, a maker, a developer. Some days that means cutting and stitching by hand; other days it means shipping an app. The thread between them is the same — make something well, make it because it should exist.",
-        "about.p2": "This is where those hobbies live together. Nothing here is mass-produced. It's made slowly, by hand, and added here as it's ready.",
-        "leather.eyebrow": "Handcraft",
+        "about.kicker": "About",
+        "about.lede": "No factory. No shortcuts. Just a workbench, a few good tools, and the patience to make a thing properly.",
+        "about.body": "I'm one person with a lot of curiosity — a leather worker and a developer. Some days that's cutting and stitching by hand; other days it's shipping an app. This is where those crafts live together.",
+        "leather.kicker": "Handcraft",
         "leather.title": "Koczan Craft Leather",
-        "leather.lead": "Hand-cut, hand-stitched leather goods — wallets, small accessories, and one-off pieces, each made one at a time with real tools, time, and care.",
+        "leather.lead": "Hand-cut, hand-stitched leather goods — wallets, small accessories, and one-off pieces, each made one at a time.",
         "leather.handleSub": "Handmade leather goods",
-        "leather.cardText": "Follow along to see the latest work, behind-the-scenes, and pieces as they come off the bench.",
+        "leather.cardText": "Follow along for the latest work and behind-the-scenes, straight from the bench.",
         "leather.follow": "Follow on Instagram",
-        "leather.emptyTitle": "Latest work on Instagram",
-        "leather.emptyBody": "Recent posts will appear here. For now, tap Follow to see everything @koczancraft is making.",
-        "apps.eyebrow": "Apps · Coming soon",
+        "apps.kicker": "Apps",
         "apps.title": "Things I build, beyond the bench.",
-        "apps.lead": "The same hands-on approach, in software. The first app is on its way to the App Store and Google Play.",
-        "apps.cardEyebrow": "First app · Coming soon",
-        "apps.cardShort": "A companion for Magic: The Gathering draft nights — for your whole playgroup.",
-        "apps.cardCta": "Explore apps",
+        "apps.lead": "The same hands-on approach, in software. A small, growing collection of apps.",
+        "apps.soon": "Coming soon",
+        "apps.short": "A companion for Magic: The Gathering draft nights — for your whole playgroup.",
+        "apps.cta": "Learn more",
+        "apps.more": "Explore all apps",
         "footer.more": "More crafts are on the way.",
         "footer.contact": "Contact",
         "footer.tagline": "Handmade things, by one person."
       },
       ja: {
-        "hero.eyebrow": "Koczan Craft",
-        "hero.title": "好きなものを、つくる。",
-        "hero.tagline": "一人で、いくつもの「つくる」を。手裁ちの革から、手づくりのアプリまで。工場も近道もなし。作り手と作業台、そして毎日の新しい挑戦だけ。",
+        "nav.leather": "レザー",
+        "nav.apps": "アプリ",
+        "hero.eyebrow": "革小物と手づくりのアプリ",
+        "hero.title": "一人で、いくつもの「つくる」を。",
+        "hero.sub": "手縫いの革から、手づくりのアプリまで。つくったものを、ひとつの場所に。手作業で、ゆっくりと、できたものから並べていきます。",
         "hero.cue": "つくるものを見る",
-        "about.lede": "Koczan Craft は、私がつくるすべての場所。一つずつ、ゆっくりと育てる小さなポートフォリオです。",
-        "about.p1": "好奇心が尽きない、ただ一人。革職人であり、つくり手であり、開発者でもあります。手で裁ち縫う日もあれば、アプリを世に出す日も。共通しているのは同じ一本の糸——ちゃんとつくること、そして「あるべきだからつくる」ということ。",
-        "about.p2": "そんな趣味たちが一緒に暮らす場所です。量産品はひとつもありません。手作業で、ゆっくりと、できたものからここに並べていきます。",
-        "leather.eyebrow": "ハンドクラフト",
+        "about.kicker": "About",
+        "about.lede": "工場も、近道もなし。作業台と、いくつかの良い道具と、きちんとつくるための時間だけ。",
+        "about.body": "好奇心が尽きない、ただ一人。革職人であり、開発者でもあります。手で裁ち縫う日もあれば、アプリを世に出す日も。そんな「つくる」が一緒に暮らす場所です。",
+        "leather.kicker": "ハンドクラフト",
         "leather.title": "Koczan Craft Leather",
-        "leather.lead": "手裁ち・手縫いの革小物。財布や小さなアクセサリー、一点ものまで、道具と時間をかけて一つずつ仕上げます。",
+        "leather.lead": "手裁ち・手縫いの革小物。財布や小さなアクセサリー、一点ものまで、一つずつ仕上げます。",
         "leather.handleSub": "手づくりの革小物",
         "leather.cardText": "最新の作品や制作の裏側を Instagram で発信中。できたての作品をどうぞ。",
         "leather.follow": "Instagram をフォロー",
-        "leather.emptyTitle": "Instagram で最新の作品を",
-        "leather.emptyBody": "最新の投稿がここに表示されます。まずはフォローして @koczancraft の作品をご覧ください。",
-        "apps.eyebrow": "アプリ · 近日公開",
+        "apps.kicker": "アプリ",
         "apps.title": "作業台の外でも、つくる。",
-        "apps.lead": "同じ手仕事の姿勢を、ソフトウェアでも。最初のアプリが App Store ・ Google Play にもうすぐ登場します。",
-        "apps.cardEyebrow": "最初のアプリ · 近日公開",
-        "apps.cardShort": "マジックのドラフトのためのコンパニオンアプリ。仲間全員で。",
-        "apps.cardCta": "アプリを見る",
+        "apps.lead": "同じ手仕事の姿勢を、ソフトウェアでも。少しずつ増えていく、小さなアプリ集。",
+        "apps.soon": "近日公開",
+        "apps.short": "マジック：ザ・ギャザリングのドラフトのためのコンパニオン。仲間全員で。",
+        "apps.cta": "詳しく見る",
+        "apps.more": "すべてのアプリを見る",
         "footer.more": "つくるものは、まだまだ増えていきます。",
         "footer.contact": "お問い合わせ",
         "footer.tagline": "一人でつくる、手作りのものたち。"

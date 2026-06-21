@@ -8,89 +8,110 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Apps — Koczan Craft" />
-  <meta property="og:description" content="Hands-on software by Koczan Craft. Starting with MTG Draft Companion." />
+  <meta property="og:description" content="Handcrafted software by Koczan Craft. Starting with MTG Draft Companion." />
   <meta property="og:url" content="https://apps.koczancraft.com" />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23d8a86a'%3EK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a3a50'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23e0bd84'%3EK%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #ffffff;
-      --panel: #faf8f5;
-      --ink: #17130f;
-      --muted: #6f6860;
-      --line: #ece7e0;
-      --leather: #8a5a34;     /* warm brand accent (matches koczancraft.com) */
-      --leather-soft: #b07e4f;
-      --gold: #c4a44a;        /* app accent */
+      --bg: #0a3a50;
+      --panel: rgba(255,255,255,.05);
+      --panel-line: rgba(255,255,255,.1);
+      --ink: #e9f2f6;
+      --muted: #a9c4cf;
+      --muted-2: #9fb8c2;
+      --line: rgba(255,255,255,.08);
+      --gold: #e0bd84;
+      --gold-2: #d8b074;
+      --link: #9fd4e6;
       --maxw: 1080px;
-      --serif: "Fraunces", "Noto Serif JP", Georgia, "Times New Roman", serif;
-      --sans: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --serif: "Cormorant Garamond", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      --sans: "Hanken Grotesk", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    :lang(ja) { --serif: "Noto Sans JP", "Fraunces", serif; }
+    :lang(ja) { --serif: "Noto Serif JP", "Cormorant Garamond", serif; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
     a { color: inherit; }
     img { max-width: 100%; display: block; }
 
     /* Top bar */
-    header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+    header { position: sticky; top: 0; z-index: 50; background: rgba(10,58,80,0.78); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--line); }
     .bar { display: flex; align-items: center; justify-content: space-between; height: 66px; }
-    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .brand .mono { width: 34px; height: 34px; border-radius: 9px; background: var(--ink); color: #d8a86a; font-family: var(--serif); font-weight: 600; display: grid; place-items: center; font-size: 19px; }
-    .brand .name { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: .2px; }
-    .brand .name .sub { color: var(--muted); font-weight: 500; }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .back-home { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+    .brand .wordmark { height: 22px; width: auto; display: block; opacity: .96; }
+    .brand.foot-brand .wordmark { height: 20px; opacity: .92; }
+    .brand .sep { width: 1px; height: 20px; background: rgba(255,255,255,.18); }
+    .brand .sub { font-weight: 600; font-size: 14px; color: var(--link); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .back-home { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; }
     .back-home:hover { color: var(--ink); }
-    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-    .lang-toggle button { font: inherit; font-size: 13px; font-weight: 500; padding: 7px 13px; border: 0; background: transparent; color: var(--muted); cursor: pointer; line-height: 1; }
-    .lang-toggle button.active { background: var(--ink); color: #fff; }
+    .lang-toggle { display: inline-flex; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; overflow: hidden; }
+    .lang-toggle button { font: inherit; font-size: 12px; font-weight: 600; padding: 7px 14px; border: 0; background: transparent; color: var(--muted-2); cursor: pointer; line-height: 1; }
+    .lang-toggle button.active { background: #eaf3f7; color: #0a3a50; }
 
     /* Hero */
-    .hero { padding: 92px 0 56px; }
-    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--leather); margin-bottom: 20px; }
-    .hero h1 { font-family: var(--serif); font-weight: 400; line-height: 1.05; font-size: clamp(40px, 7vw, 72px); letter-spacing: -.5px; margin-bottom: 22px; }
-    .hero .lead { font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); max-width: 600px; line-height: 1.55; }
+    .hero {
+      position: relative; overflow: hidden; padding: 104px 0 60px;
+      background:
+        radial-gradient(50% 60% at 80% 0, rgba(60,168,205,.32), transparent 62%),
+        radial-gradient(40% 50% at 8% 60%, rgba(18,108,150,.30), transparent 60%);
+    }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--link); margin-bottom: 22px; }
+    .hero h1 { font-family: var(--serif); font-weight: 500; line-height: 1.05; font-size: clamp(36px, 6.4vw, 58px); color: #f3f9fb; max-width: 720px; margin-bottom: 24px; }
+    .hero .lead { max-width: 600px; font-size: 18px; line-height: 1.7; color: var(--muted); }
 
-    /* Apps grid (extensible — add a .cat-title before a grid to introduce categories later) */
-    .apps { padding: 24px 0 92px; }
-    .cat-title { font-family: var(--serif); font-size: 24px; font-weight: 500; margin: 40px 0 18px; }
-    .app-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    /* Category pills (visual grouping — single category today, room to grow) */
+    .pills { padding: 0 0 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .pills span { font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 999px; }
+    .pills span.active { background: #eaf3f7; color: #0a3a50; }
+    .pills span:not(.active) { border: 1px solid rgba(255,255,255,.18); color: var(--muted); }
 
-    .app-card { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: radial-gradient(120% 140% at 88% 0%, rgba(196,164,74,.10), transparent 60%), var(--panel); transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
-    .app-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(23,19,15,.4); border-color: #e0d8cb; }
-    .app-inner { display: grid; grid-template-columns: auto 1fr auto; gap: 30px; align-items: center; padding: 34px 38px; }
-    .app-icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 12px 30px -12px rgba(23,19,15,.5); border: 1px solid var(--line); }
-    .app-meta .app-eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
-    .app-meta h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(24px, 3vw, 32px); margin-bottom: 11px; letter-spacing: -.2px; }
-    .app-meta p { color: var(--muted); max-width: 600px; }
-    .app-tags { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .app-tags span { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: #fff; }
-    .app-go { flex: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
-    .app-go .arrow { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--ink); transition: transform .22s ease, background .22s ease, color .22s ease; }
-    .app-card:hover .app-go .arrow { transform: translateX(6px); background: var(--ink); color: #fff; }
+    /* Featured app card */
+    .featured {
+      text-decoration: none; color: inherit; display: grid; grid-template-columns: auto 1fr auto; gap: 36px; align-items: center;
+      background: radial-gradient(120% 150% at 88% 0, rgba(216,176,116,.14), transparent 55%), var(--panel);
+      border: 1px solid var(--panel-line); border-radius: 24px; padding: 40px;
+      transition: transform .22s ease, border-color .22s ease;
+    }
+    .featured:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.22); }
+    .featured .app-icon { width: 118px; height: 118px; border-radius: 26px; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 16px 40px -18px rgba(0,0,0,.7); }
+    .featured .badge { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 10px; }
+    .featured h2 { font-family: var(--serif); font-weight: 600; font-size: 34px; margin-bottom: 12px; color: #f3f9fb; }
+    .featured p.desc { font-size: 15.5px; line-height: 1.6; color: var(--muted); max-width: 540px; }
+    .featured .go { flex: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; color: #0a3a50; background: #eaf3f7; padding: 14px 22px; border-radius: 999px; white-space: nowrap; }
 
-    .more-soon { margin-top: 26px; border: 1px dashed var(--line); border-radius: 18px; padding: 30px; text-align: center; color: var(--muted); background: var(--panel); }
-    .more-soon b { display: block; color: var(--ink); font-family: var(--serif); font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+    /* Coming soon */
+    .soon-section { padding: 64px 0 100px; }
+    .soon-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 26px; flex-wrap: wrap; }
+    .soon-head h3 { font-family: var(--serif); font-weight: 500; font-size: 26px; color: #eaf3f7; }
+    .soon-head p { font-size: 14.5px; color: var(--muted-2); max-width: 420px; }
+    .soon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .soon-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 13px;
+      border: 1px dashed rgba(255,255,255,.18); border-radius: 20px; padding: 24px; min-height: 200px;
+      background: rgba(255,255,255,.012);
+    }
+    .soon-card .plus { width: 46px; height: 46px; border-radius: 13px; border: 1px solid rgba(255,255,255,.18); display: grid; place-items: center; color: var(--muted-2); font-size: 26px; font-weight: 300; }
+    .soon-card span.label { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
 
     /* Footer */
-    footer { border-top: 1px solid var(--line); padding: 56px 0 52px; }
+    footer { border-top: 1px solid var(--line); padding: 52px 0; }
     .foot-grid { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-    .foot-links { display: flex; gap: 22px; font-size: 15px; }
-    .foot-links a { color: var(--muted); text-decoration: none; }
+    .foot-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; }
+    .foot-links a { color: var(--muted-2); text-decoration: none; }
     .foot-links a:hover { color: var(--ink); }
-    .copyright { margin-top: 30px; font-size: 13px; color: var(--muted); }
 
     @media (max-width: 760px) {
-      .app-inner { grid-template-columns: 1fr; gap: 22px; justify-items: start; }
+      .featured { grid-template-columns: 1fr; gap: 24px; text-align: left; }
+      .soon-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -98,11 +119,12 @@
   <header>
     <div class="wrap bar">
       <a class="brand" href="https://koczancraft.com" aria-label="Koczan Craft">
-        <span class="mono">K</span>
-        <span class="name">Koczan Craft <span class="sub">· Apps</span></span>
+        <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
+        <span class="sep" aria-hidden="true"></span>
+        <span class="sub" data-i18n="brand.apps"></span>
       </a>
       <div class="nav-right">
-        <a class="back-home" href="https://koczancraft.com" data-i18n="nav.home"></a>
+        <a class="back-home" href="https://koczancraft.com">koczancraft.com ↗</a>
         <div class="lang-toggle" role="group" aria-label="Language">
           <button data-setlang="en" class="active">EN</button>
           <button data-setlang="ja">日本語</button>
@@ -114,44 +136,40 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <p class="eyebrow" data-i18n="hero.eyebrow"></p>
-        <h1 data-i18n="hero.title"></h1>
-        <p class="lead" data-i18n="hero.lead"></p>
+        <p class="eyebrow" data-i18n="hub.kicker"></p>
+        <h1 data-i18n="hub.title"></h1>
+        <p class="lead" data-i18n="hub.sub"></p>
       </div>
     </section>
 
-    <section class="apps">
-      <div class="wrap">
-        <!-- One grid for now. To add categories later, repeat:
-             <h2 class="cat-title">Category</h2><div class="app-grid"> …cards… </div> -->
-        <div class="app-grid">
-          <a class="app-card" href="https://mtgdraftcompanion.koczancraft.com">
-            <div class="app-inner">
-              <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
-              <div class="app-meta">
-                <p class="app-eyebrow" data-i18n="mtg.eyebrow"></p>
-                <h3>MTG Draft Companion</h3>
-                <p data-i18n="mtg.desc"></p>
-                <div class="app-tags">
-                  <span data-i18n="mtg.tag1"></span>
-                  <span data-i18n="mtg.tag2"></span>
-                  <span data-i18n="mtg.tag3"></span>
-                  <span data-i18n="mtg.tag4"></span>
-                </div>
-              </div>
-              <span class="app-go">
-                <span data-i18n="mtg.cta"></span>
-                <span class="arrow" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </span>
-              </span>
-            </div>
-          </a>
-        </div>
+    <div class="wrap pills">
+      <span class="active" data-i18n="hub.fAll"></span>
+      <span data-i18n="hub.fGames"></span>
+      <span data-i18n="hub.fTools"></span>
+    </div>
 
-        <div class="more-soon">
-          <b data-i18n="more.title"></b>
-          <span data-i18n="more.body"></span>
+    <div class="wrap">
+      <a class="featured" href="https://mtgdraftcompanion.koczancraft.com">
+        <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
+        <div>
+          <p class="badge"><span data-i18n="hub.featured"></span> · <span data-i18n="apps.soon"></span></p>
+          <h2>MTG Draft Companion</h2>
+          <p class="desc" data-i18n="hub.desc"></p>
+        </div>
+        <span class="go" data-i18n="hub.learn"></span>
+      </a>
+    </div>
+
+    <section class="soon-section">
+      <div class="wrap">
+        <div class="soon-head">
+          <h3 data-i18n="hub.soonTitle"></h3>
+          <p data-i18n="hub.soonBody"></p>
+        </div>
+        <div class="soon-grid">
+          <div class="soon-card"><span class="plus" aria-hidden="true">+</span><span class="label" data-i18n="apps.soon"></span></div>
+          <div class="soon-card"><span class="plus" aria-hidden="true">+</span><span class="label" data-i18n="apps.soon"></span></div>
+          <div class="soon-card"><span class="plus" aria-hidden="true">+</span><span class="label" data-i18n="apps.soon"></span></div>
         </div>
       </div>
     </section>
@@ -160,53 +178,55 @@
   <footer>
     <div class="wrap">
       <div class="foot-grid">
-        <a class="brand" href="https://koczancraft.com" aria-label="Koczan Craft">
-          <span class="mono">K</span>
-          <span class="name">Koczan Craft</span>
+        <a class="brand foot-brand" href="https://koczancraft.com" aria-label="Koczan Craft">
+          <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
         </a>
         <div class="foot-links">
-          <a href="https://koczancraft.com" data-i18n="nav.home"></a>
-          <a href="https://mtgdraftcompanion.koczancraft.com">MTG Draft Companion</a>
+          <a href="https://koczancraft.com">koczancraft.com</a>
+          <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
           <!-- Privacy → the MTG app's policy; href is set per-language in applyLang() so EN→EN, JA→JA. -->
           <a id="privacyLink" href="https://mtgdraftcompanion.koczancraft.com/privacy.html" data-i18n="footer.privacy"></a>
           <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
         </div>
       </div>
-      <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
     </div>
   </footer>
 
   <script>
     var I18N = {
       en: {
-        "nav.home": "← Koczan Craft",
-        "hero.eyebrow": "Apps",
-        "hero.title": "Hands-on software, one app at a time.",
-        "hero.lead": "The same maker's approach as the bench — built carefully, because it should exist. Here's what's live and what's coming.",
-        "mtg.eyebrow": "Tabletop · Coming soon",
-        "mtg.desc": "A companion for Magic: The Gathering draft nights — live standings, a built-in split-screen life counter, deck building with mana curve and one-tap land balancing, and full Japanese card support, all synced for your playgroup.",
-        "mtg.tag1": "Drafts & standings", "mtg.tag2": "Life counter", "mtg.tag3": "Deck building", "mtg.tag4": "日本語 cards",
-        "mtg.cta": "Learn more",
-        "more.title": "More apps on the way",
-        "more.body": "New apps will appear here as they're built — and grouped into categories as the collection grows.",
+        "brand.apps": "Apps",
+        "hub.kicker": "Koczan Craft · Apps",
+        "hub.title": "Handcrafted software.",
+        "hub.sub": "Apps made with the same care as everything else on the bench — useful, quiet, and built to last. The collection grows as new ones are ready.",
+        "hub.fAll": "All",
+        "hub.fGames": "Games & tabletop",
+        "hub.fTools": "Tools",
+        "hub.featured": "Featured",
+        "hub.desc": "Run smoother draft nights. Track every pick, keep the pack-and-pass moving, and share the draft with your whole table — a calm companion for Magic: The Gathering drafts.",
+        "hub.learn": "Learn more",
+        "hub.soonTitle": "Something new is on the bench.",
+        "hub.soonBody": "New apps are added here as they're ready. Check back soon.",
+        "apps.soon": "Coming soon",
         "footer.privacy": "Privacy Policy",
-        "footer.contact": "Contact",
-        "footer.tagline": "Apps by Koczan Craft."
+        "footer.contact": "Contact"
       },
       ja: {
-        "nav.home": "← Koczan Craft",
-        "hero.eyebrow": "アプリ",
-        "hero.title": "手づくりのソフトを、ひとつずつ。",
-        "hero.lead": "作業台と同じ姿勢で、ていねいに。あるべきだからつくる。公開中のもの、そしてこれから来るものをご紹介します。",
-        "mtg.eyebrow": "テーブルトップ · 近日公開",
-        "mtg.desc": "マジックのドラフトのためのコンパニオンアプリ。リアルタイムの順位表、分割画面のライフカウンター、マナカーブやワンタップの土地調整付きのデッキ構築、そして充実の日本語カード対応を、仲間全員で同期。",
-        "mtg.tag1": "ドラフトと順位", "mtg.tag2": "ライフカウンター", "mtg.tag3": "デッキ構築", "mtg.tag4": "日本語カード",
-        "mtg.cta": "詳しく見る",
-        "more.title": "新しいアプリを準備中",
-        "more.body": "完成したアプリからここに並びます。数が増えたらカテゴリーごとに整理していきます。",
+        "brand.apps": "アプリ",
+        "hub.kicker": "Koczan Craft · アプリ",
+        "hub.title": "手づくりのソフトウェア。",
+        "hub.sub": "作業台の上のものと同じ心づかいでつくるアプリ。役に立って、静かで、長く使えるもの。準備ができ次第、ここに増えていきます。",
+        "hub.fAll": "すべて",
+        "hub.fGames": "ゲーム・卓上",
+        "hub.fTools": "ツール",
+        "hub.featured": "注目",
+        "hub.desc": "ドラフトの夜を、もっと心地よく。すべてのピックを記録し、パックの受け渡しをスムーズに保ち、テーブル全員でドラフトを共有。マジックのドラフトに寄り添うコンパニオンです。",
+        "hub.learn": "詳しく見る",
+        "hub.soonTitle": "新しいものを、作業台の上で。",
+        "hub.soonBody": "新しいアプリは準備ができ次第ここに追加されます。お楽しみに。",
+        "apps.soon": "近日公開",
         "footer.privacy": "プライバシーポリシー",
-        "footer.contact": "お問い合わせ",
-        "footer.tagline": "Koczan Craft のアプリ。"
+        "footer.contact": "お問い合わせ"
       }
     };
 
