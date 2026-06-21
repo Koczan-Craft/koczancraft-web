@@ -36,6 +36,7 @@
     :lang(ja) { --serif: "Noto Serif JP", "Cormorant Garamond", serif; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
@@ -66,11 +67,15 @@
     .hero h1 { font-family: var(--serif); font-weight: 500; line-height: 1.05; font-size: clamp(36px, 6.4vw, 58px); color: #f3f9fb; max-width: 720px; margin-bottom: 24px; }
     .hero .lead { max-width: 600px; font-size: 18px; line-height: 1.7; color: var(--muted); }
 
-    /* Category pills (visual grouping — single category today, room to grow) */
-    .pills { padding: 0 0 28px; display: flex; gap: 12px; flex-wrap: wrap; }
-    .pills span { font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 999px; }
-    .pills span.active { background: #eaf3f7; color: #0a3a50; }
-    .pills span:not(.active) { border: 1px solid rgba(255,255,255,.18); color: var(--muted); }
+    /* Category pills — filter the app grid below */
+    .pills { padding-bottom: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .pills button { font: inherit; font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 999px; background: none; border: 1px solid rgba(255,255,255,.18); color: var(--muted); cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+    .pills button.active { background: #eaf3f7; color: #0a3a50; border-color: transparent; }
+
+    /* Empty state for a category with no apps yet */
+    .empty-state { border: 1px dashed rgba(255,255,255,.18); border-radius: 24px; padding: 48px; text-align: center; }
+    .empty-state h3 { font-family: var(--serif); font-weight: 500; font-size: 22px; color: #eaf3f7; margin-bottom: 8px; }
+    .empty-state p { font-size: 14.5px; color: var(--muted-2); }
 
     /* Featured app card */
     .featured {
@@ -145,13 +150,13 @@
     </section>
 
     <div class="wrap pills">
-      <span class="active" data-i18n="hub.fAll"></span>
-      <span data-i18n="hub.fGames"></span>
-      <span data-i18n="hub.fTools"></span>
+      <button type="button" class="active" data-filter="all" data-i18n="hub.fAll"></button>
+      <button type="button" data-filter="games" data-i18n="hub.fGames"></button>
+      <button type="button" data-filter="tools" data-i18n="hub.fTools"></button>
     </div>
 
     <div class="wrap">
-      <a class="featured" href="https://mtgdraftcompanion.koczancraft.com">
+      <a class="featured" data-category="games" href="https://mtgdraftcompanion.koczancraft.com">
         <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
         <div>
           <p class="badge"><span data-i18n="hub.featured"></span> · <span data-i18n="apps.soon"></span></p>
@@ -160,9 +165,13 @@
         </div>
         <span class="go" data-i18n="hub.learn"></span>
       </a>
+      <div class="empty-state" id="emptyState" hidden>
+        <h3 data-i18n="hub.emptyTitle"></h3>
+        <p data-i18n="hub.emptyBody"></p>
+      </div>
     </div>
 
-    <section class="soon-section">
+    <section class="soon-section" id="soonSection">
       <div class="wrap">
         <div class="soon-head">
           <h3 data-i18n="hub.soonTitle"></h3>
@@ -208,6 +217,8 @@
         "hub.learn": "Learn more",
         "hub.soonTitle": "Something new is on the bench.",
         "hub.soonBody": "New apps are added here as they're ready. Check back soon.",
+        "hub.emptyTitle": "Nothing here yet.",
+        "hub.emptyBody": "This category is still empty — check back as the collection grows.",
         "apps.soon": "Coming soon",
         "footer.privacy": "Privacy Policy",
         "footer.contact": "Contact"
@@ -224,6 +235,8 @@
         "hub.learn": "詳しく見る",
         "hub.soonTitle": "新しいものを、作業台の上で。",
         "hub.soonBody": "新しいアプリは準備ができ次第ここに追加されます。お楽しみに。",
+        "hub.emptyTitle": "まだここには何もありません。",
+        "hub.emptyBody": "このカテゴリーはまだ空です。コレクションが増えるとここに追加されます。",
         "apps.soon": "近日公開",
         "footer.privacy": "プライバシーポリシー",
         "footer.contact": "お問い合わせ"
@@ -248,6 +261,28 @@
     document.querySelectorAll("[data-setlang]").forEach(function (b) {
       b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
     });
+
+    // Category filter — shows/hides app cards by data-category; "all" always shows everything.
+    var apps = document.querySelectorAll("[data-category]");
+    var emptyState = document.getElementById("emptyState");
+    var soonSection = document.getElementById("soonSection");
+    function applyFilter(filter) {
+      var visible = 0;
+      apps.forEach(function (card) {
+        var match = filter === "all" || card.getAttribute("data-category") === filter;
+        card.hidden = !match;
+        if (match) visible++;
+      });
+      if (emptyState) emptyState.hidden = visible > 0;
+      if (soonSection) soonSection.hidden = filter !== "all";
+    }
+    document.querySelectorAll("[data-filter]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        document.querySelectorAll("[data-filter]").forEach(function (x) { x.classList.toggle("active", x === b); });
+        applyFilter(b.getAttribute("data-filter"));
+      });
+    });
+
     var saved;
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en");
