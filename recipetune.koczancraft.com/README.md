@@ -10,6 +10,8 @@ capture rather than App Store / Google Play badges (see `CONTENT-BRIEF.md` §12)
 
 ## Files
 - `index.html` — the page. One file, inline CSS + JS, no build step.
+- `privacy.html` — the privacy policy (EN / 日本語), written from the app's actual data handling.
+  This is the URL both stores should point at. Supports `?lang=ja`.
 - `CONTENT-BRIEF.md` — the content/design brief this page was built from.
 - `icon.png` — app icon on light background (favicon, hero crest, og:image), 1024×1024.
 - `assets/icon-dark.png` — dark-background variant of the same mark.
@@ -43,9 +45,40 @@ right copy at that point.
   sibling sites.
 - **Real screenshots** (§9) — the hero and scaling sections use illustrative CSS mockups, not real
   app screenshots.
-- **`privacy.html`** (§14) — needed before either store submission; mirror
-  `mtgdraftcompanion.koczancraft.com/privacy.html`.
 - Once store-listed, swap the CTA band for real store badges.
+
+## Privacy policy — what it asserts, and what needs fixing in the app
+
+`privacy.html` was written from the app's code, not from the MTG policy's shape. Differences that
+matter, all verified in `recipe-app-public`:
+
+- **No analytics or crash reporting.** `pubspec.yaml` has no `firebase_analytics` and no
+  `firebase_crashlytics`. The policy states this positively — do not add either without updating it.
+- **No push notifications.** Cooking timers use `flutter_local_notifications` (device-scheduled);
+  there is no FCM and no notification token, unlike the MTG app.
+- **Ads are always non-personalised.** `admob_ads_service.dart` hardcodes
+  `AdRequest(nonPersonalizedAds: true)` on every request, and there is no
+  `NSUserTrackingUsageDescription`, so no ATT prompt. The MTG policy's ATT paragraph does not apply.
+- **Recipe photos are sent to OpenAI** (`functions/` uses the `openai` SDK, `gpt-4.1-mini`, image
+  inline as base64; 20 imports/user/day). This is the app's only third-party content disclosure and
+  gets its own section — it is the most consequential thing in the policy.
+- **Nothing is shared between users.** `firestore.rules` / `storage.rules` are owner-only for
+  recipes, images and settings.
+- **US processing, not Tokyo.** `extractRecipe` is declared with `onCall({ secrets })` and no
+  `region`, so it deploys to the default `us-central1`. The policy says United States — if the
+  function or the Firestore location is ever moved, update §10.
+
+Two things in the app should be fixed; the policy is written to be accurate either way:
+
+1. **Account deletion misses the avatar.** `_eraseUserData` in
+   `lib/features/auth/presentation/providers/auth_providers.dart` deletes recipes,
+   `source.jpg`/`dish.jpg` and the settings doc, but never `avatars/{uid}/avatar.jpg`. That file
+   survives account deletion — a real erasure gap. The policy deliberately does not claim the
+   avatar is deleted; fix the code and the claim can be broadened.
+2. **iOS camera capture will crash and be rejected.** `recipe_list_screen.dart` offers
+   `ImageSource.camera`, but `ios/Runner/Info.plist` has no `NSCameraUsageDescription` (it has no
+   `NS*UsageDescription` keys at all). iOS terminates the app when the camera is invoked without
+   one. There is also no `PrivacyInfo.xcprivacy` manifest, which App Store review now requires.
 
 ## Deploy
 In Vercel: **New Project → import this repo → Root Directory = `recipetune.koczancraft.com`**,

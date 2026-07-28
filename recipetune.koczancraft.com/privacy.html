@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — RecipeTune</title>
+  <meta name="description" content="Privacy policy for the RecipeTune app (English / 日本語)." />
+  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1A1A1A;
+      --muted: #6B6B6B;
+      --faint: #9A9A9A;
+      --line: #EDEDED;
+      --surface: #F6F6F4;
+      --coral: #F0674A;
+      --coral-dark: #D8543A;
+      --coral-tint: #FCEBE7;
+      --coral-deep: #8A3D2B;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--coral-tint); color: var(--ink); }
+    a { color: var(--coral-dark); }
+    a:hover { color: var(--ink); }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .home { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
+    .home img { width: 28px; height: 28px; border-radius: 8px; display: block; }
+    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; gap: 2px; background: var(--surface); }
+    .lang-toggle button {
+      background: transparent; border: 0; color: var(--faint);
+      padding: 7px 14px; border-radius: 999px; cursor: pointer;
+      font: inherit; font-weight: 600; font-size: 13px; line-height: 1;
+    }
+    .lang-toggle button.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(26,26,26,.10); }
+
+    .wrap { max-width: 780px; margin: 0 auto; padding: 56px 24px 96px; }
+    h1 { font-size: 34px; line-height: 1.16; letter-spacing: -.024em; font-weight: 700; margin: 0 0 6px; text-wrap: balance; }
+    .updated { color: var(--faint); font-size: 14px; margin: 0 0 36px; }
+    h2 { font-size: 20px; line-height: 1.3; letter-spacing: -.015em; font-weight: 600; margin: 44px 0 10px; border-top: 1px solid var(--line); padding-top: 30px; }
+    p, li { color: var(--muted); }
+    p { text-wrap: pretty; }
+    strong { color: var(--ink); font-weight: 600; }
+    .lede { font-size: 17px; }
+
+    .callout {
+      background: var(--surface); border-radius: 18px;
+      padding: 20px 24px; margin: 20px 0;
+    }
+    .callout p { margin: 0; }
+    .callout p + p { margin-top: 12px; }
+
+    .table-scroll { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+    th, td { text-align: left; padding: 12px 14px; border: 1px solid var(--line); vertical-align: top; color: var(--muted); }
+    th { background: var(--surface); color: var(--ink); font-weight: 600; }
+
+    code { background: var(--surface); padding: 1px 6px; border-radius: 5px; font-size: 0.88em; color: var(--coral-deep); }
+    footer { margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--line); font-size: 14px; color: var(--faint); }
+    footer a { color: var(--muted); }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 680px) {
+      .wrap { padding: 40px 20px 72px; }
+      h1 { font-size: 27px; }
+      h2 { font-size: 18px; margin-top: 36px; padding-top: 24px; }
+      .topbar { padding: 10px 16px; }
+      .home span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="home" href="index.html"><img src="icon.png" alt="" /><span>RecipeTune</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-setlang="en" class="active">EN</button>
+      <button data-setlang="ja">日本語</button>
+    </div>
+  </div>
+
+  <!-- ============================ ENGLISH ============================ -->
+  <div class="wrap" data-lang="en">
+    <h1>Privacy Policy — RecipeTune</h1>
+    <p class="updated">Last updated: 28 July 2026</p>
+
+    <p class="lede">RecipeTune ("the app") turns recipe photos into structured recipes you can
+    scale and cook from. It is developed by Koczan Craft ("we", "us"). This policy explains what
+    data the app handles, why, and the choices you have. By using the app you agree to it.</p>
+
+    <div class="callout">
+      <p><strong>The short version.</strong> Your recipes live on your device and are visible only
+      to you — nothing in RecipeTune is shared with other users or made public. We do not use any
+      analytics or crash-reporting service, so we do not track which screens you visit or what you
+      cook. Ads are always non-personalised. The one time your data leaves your device by design is
+      recipe import: the photo you choose is sent to OpenAI to be read (see §3).</p>
+    </div>
+
+    <h2>1. Data we handle</h2>
+    <div class="table-scroll">
+      <table>
+        <tr><th>Data</th><th>Why</th><th>Stored / processed by</th></tr>
+        <tr><td>Your recipes — title, servings, ingredients, steps, category</td><td>The core of the app. Stored on your device; synced to your private cloud copy when you are signed in and online</td><td>On device (SQLite) · Cloud Firestore</td></tr>
+        <tr><td>Recipe photos — the imported source screenshot and an optional dish photo</td><td>Kept with the recipe so you can re-check the original</td><td>On device · Firebase Storage</td></tr>
+        <tr><td>A recipe photo you import</td><td>Sent once to be read into ingredients and steps (see §3)</td><td>OpenAI</td></tr>
+        <tr><td>Account identifier, and email address if you sign in</td><td>Sign-in, recovery, and linking your recipes to you</td><td>Firebase Authentication</td></tr>
+        <tr><td>Preferences — language, default servings, theme, display name, avatar</td><td>Your settings, applied across your devices</td><td>Cloud Firestore · Firebase Storage</td></tr>
+        <tr><td>Import usage counter — a per-day count of imports</td><td>Rate limiting, to control cost and abuse</td><td>Cloud Firestore</td></tr>
+        <tr><td>Advertising data — advertising identifier and ad-interaction data</td><td>Show and measure ads (see §6)</td><td>Google AdMob</td></tr>
+      </table>
+    </div>
+    <p><strong>What we do not collect:</strong> we use <strong>no analytics and no crash-reporting
+    service</strong> — no Google Analytics, no Firebase Analytics, no Crashlytics. We do not
+    collect your location or your contacts, we do not scan your photo library (you pick the
+    individual images yourself), and we do not sell your data.</p>
+
+    <h2>2. Accounts &amp; sign-in</h2>
+    <p>RecipeTune is <strong>anonymous-first</strong>. On first launch the app creates an anonymous
+    account for you automatically — you can import, save, scale and cook recipes without ever
+    giving us an email address or any other personal detail.</p>
+    <p>Signing in is optional, and only adds recovery and multi-device sync. You can sign in with
+    an email and password, or with your <strong>Google</strong> or <strong>Apple</strong> account.
+    That provider authenticates you and shares your email address (and, for Apple, optionally a
+    name); we never receive your Google or Apple password. Signing in links your existing anonymous
+    account in place, so the recipes you already made come with you.</p>
+
+    <h2>3. Recipe photos &amp; how import works</h2>
+    <p>This is the one place your content is sent to a third party, so it is worth being precise.</p>
+    <p>When you import a recipe, the app sends <strong>that image</strong> to our server (a Firebase
+    Cloud Function), which forwards it to <strong>OpenAI</strong> to be read into structured
+    ingredients and steps. The result comes back to your device, where you review and correct it
+    before anything is saved.</p>
+    <ul>
+      <li>Only the image you explicitly pick or photograph for an import is sent. RecipeTune has no
+        access to the rest of your photo library.</li>
+      <li>Extraction runs <strong>only on our server</strong>, never in the app, so our API key is
+        never on your device.</li>
+      <li>We do <strong>not</strong> keep a copy of the image on our server after the import — the
+        function processes it and returns the result. The source photo is stored with your recipe
+        in your own private storage area (§4) because you asked to keep it, not for our use.</li>
+      <li>OpenAI processes the image as our service provider in order to return the extraction.
+        Their handling of API data is described in their
+        <a href="https://openai.com/policies/privacy-policy">privacy policy</a> and
+        <a href="https://openai.com/enterprise-privacy/">API data-usage terms</a>; content
+        submitted through the API is not used to train their models by default.</li>
+      <li>Import requires an account (an anonymous one is enough) and is capped per user per day.</li>
+    </ul>
+    <p>If you would rather no image ever left your device, you can add a recipe by typing it in
+    manually instead — import is optional.</p>
+
+    <h2>4. Who can see your data</h2>
+    <p>Your recipes, photos and settings are <strong>yours alone</strong>. RecipeTune has no
+    sharing, no groups, no public profiles and no feed. Server-side security rules restrict every
+    recipe, image and settings record to the account that owns it — this is enforced on the server,
+    not just hidden in the app. Nothing you create is visible to other users or to the public.</p>
+
+    <h2>5. Service providers</h2>
+    <ul>
+      <li><strong>Google Firebase</strong> (Authentication, Cloud Firestore, Storage, Cloud
+        Functions) hosts your account, your synced recipes and photos, and runs the import
+        function. Google acts as our data processor.</li>
+      <li><strong>OpenAI</strong> reads imported recipe images, as described in §3.</li>
+      <li><strong>Google AdMob</strong> serves advertising in the app (see §6).</li>
+    </ul>
+
+    <h2>6. Advertising</h2>
+    <p>The app is free and supported by advertising through <strong>Google AdMob</strong>. AdMob
+    may collect a device advertising identifier and limited device and ad-interaction information
+    to deliver, cap and measure ads.</p>
+    <ul>
+      <li><strong>Every ad request the app makes is non-personalised</strong>, for every user, in
+        every region — we do not ask AdMob to profile you or target ads at you based on your
+        behaviour. Because we do not track you across apps, the app does not show Apple's App
+        Tracking Transparency prompt.</li>
+      <li>Where required (for example the EEA and the UK), we show a Google-certified consent
+        prompt (UMP) before requesting any ad, and honour your choice.</li>
+      <li>Ads never appear over sign-in, and never while a cooking timer is running.</li>
+    </ul>
+    <p>Google's handling of ad data is described at
+    <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>.
+    We do not sell your personal data.</p>
+
+    <h2>7. On-device data &amp; offline use</h2>
+    <p>RecipeTune is <strong>local-first</strong>: your recipes are stored in a database on your
+    device and the app works fully offline. When you are signed in and online, changes sync to your
+    private cloud copy so you can use another device; if two devices change the same recipe, the
+    most recent change wins.</p>
+    <p>Downloaded photos are cached on your device for speed and offline use. Cooking timers use
+    <strong>local notifications only</strong> — scheduled by your device, not sent from our
+    servers. RecipeTune does not use push notifications and has no notification token.</p>
+    <p>Deleting the app removes its on-device data. Signing out clears the local copy on that
+    device.</p>
+
+    <h2>8. Data retention &amp; deletion</h2>
+    <ul>
+      <li>Deleting a recipe in the app deletes it, and its photos, from your device and your cloud
+        copy.</li>
+      <li>You can <strong>delete your account in the app</strong> (Profile → Delete account). This
+        erases your recipes, their source and dish photos, and your settings, and then deletes the
+        authentication account itself. The app returns to a fresh anonymous session.</li>
+      <li>The per-user import counter described in §1 is retained for rate limiting and is not
+        linked to a usable account once the account is deleted.</li>
+      <li>You can also email us (below) to request deletion.</li>
+    </ul>
+
+    <h2>9. Children</h2>
+    <p>The app is not directed at children under 13, and we do not knowingly collect personal data
+    from children under 13. If you believe a child has provided us data, contact us and we will
+    delete it.</p>
+
+    <h2>10. International users</h2>
+    <p>The app and its developer are based in Japan. Your data is processed and stored on Google
+    Cloud / Firebase infrastructure, and imported recipe images are processed by OpenAI; both
+    involve servers in the <strong>United States</strong> and, depending on the service, other
+    countries. By using the app you consent to your data being transferred and processed as
+    described here.</p>
+
+    <h2>11. Contact</h2>
+    <p>Questions or deletion requests:
+      <a href="mailto:privacy@koczancraft.com">privacy@koczancraft.com</a></p>
+
+    <h2>12. Changes</h2>
+    <p>We'll update this page when the policy changes; the "last updated" date above always
+    reflects the latest revision.</p>
+
+    <footer>
+      <p>RecipeTune is made by <a href="https://www.koczancraft.com">Koczan Craft</a>.
+      Back to <a href="index.html">recipetune.koczancraft.com</a>.</p>
+    </footer>
+  </div>
+
+  <!-- ============================ 日本語 ============================ -->
+  <div class="wrap" data-lang="ja" hidden>
+    <h1>プライバシーポリシー — RecipeTune</h1>
+    <p class="updated">最終更新日：2026年7月28日</p>
+
+    <p class="lede">RecipeTune（以下「本アプリ」）は、レシピの写真を、分量調整や調理に使える形の
+    レシピに変換するアプリであり、Koczan Craft（以下「当方」）が開発・提供しています。本ポリシーは、
+    本アプリが取り扱うデータの内容・目的・お客様の選択肢について説明します。本アプリのご利用をもって、
+    本ポリシーに同意したものとみなされます。</p>
+
+    <div class="callout">
+      <p><strong>要約。</strong>お客様のレシピは端末内に保存され、お客様ご本人のみが閲覧できます。
+      本アプリには他のユーザーとの共有機能も公開機能もありません。当方は解析ツールもクラッシュ
+      レポートツールも一切使用しておらず、どの画面を見たか、何を作ったかを追跡することはありません。
+      広告は常に非パーソナライズです。データが端末外に送信されるのは、レシピの取り込み時のみです。
+      選択された写真が読み取りのため OpenAI に送信されます（第3項参照）。</p>
+    </div>
+
+    <h2>1. 取り扱うデータ</h2>
+    <div class="table-scroll">
+      <table>
+        <tr><th>データ</th><th>目的</th><th>保存・処理事業者</th></tr>
+        <tr><td>レシピ（タイトル、人数、材料、手順、カテゴリ）</td><td>本アプリの中核。端末内に保存し、サインイン中かつオンラインの場合はお客様専用のクラウドにも同期</td><td>端末内（SQLite）・Cloud Firestore</td></tr>
+        <tr><td>レシピの写真（取り込み元のスクリーンショット、任意の料理写真）</td><td>元の情報をいつでも確認できるよう、レシピと一緒に保存するため</td><td>端末内・Firebase Storage</td></tr>
+        <tr><td>取り込むレシピ画像</td><td>材料と手順に読み取るため、一度だけ送信（第3項参照）</td><td>OpenAI</td></tr>
+        <tr><td>アカウント識別子、およびサインインした場合はメールアドレス</td><td>サインイン・復旧、レシピとお客様の紐付け</td><td>Firebase Authentication</td></tr>
+        <tr><td>設定（言語、既定の人数、テーマ、表示名、アバター）</td><td>お客様の設定を各端末に反映するため</td><td>Cloud Firestore・Firebase Storage</td></tr>
+        <tr><td>取り込み回数のカウンタ（1日あたり）</td><td>コストと不正利用を抑えるための利用制限</td><td>Cloud Firestore</td></tr>
+        <tr><td>広告データ（広告識別子・広告操作データ）</td><td>広告の表示と効果測定（第6項参照）</td><td>Google AdMob</td></tr>
+      </table>
+    </div>
+    <p><strong>収集しないもの：</strong>当方は<strong>解析ツールもクラッシュレポートツールも一切
+    使用していません</strong>（Google Analytics、Firebase Analytics、Crashlytics のいずれも不使用）。
+    位置情報や連絡先を収集することはなく、フォトライブラリをスキャンすることもありません（画像は
+    お客様ご自身が個別に選択します）。お客様のデータを販売することもありません。</p>
+
+    <h2>2. アカウントとサインイン</h2>
+    <p>本アプリは<strong>匿名利用が前提</strong>です。初回起動時に匿名アカウントが自動的に作成され、
+    メールアドレスなどの個人情報を一切お預けいただくことなく、レシピの取り込み・保存・分量調整・調理が
+    ご利用いただけます。</p>
+    <p>サインインは任意で、アカウントの復旧と複数端末での同期のためだけのものです。メールアドレスと
+    パスワード、または <strong>Google</strong>・<strong>Apple</strong> アカウントでサインインできます。
+    各プロバイダが認証を行い、メールアドレス（Appleの場合は任意で氏名）を共有します。お客様の Google・
+    Apple のパスワードを当方が受け取ることはありません。サインインすると既存の匿名アカウントがそのまま
+    連携されるため、作成済みのレシピはそのまま引き継がれます。</p>
+
+    <h2>3. レシピ写真と取り込みの仕組み</h2>
+    <p>お客様のコンテンツが第三者に送信されるのはこの場面のみですので、正確に説明します。</p>
+    <p>レシピを取り込むと、本アプリは<strong>その画像</strong>を当方のサーバー（Firebase Cloud
+    Functions）に送信し、サーバーが <strong>OpenAI</strong> に転送して、材料と手順の構造化データに
+    読み取ります。結果はお客様の端末に返され、保存前にお客様が内容を確認・修正します。</p>
+    <ul>
+      <li>送信されるのは、取り込みのためにお客様が明示的に選択または撮影した画像のみです。本アプリが
+        フォトライブラリの他の写真にアクセスすることはありません。</li>
+      <li>読み取り処理は<strong>当方のサーバー上でのみ</strong>実行され、アプリ内では実行されません。
+        APIキーが端末に置かれることはありません。</li>
+      <li>取り込み後、当方のサーバーに画像の控えを<strong>保持しません</strong>。処理して結果を返すのみです。
+        元の写真は、お客様が保存を選択したことに基づき、お客様専用の保存領域にレシピと一緒に保存されます
+        （第4項）。当方が利用するためではありません。</li>
+      <li>OpenAI は、読み取り結果を返すために当方のサービス提供事業者として画像を処理します。API
+        データの取り扱いは同社の
+        <a href="https://openai.com/policies/privacy-policy">プライバシーポリシー</a>および
+        <a href="https://openai.com/enterprise-privacy/">API データ利用条件</a>に記載されています。
+        API 経由で送信されたコンテンツは、既定ではモデルの学習に使用されません。</li>
+      <li>取り込みにはアカウント（匿名アカウントで可）が必要で、1ユーザーあたり1日の回数上限があります。</li>
+    </ul>
+    <p>画像を端末外に一切送信したくない場合は、レシピを手入力で追加することもできます。取り込み機能の
+    利用は任意です。</p>
+
+    <h2>4. データを閲覧できる相手</h2>
+    <p>お客様のレシピ・写真・設定は<strong>お客様のみ</strong>のものです。本アプリには共有機能、
+    グループ機能、公開プロフィール、フィードのいずれもありません。サーバー側のセキュリティルールにより、
+    すべてのレシピ・画像・設定は所有アカウントのみに制限されています。これはアプリ上で非表示にしている
+    だけでなく、サーバー側で強制されています。お客様が作成したものが他のユーザーや一般に公開されることは
+    ありません。</p>
+
+    <h2>5. サービス提供事業者</h2>
+    <ul>
+      <li><strong>Google Firebase</strong>（Authentication、Cloud Firestore、Storage、Cloud
+        Functions）が、アカウント、同期されたレシピ・写真の保存と、取り込み処理の実行を行います。
+        Googleは当方のデータ処理者です。</li>
+      <li><strong>OpenAI</strong> が、第3項に記載のとおり取り込んだレシピ画像を読み取ります。</li>
+      <li><strong>Google AdMob</strong> がアプリ内の広告を配信します（第6項参照）。</li>
+    </ul>
+
+    <h2>6. 広告</h2>
+    <p>本アプリは無料で、<strong>Google AdMob</strong> による広告で支えられています。AdMobは、広告の
+    配信・表示回数の制御・効果測定のために、端末の広告識別子や限定的な端末・広告操作情報を収集する場合が
+    あります。</p>
+    <ul>
+      <li><strong>本アプリが行う広告リクエストは、すべてのユーザー・すべての地域において常に
+        非パーソナライズです</strong>。お客様のプロファイリングや行動に基づくターゲティングを AdMob に
+        要求することはありません。アプリをまたいだトラッキングを行わないため、AppleのApp Tracking
+        Transparencyの許可を求めるダイアログは表示されません。</li>
+      <li>必要な地域（EEA・英国など）では、広告リクエストの前にGoogle認定の同意フォーム（UMP）を表示し、
+        お客様の選択を尊重します。</li>
+      <li>サインイン画面や、調理タイマーの作動中に広告が表示されることはありません。</li>
+    </ul>
+    <p>Googleによる広告データの取り扱いは
+    <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>
+    に記載されています。当方がお客様の個人データを販売することはありません。</p>
+
+    <h2>7. 端末内のデータとオフライン利用</h2>
+    <p>本アプリは<strong>ローカルファースト</strong>です。レシピは端末内のデータベースに保存され、
+    オフラインでも完全に動作します。サインイン中かつオンラインの場合、変更はお客様専用のクラウドに同期
+    され、別の端末でもご利用いただけます。2台の端末で同じレシピを変更した場合は、より新しい変更が優先
+    されます。</p>
+    <p>ダウンロードした写真は、表示速度とオフライン利用のため端末内にキャッシュされます。調理タイマーは
+    <strong>ローカル通知のみ</strong>を使用し、お客様の端末がスケジュールします。当方のサーバーから送信
+    するものではありません。本アプリはプッシュ通知を使用せず、通知トークンも保持しません。</p>
+    <p>アプリを削除すると端末内のデータは消去されます。サインアウトすると、その端末内のローカルデータが
+    消去されます。</p>
+
+    <h2>8. データの保持と削除</h2>
+    <ul>
+      <li>アプリ内でレシピを削除すると、端末内とクラウドの双方から、そのレシピと写真が削除されます。</li>
+      <li><strong>アプリ内でアカウントを削除</strong>できます（プロフィール → アカウントを削除）。
+        レシピ、その取り込み元・料理写真、設定が消去され、その後、認証アカウント自体が削除されます。
+        アプリは新しい匿名セッションに戻ります。</li>
+      <li>第1項に記載の取り込み回数カウンタは利用制限のために保持されますが、アカウント削除後は利用可能な
+        アカウントと紐付きません。</li>
+      <li>下記の連絡先へ削除をご依頼いただくこともできます。</li>
+    </ul>
+
+    <h2>9. 児童について</h2>
+    <p>本アプリは13歳未満の児童を対象としておらず、13歳未満の児童から故意に個人データを収集することは
+    ありません。児童がデータを提供したと思われる場合はご連絡ください。速やかに削除します。</p>
+
+    <h2>10. 海外のお客様</h2>
+    <p>本アプリおよび開発者は日本に所在します。お客様のデータは Google Cloud / Firebase 上で処理・保存
+    され、取り込まれたレシピ画像は OpenAI が処理します。いずれも<strong>米国</strong>のサーバーを利用し、
+    サービスによってはその他の国のサーバーも利用します。本アプリのご利用をもって、本ポリシーに記載の
+    とおりデータが移転・処理されることに同意したものとみなされます。</p>
+
+    <h2>11. お問い合わせ</h2>
+    <p>ご質問・削除のご依頼：
+      <a href="mailto:privacy@koczancraft.com">privacy@koczancraft.com</a></p>
+
+    <h2>12. 本ポリシーの変更</h2>
+    <p>ポリシーを変更した場合は本ページを更新します。上部の「最終更新日」は常に最新の改訂を反映します。</p>
+
+    <footer>
+      <p>RecipeTune は <a href="https://www.koczancraft.com">Koczan Craft</a> が制作しています。
+      <a href="index.html">recipetune.koczancraft.com</a> に戻る。</p>
+    </footer>
+  </div>
+
+  <script>
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-lang]").forEach(function (el) {
+        el.hidden = el.getAttribute("data-lang") !== lang;
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    // A ?lang=en|ja URL param wins (e.g. arriving from a store listing in a chosen language),
+    // then a previously saved choice, then the browser language, then English.
+    var param = new URLSearchParams(location.search).get("lang");
+    var forced = (param === "en" || param === "ja") ? param : null;
+    applyLang(forced || saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en"));
+  </script>
+</body>
+</html>
