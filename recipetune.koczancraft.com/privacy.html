@@ -107,10 +107,10 @@
 
     <div class="callout">
       <p><strong>The short version.</strong> Your recipes live on your device and are visible only
-      to you — nothing in RecipeTune is shared with other users or made public. Ads are always
-      non-personalised, and the usage and crash data we collect is aggregate, never the content of
-      your recipes. The one time your recipe content leaves your device by design is import: the
-      photo you choose is sent to OpenAI to be read (see §3).</p>
+      to you — nothing in RecipeTune is shared with other users or made public. We do not use any
+      analytics or crash-reporting service, so we do not track which screens you visit or what you
+      cook. Ads are always non-personalised. The one time your data leaves your device by design is
+      recipe import: the photo you choose is sent to OpenAI to be read (see §3).</p>
     </div>
 
     <h2>1. Data we handle</h2>
@@ -123,15 +123,13 @@
         <tr><td>Account identifier, and email address if you sign in</td><td>Sign-in, recovery, and linking your recipes to you</td><td>Firebase Authentication</td></tr>
         <tr><td>Preferences — language, default servings, theme, display name, avatar</td><td>Your settings, applied across your devices</td><td>Cloud Firestore · Firebase Storage</td></tr>
         <tr><td>Import usage counter — a per-day count of imports</td><td>Rate limiting, to control cost and abuse</td><td>Cloud Firestore</td></tr>
-        <tr><td>Usage &amp; diagnostics — screens viewed and features used, app version, device model, coarse region, crash data</td><td>Improve the app and fix crashes (see §6)</td><td>Google Analytics for Firebase · Firebase Crashlytics</td></tr>
         <tr><td>Advertising data — advertising identifier and ad-interaction data</td><td>Show and measure ads (see §6)</td><td>Google AdMob</td></tr>
       </table>
     </div>
-    <p><strong>What we do not collect:</strong> we do not collect your location or your contacts,
-    and we do not scan your photo library — you pick each image yourself. <strong>The usage and
-    diagnostic data in §6 never includes the content of your recipes</strong>: we do not log what
-    you cook, your ingredients, or your recipe text. It is aggregate data about how the app runs.
-    We do not sell your data.</p>
+    <p><strong>What we do not collect:</strong> we use <strong>no analytics and no crash-reporting
+    service</strong> — no Google Analytics, no Firebase Analytics, no Crashlytics. We do not
+    collect your location or your contacts, we do not scan your photo library (you pick the
+    individual images yourself), and we do not sell your data.</p>
 
     <h2>2. Accounts &amp; sign-in</h2>
     <p>RecipeTune is <strong>anonymous-first</strong>. On first launch the app creates an anonymous
@@ -179,21 +177,13 @@
         Functions) hosts your account, your synced recipes and photos, and runs the import
         function. Google acts as our data processor.</li>
       <li><strong>OpenAI</strong> reads imported recipe images, as described in §3.</li>
-      <li><strong>Google Analytics for Firebase</strong> and <strong>Firebase Crashlytics</strong>
-        collect aggregate app-usage and crash data (see §6).</li>
       <li><strong>Google AdMob</strong> serves advertising in the app (see §6).</li>
     </ul>
 
-    <h2>6. Analytics &amp; advertising</h2>
-    <p><strong>Analytics and diagnostics.</strong> We use <strong>Google Analytics for
-    Firebase</strong> and <strong>Firebase Crashlytics</strong> to understand how the app is used —
-    which features and screens are popular, aggregate statistics such as active users and
-    retention, and crash and diagnostic information so we can fix what breaks. This is tied to an
-    app-instance identifier, used in aggregate to improve the app, and not sold. As noted in §1, it
-    does not include your recipe content.</p>
-    <p><strong>Advertising.</strong> The app is free and supported by advertising through
-    <strong>Google AdMob</strong>. AdMob may collect a device advertising identifier and limited
-    device and ad-interaction information to deliver, cap and measure ads.</p>
+    <h2>6. Advertising</h2>
+    <p>The app is free and supported by advertising through <strong>Google AdMob</strong>. AdMob
+    may collect a device advertising identifier and limited device and ad-interaction information
+    to deliver, cap and measure ads.</p>
     <ul>
       <li><strong>Every ad request the app makes is non-personalised</strong>, for every user, in
         every region — we do not ask AdMob to profile you or target ads at you based on your
@@ -268,10 +258,10 @@
 
     <div class="callout">
       <p><strong>要約。</strong>お客様のレシピは端末内に保存され、お客様ご本人のみが閲覧できます。
-      本アプリには他のユーザーとの共有機能も公開機能もありません。広告は常に非パーソナライズです。
-      収集する利用状況・クラッシュデータは集計データであり、レシピの内容が含まれることはありません。
-      レシピの内容が端末外に送信されるのは取り込み時のみで、選択された写真が読み取りのため
-      OpenAI に送信されます（第3項参照）。</p>
+      本アプリには他のユーザーとの共有機能も公開機能もありません。当方は解析ツールもクラッシュ
+      レポートツールも一切使用しておらず、どの画面を見たか、何を作ったかを追跡することはありません。
+      広告は常に非パーソナライズです。データが端末外に送信されるのは、レシピの取り込み時のみです。
+      選択された写真が読み取りのため OpenAI に送信されます（第3項参照）。</p>
     </div>
 
     <h2>1. 取り扱うデータ</h2>
@@ -284,15 +274,13 @@
         <tr><td>アカウント識別子、およびサインインした場合はメールアドレス</td><td>サインイン・復旧、レシピとお客様の紐付け</td><td>Firebase Authentication</td></tr>
         <tr><td>設定（言語、既定の人数、テーマ、表示名、アバター）</td><td>お客様の設定を各端末に反映するため</td><td>Cloud Firestore・Firebase Storage</td></tr>
         <tr><td>取り込み回数のカウンタ（1日あたり）</td><td>コストと不正利用を抑えるための利用制限</td><td>Cloud Firestore</td></tr>
-        <tr><td>利用状況・診断データ（閲覧画面や使用機能、アプリのバージョン、端末モデル、おおまかな地域、クラッシュ情報）</td><td>アプリの改善とクラッシュの修正（第6項参照）</td><td>Google Analytics for Firebase・Firebase Crashlytics</td></tr>
         <tr><td>広告データ（広告識別子・広告操作データ）</td><td>広告の表示と効果測定（第6項参照）</td><td>Google AdMob</td></tr>
       </table>
     </div>
-    <p><strong>収集しないもの：</strong>位置情報や連絡先を収集することはなく、フォトライブラリを
-    スキャンすることもありません（画像はお客様ご自身が個別に選択します）。<strong>第6項の利用状況・
-    診断データに、レシピの内容が含まれることはありません</strong>。何を作ったか、材料やレシピ本文を
-    記録することはなく、アプリの動作に関する集計データのみです。お客様のデータを販売することも
-    ありません。</p>
+    <p><strong>収集しないもの：</strong>当方は<strong>解析ツールもクラッシュレポートツールも一切
+    使用していません</strong>（Google Analytics、Firebase Analytics、Crashlytics のいずれも不使用）。
+    位置情報や連絡先を収集することはなく、フォトライブラリをスキャンすることもありません（画像は
+    お客様ご自身が個別に選択します）。お客様のデータを販売することもありません。</p>
 
     <h2>2. アカウントとサインイン</h2>
     <p>本アプリは<strong>匿名利用が前提</strong>です。初回起動時に匿名アカウントが自動的に作成され、
@@ -340,20 +328,13 @@
         Functions）が、アカウント、同期されたレシピ・写真の保存と、取り込み処理の実行を行います。
         Googleは当方のデータ処理者です。</li>
       <li><strong>OpenAI</strong> が、第3項に記載のとおり取り込んだレシピ画像を読み取ります。</li>
-      <li><strong>Google Analytics for Firebase</strong> および <strong>Firebase Crashlytics</strong>
-        が、集計されたアプリ利用状況・クラッシュデータを収集します（第6項参照）。</li>
       <li><strong>Google AdMob</strong> がアプリ内の広告を配信します（第6項参照）。</li>
     </ul>
 
-    <h2>6. 解析と広告</h2>
-    <p><strong>解析・診断。</strong>当方は <strong>Google Analytics for Firebase</strong> および
-    <strong>Firebase Crashlytics</strong> を使用し、どの機能・画面がよく使われているか、アクティブ
-    ユーザー数や継続率といった集計統計、そして不具合を修正するためのクラッシュ・診断情報を把握します。
-    これはアプリインスタンス識別子に紐付き、集計データとしてアプリの改善に利用され、販売されることは
-    ありません。第1項のとおり、レシピの内容は含まれません。</p>
-    <p><strong>広告。</strong>本アプリは無料で、<strong>Google AdMob</strong> による広告で
-    支えられています。AdMobは、広告の配信・表示回数の制御・効果測定のために、端末の広告識別子や
-    限定的な端末・広告操作情報を収集する場合があります。</p>
+    <h2>6. 広告</h2>
+    <p>本アプリは無料で、<strong>Google AdMob</strong> による広告で支えられています。AdMobは、広告の
+    配信・表示回数の制御・効果測定のために、端末の広告識別子や限定的な端末・広告操作情報を収集する場合が
+    あります。</p>
     <ul>
       <li><strong>本アプリが行う広告リクエストは、すべてのユーザー・すべての地域において常に
         非パーソナライズです</strong>。お客様のプロファイリングや行動に基づくターゲティングを AdMob に

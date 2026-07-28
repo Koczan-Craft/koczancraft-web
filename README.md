@@ -16,11 +16,17 @@ koczancraft-web/
 │  └─ assets/  (ig/, mtg-icon.png, …)  self-hosted images
 ├─ apps.koczancraft.com/               → https://apps.koczancraft.com
 │  ├─ index.html                       apps hub: one card per app, grows + categories (white/premium)
-│  └─ assets/  (mtg-icon.png)
+│  ├─ privacy.html                     policy index: one row per app → that app's own policy
+│  └─ assets/  (mtg-icon.png, recipetune-icon.png, …)
 ├─ mtgdraftcompanion.koczancraft.com/  → https://mtgdraftcompanion.koczancraft.com
 │  ├─ index.html                       MTG Draft Companion app landing (dark/gold)
 │  ├─ privacy.html                     canonical privacy policy (store links here)
 │  └─ icon.png
+├─ recipetune.koczancraft.com/         → https://recipetune.koczancraft.com
+│  ├─ index.html                       RecipeTune app landing (coral/near-white, EN + 日本語)
+│  ├─ privacy.html                     canonical privacy policy (store links here)
+│  ├─ CONTENT-BRIEF.md                 content/design brief the page was built from
+│  └─ icon.png, assets/
 └─ <new-site>/  (future)               → https://<sub>.koczancraft.com
 ```
 
@@ -59,7 +65,28 @@ web pages live in one place. The app repo's old copy is superseded — edit the 
 - `data-i18n` keys + an `I18N` dictionary + the `applyLang()` toggle for EN/日本語.
 - White/premium for the brand home; each app can carry its own theme (the MTG page is dark/gold).
 
-## Keeping policy in sync
-The store privacy URL is `https://mtgdraftcompanion.koczancraft.com/privacy.html`. When
-ads/analytics/data handling changes, update `privacy.html` **here**, consistent with the app's
-`PrivacyInfo.xcprivacy` + `docs/STORE.md` in the app repo.
+## Privacy policies
+**Each app owns its own policy, on its own subdomain** — that URL is what its store listing points
+at, and it's the only place that app's data handling is described. Never write one shared policy:
+the apps differ (MTG shares data with your playgroup and uses analytics; RecipeTune shares nothing
+and uses none), and a merged policy would be wrong for both.
+
+`apps.koczancraft.com/privacy.html` is the **index** — one row per app, linking out to each
+policy. Every site's footer links to that one stable URL, so adding an app never means editing
+footers:
+
+```
+koczancraft.com  ─┐
+apps hub         ─┼─→ apps.koczancraft.com/privacy.html ─┬─→ mtgdraftcompanion…/privacy.html
+(future sites)   ─┘   (index, one row per app)           └─→ recipetune…/privacy.html
+```
+
+**Adding an app:** add one `<a class="policy" data-policy="…">` block to the index, and write that
+app's own `privacy.html`. Nothing else changes. The index appends `?lang=en|ja` to each outbound
+link, so the language carries across the origin boundary — every app policy must honour that param
+(they all read it in `applyLang()`).
+
+**Keeping a policy true:** a policy describes what that app's *shipped binary* does. When an app's
+ads/analytics/data handling changes, update its `privacy.html` in the same change — and remember
+the store data-safety / privacy-label forms must match the binary too (those cannot over-disclose,
+even where a policy safely could).

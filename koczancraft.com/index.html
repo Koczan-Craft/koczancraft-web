@@ -359,6 +359,9 @@
           <div class="foot-links">
             <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://apps.koczancraft.com" data-i18n="nav.apps"></a>
+            <!-- One stable link for every app's policy; the index lists them. Cross-origin, so
+                 the language rides along in ?lang= (set in applyLang). -->
+            <a id="privacyLink" href="https://apps.koczancraft.com/privacy.html" data-i18n="footer.privacy"></a>
             <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
           </div>
           <p class="copyright">© 2026 Koczan Craft · <span data-i18n="footer.tagline"></span></p>
@@ -396,6 +399,7 @@
         "apps.cta": "Learn more",
         "apps.more": "Explore all apps",
         "footer.more": "More crafts are on the way.",
+        "footer.privacy": "Privacy",
         "footer.contact": "Contact",
         "footer.tagline": "Handmade things, by one person."
       },
@@ -426,6 +430,7 @@
         "apps.cta": "詳しく見る",
         "apps.more": "すべてのアプリを見る",
         "footer.more": "つくるものは、まだまだ増えていきます。",
+        "footer.privacy": "プライバシー",
         "footer.contact": "お問い合わせ",
         "footer.tagline": "一人でつくる、手作りのものたち。"
       }
@@ -441,6 +446,8 @@
       document.querySelectorAll("[data-setlang]").forEach(function (b) {
         b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
       });
+      var pl = document.getElementById("privacyLink");
+      if (pl) pl.href = "https://apps.koczancraft.com/privacy.html?lang=" + lang;
       try { localStorage.setItem("lang", lang); } catch (e) {}
     }
     // /en and /jp are shareable, language-pinned URLs (see vercel.json rewrites).

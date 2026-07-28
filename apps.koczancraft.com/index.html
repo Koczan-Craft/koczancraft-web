@@ -215,8 +215,9 @@
         <div class="foot-links">
           <a href="https://koczancraft.com">koczancraft.com</a>
           <a href="https://www.instagram.com/koczancraft/" target="_blank" rel="noopener">Instagram</a>
-          <!-- Privacy → the MTG app's policy; href is set per-language in applyLang() so EN→EN, JA→JA. -->
-          <a id="privacyLink" href="https://mtgdraftcompanion.koczancraft.com/privacy.html" data-i18n="footer.privacy"></a>
+          <!-- Privacy → the policy index, which lists one row per app. Same origin, so the
+               language choice carries over in localStorage; no ?lang= needed here. -->
+          <a href="privacy.html" data-i18n="footer.privacy"></a>
           <a href="mailto:contact@koczancraft.com" data-i18n="footer.contact"></a>
         </div>
       </div>
@@ -281,9 +282,6 @@
       document.querySelectorAll("[data-setlang]").forEach(function (b) {
         b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
       });
-      // Carry the language across to the MTG privacy page (different origin → no shared storage).
-      var pl = document.getElementById("privacyLink");
-      if (pl) pl.href = "https://mtgdraftcompanion.koczancraft.com/privacy.html?lang=" + lang;
       try { localStorage.setItem("lang", lang); } catch (e) {}
     }
     document.querySelectorAll("[data-setlang]").forEach(function (b) {

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policies | Koczan Craft Apps</title>
+  <meta name="description" content="Privacy policies for Koczan Craft apps. Each app has its own policy, because each one handles data differently." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Koczan Craft" />
+  <meta property="og:title" content="Privacy Policies | Koczan Craft Apps" />
+  <meta property="og:description" content="Each Koczan Craft app has its own privacy policy. Find the one you're looking for." />
+  <meta property="og:url" content="https://apps.koczancraft.com/privacy.html" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a3a50'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23e0bd84'%3EK%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a3a50;
+      --panel: rgba(255,255,255,.05);
+      --panel-line: rgba(255,255,255,.1);
+      --ink: #e9f2f6;
+      --muted: #a9c4cf;
+      --muted-2: #9fb8c2;
+      --line: rgba(255,255,255,.08);
+      --gold: #e0bd84;
+      --gold-2: #d8b074;
+      --link: #9fd4e6;
+      --maxw: 1080px;
+      --serif: "Cormorant Garamond", "Noto Serif JP", Georgia, "Times New Roman", serif;
+      --sans: "Hanken Grotesk", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    :lang(ja) { --serif: "Noto Serif JP", "Cormorant Garamond", serif; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    header { position: sticky; top: 0; z-index: 50; background: rgba(10,58,80,0.78); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--line); }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+    .brand .wordmark { height: 22px; width: auto; display: block; opacity: .96; }
+    .brand.foot-brand .wordmark { height: 20px; opacity: .92; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .back-home { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; white-space: nowrap; }
+    .back-home:hover { color: var(--ink); }
+    .lang-toggle { display: inline-flex; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; overflow: hidden; }
+    .lang-toggle button { font: inherit; font-size: 12px; font-weight: 600; padding: 7px 14px; border: 0; background: transparent; color: var(--muted-2); cursor: pointer; line-height: 1; }
+    .lang-toggle button.active { background: #eaf3f7; color: #0a3a50; }
+
+    .head { padding: 84px 0 40px; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--link); margin-bottom: 20px; }
+    .head h1 { font-family: var(--serif); font-weight: 500; line-height: 1.06; font-size: clamp(34px, 5.6vw, 50px); color: #f3f9fb; margin-bottom: 22px; }
+    .head p { max-width: 620px; font-size: 17px; line-height: 1.7; color: var(--muted); }
+
+    /* One row per app — adding an app is one <a class="policy"> block. */
+    .policy-list { display: grid; gap: 16px; padding-bottom: 28px; }
+    .policy {
+      text-decoration: none; color: inherit;
+      display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center;
+      background: var(--panel); border: 1px solid var(--panel-line); border-radius: 20px; padding: 26px 28px;
+      transition: transform .22s ease, border-color .22s ease;
+    }
+    .policy:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.22); }
+    .policy .app-icon { width: 62px; height: 62px; border-radius: 15px; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 10px 26px -14px rgba(0,0,0,.7); }
+    .policy h2 { font-family: var(--serif); font-weight: 600; font-size: 25px; margin-bottom: 6px; color: #f3f9fb; }
+    .policy p { font-size: 14.5px; line-height: 1.6; color: var(--muted); max-width: 560px; }
+    .policy .go { justify-self: end; font-size: 13px; font-weight: 600; color: var(--gold-2); white-space: nowrap; }
+
+    .note { border: 1px dashed rgba(255,255,255,.18); border-radius: 18px; padding: 24px 28px; margin-bottom: 96px; }
+    .note h3 { font-family: var(--serif); font-weight: 500; font-size: 20px; color: #eaf3f7; margin-bottom: 8px; }
+    .note p { font-size: 14.5px; color: var(--muted-2); }
+    .note a { color: var(--link); }
+
+    footer { border-top: 1px solid var(--line); padding: 52px 0; }
+    .foot-grid { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .foot-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted-2); text-decoration: none; }
+    .foot-links a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) {
+      .head { padding: 56px 0 32px; }
+      .policy { grid-template-columns: auto 1fr; gap: 18px; padding: 22px; }
+      .policy .go { grid-column: 1 / -1; justify-self: start; }
+      .policy .app-icon { width: 52px; height: 52px; }
+    }
+    @media (max-width: 480px) {
+      .back-home { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <a class="brand" href="index.html" aria-label="Koczan Craft Apps">
+        <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
+      </a>
+      <div class="nav-right">
+        <a class="back-home" href="index.html" data-i18n="nav.allApps"></a>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button data-setlang="en" class="active">EN</button>
+          <button data-setlang="ja">日本語</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap head">
+      <p class="eyebrow" data-i18n="p.kicker"></p>
+      <h1 data-i18n="p.title"></h1>
+      <p data-i18n="p.lead"></p>
+    </section>
+
+    <div class="wrap">
+      <div class="policy-list">
+        <!-- Each app links to its own canonical policy, on its own subdomain — that URL is what
+             the App Store / Play Console listings point at. `data-policy` holds the base URL;
+             applyLang() appends ?lang= so the language carries across the origin boundary. -->
+        <a class="policy" data-policy="https://mtgdraftcompanion.koczancraft.com/privacy.html">
+          <img class="app-icon" src="assets/mtg-icon.png" alt="MTG Draft Companion app icon" />
+          <div>
+            <h2>MTG Draft Companion</h2>
+            <p data-i18n="p.mtg"></p>
+          </div>
+          <span class="go" data-i18n="p.read"></span>
+        </a>
+
+        <a class="policy" data-policy="https://recipetune.koczancraft.com/privacy.html">
+          <img class="app-icon" src="assets/recipetune-icon.png" alt="RecipeTune app icon" />
+          <div>
+            <h2 data-i18n="p.rtName"></h2>
+            <p data-i18n="p.rt"></p>
+          </div>
+          <span class="go" data-i18n="p.read"></span>
+        </a>
+      </div>
+
+      <div class="note">
+        <h3 data-i18n="p.noteTitle"></h3>
+        <p data-i18n="p.noteBody"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand foot-brand" href="https://koczancraft.com" aria-label="Koczan Craft">
+          <img class="wordmark" src="assets/wordmark-white.png" alt="Koczan Craft" />
+        </a>
+        <div class="foot-links">
+          <a href="https://koczancraft.com">koczancraft.com</a>
+          <a href="index.html" data-i18n="nav.allApps"></a>
+          <a href="mailto:privacy@koczancraft.com">privacy@koczancraft.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var I18N = {
+      en: {
+        "nav.allApps": "All apps",
+        "p.kicker": "Koczan Craft · Apps",
+        "p.title": "Privacy policies.",
+        "p.lead": "Every app gets its own policy, because every app handles data differently. Pick the app you're using — each policy is available in English and 日本語.",
+        "p.read": "Read policy →",
+        "p.mtg": "Account and group data in Firebase. Drafts, matches and decks are shared with your playgroup. Usage analytics and advertising.",
+        "p.rtName": "RecipeTune",
+        "p.rt": "Recipes stay private to you — nothing is shared with other users. Imported recipe photos are read by OpenAI. No analytics; advertising is always non-personalised.",
+        "p.noteTitle": "Questions, or a deletion request?",
+        "p.noteBody": "Each policy has its own contact section, but you can always reach us directly at privacy@koczancraft.com.",
+        "footer.contact": "Contact"
+      },
+      ja: {
+        "nav.allApps": "アプリ一覧",
+        "p.kicker": "Koczan Craft · アプリ",
+        "p.title": "プライバシーポリシー",
+        "p.lead": "アプリごとにデータの扱い方が異なるため、ポリシーもアプリごとに用意しています。ご利用中のアプリをお選びください。各ポリシーは英語と日本語でご覧いただけます。",
+        "p.read": "ポリシーを読む →",
+        "p.mtg": "アカウントとグループのデータを Firebase に保存。ドラフト・対戦・デッキは所属グループ内で共有されます。利用解析と広告あり。",
+        "p.rtName": "レシピチューン",
+        "p.rt": "レシピは非公開で、他のユーザーと共有されることはありません。取り込んだレシピ画像は OpenAI が読み取ります。解析ツールは不使用、広告は常に非パーソナライズです。",
+        "p.noteTitle": "ご質問・削除のご依頼",
+        "p.noteBody": "各ポリシーにお問い合わせ先を記載していますが、privacy@koczancraft.com まで直接ご連絡いただくこともできます。",
+        "footer.contact": "お問い合わせ"
+      }
+    };
+
+    function applyLang(lang) {
+      var dict = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (dict[key] != null) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll("[data-setlang]").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-setlang") === lang);
+      });
+      // Each policy lives on its own subdomain, so localStorage isn't shared — carry the
+      // language in the URL instead. Every app policy honours ?lang=en|ja.
+      document.querySelectorAll("[data-policy]").forEach(function (a) {
+        a.href = a.getAttribute("data-policy") + "?lang=" + lang;
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+    document.querySelectorAll("[data-setlang]").forEach(function (b) {
+      b.addEventListener("click", function () { applyLang(b.getAttribute("data-setlang")); });
+    });
+
+    var saved;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    // ?lang= wins (e.g. arriving from a store listing), then a saved choice, then the browser.
+    var param = new URLSearchParams(location.search).get("lang");
+    var forced = (param === "en" || param === "ja") ? param : null;
+    applyLang(forced || saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en"));
+  </script>
+</body>
+</html>

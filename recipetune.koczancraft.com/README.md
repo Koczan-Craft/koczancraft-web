@@ -52,13 +52,14 @@ right copy at that point.
 `privacy.html` was written from the app's code, not from the MTG policy's shape. Differences that
 matter, all verified in `recipe-app-public`:
 
-- **Analytics/Crashlytics are disclosed but NOT YET IN THE APP.** `pubspec.yaml` has no
-  `firebase_analytics` and no `firebase_crashlytics` today. The policy describes them anyway,
-  because they are planned for launch and the policy only becomes binding at store submission.
-  This is deliberate over-disclosure (safe direction), but it must be reconciled: **either add both
-  SDKs before submitting, or delete the usage-&-diagnostics row in §1, the two providers in §5, and
-  the analytics paragraph in §6.** The store data-safety / privacy-label forms must describe what
-  the shipped binary actually does — those cannot over-disclose.
+- **No analytics or crash reporting.** `pubspec.yaml` has no `firebase_analytics` and no
+  `firebase_crashlytics`, so the policy says so plainly. **This is the policy's one deliberate
+  coupling to the app's build.** Analytics and Crashlytics are planned; the policy stays true to
+  the source until they ship, and is updated in the same change that adds them. Adding either SDK
+  without editing this file makes the policy false. What to add back when that happens: a
+  usage-&-diagnostics row in §1, both providers in §5, and an analytics paragraph in §6 (retitle it
+  "Analytics &amp; advertising") — in both languages. Keep the narrower claim that survives the
+  change: usage data never includes recipe content.
 - **No push notifications.** Cooking timers use `flutter_local_notifications` (device-scheduled);
   there is no FCM and no notification token, unlike the MTG app.
 - **Ads are always non-personalised.** `admob_ads_service.dart` hardcodes
