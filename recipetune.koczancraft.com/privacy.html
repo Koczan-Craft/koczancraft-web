@@ -109,8 +109,10 @@
       <p><strong>The short version.</strong> Your recipes live on your device and are visible only
       to you — nothing in RecipeTune is shared with other users or made public. We do not use any
       analytics or crash-reporting service, so we do not track which screens you visit or what you
-      cook. Ads are always non-personalised. The one time your data leaves your device by design is
-      recipe import: the photo you choose is sent to OpenAI to be read (see §3).</p>
+      cook. Ads can be personalised, but only if you allow it — you are asked, declining changes
+      nothing about how the app works, and you can change your answer later (see §6). The one time
+      your data leaves your device by design is recipe import: the photo you choose is sent to
+      OpenAI to be read (see §3).</p>
     </div>
 
     <h2>1. Data we handle</h2>
@@ -185,12 +187,21 @@
     may collect a device advertising identifier and limited device and ad-interaction information
     to deliver, cap and measure ads.</p>
     <ul>
-      <li><strong>Every ad request the app makes is non-personalised</strong>, for every user, in
-        every region — we do not ask AdMob to profile you or target ads at you based on your
-        behaviour. Because we do not track you across apps, the app does not show Apple's App
-        Tracking Transparency prompt.</li>
-      <li>Where required (for example the EEA and the UK), we show a Google-certified consent
-        prompt (UMP) before requesting any ad, and honour your choice.</li>
+      <li><strong>Ads are personalised only where your choices allow it.</strong> Where consent is
+        required (for example the EEA and the UK), we show a Google-certified consent prompt (UMP)
+        before requesting any ad and honour exactly what you choose there. Where consent is not
+        legally required, ads may be personalised — subject to the tracking permission below.</li>
+      <li><strong>On iOS we ask before using an advertising identifier.</strong> The app shows
+        Apple's App Tracking Transparency prompt, and if you decline, your ad requests stay
+        non-personalised. We do not ask on first launch — only after you have saved a recipe, so
+        you can see what the app actually does before deciding.</li>
+      <li><strong>Declining costs you nothing.</strong> Every feature works identically whether or
+        not you allow personalised ads. You can change your mind at any time from the app's
+        Settings, and on iOS in the system Settings app.</li>
+      <li>If your choice cannot be determined — for example you are offline when the app starts —
+        ads stay non-personalised.</li>
+      <li>We profile you for nothing except advertising: your recipes, searches and cooking are
+        never used to target ads, and we still run no analytics or crash-reporting service.</li>
       <li>Ads never appear over sign-in, and never while a cooking timer is running.</li>
     </ul>
     <p>Google's handling of ad data is described at
@@ -260,7 +271,9 @@
       <p><strong>要約。</strong>お客様のレシピは端末内に保存され、お客様ご本人のみが閲覧できます。
       本アプリには他のユーザーとの共有機能も公開機能もありません。当方は解析ツールもクラッシュ
       レポートツールも一切使用しておらず、どの画面を見たか、何を作ったかを追跡することはありません。
-      広告は常に非パーソナライズです。データが端末外に送信されるのは、レシピの取り込み時のみです。
+      広告はパーソナライズされる場合がありますが、お客様が許可された場合に限ります。許可を求める
+      確認が表示され、拒否してもアプリの動作は一切変わりません。後から変更することもできます
+      （第6項参照）。データが端末外に送信されるのは、レシピの取り込み時のみです。
       選択された写真が読み取りのため OpenAI に送信されます（第3項参照）。</p>
     </div>
 
@@ -336,12 +349,22 @@
     配信・表示回数の制御・効果測定のために、端末の広告識別子や限定的な端末・広告操作情報を収集する場合が
     あります。</p>
     <ul>
-      <li><strong>本アプリが行う広告リクエストは、すべてのユーザー・すべての地域において常に
-        非パーソナライズです</strong>。お客様のプロファイリングや行動に基づくターゲティングを AdMob に
-        要求することはありません。アプリをまたいだトラッキングを行わないため、AppleのApp Tracking
-        Transparencyの許可を求めるダイアログは表示されません。</li>
-      <li>必要な地域（EEA・英国など）では、広告リクエストの前にGoogle認定の同意フォーム（UMP）を表示し、
-        お客様の選択を尊重します。</li>
+      <li><strong>広告のパーソナライズは、お客様の選択が許可する場合に限り行われます。</strong>
+        同意が必要な地域（EEA・英国など）では、広告リクエストの前にGoogle認定の同意フォーム（UMP）を
+        表示し、そこでのお客様の選択をそのまま尊重します。同意が法的に必要でない地域では、下記の
+        トラッキング許可に従い、広告がパーソナライズされる場合があります。</li>
+      <li><strong>iOSでは、広告識別子を利用する前に許可を求めます。</strong>AppleのApp Tracking
+        Transparencyのダイアログを表示し、拒否された場合、広告リクエストは非パーソナライズのままです。
+        初回起動時には表示しません。アプリの動作をご確認いただけるよう、レシピを1件保存された後に
+        お尋ねします。</li>
+      <li><strong>拒否されても不利益はありません。</strong>パーソナライズ広告を許可されるかどうかに
+        かかわらず、すべての機能は同じように動作します。アプリの設定画面から、またiOSでは端末の
+        「設定」アプリから、いつでも変更できます。</li>
+      <li>お客様の選択を判別できない場合（起動時にオフラインの場合など）、広告は非パーソナライズの
+        ままとなります。</li>
+      <li>広告以外の目的でプロファイリングを行うことはありません。レシピ・検索・調理の内容が広告の
+        ターゲティングに使われることはなく、解析ツールやクラッシュレポートツールも引き続き
+        一切使用しません。</li>
       <li>サインイン画面や、調理タイマーの作動中に広告が表示されることはありません。</li>
     </ul>
     <p>Googleによる広告データの取り扱いは
