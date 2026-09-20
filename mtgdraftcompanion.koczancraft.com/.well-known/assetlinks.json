@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "jp.michalkoczan.draftcompanion",
+      "sha256_cert_fingerprints": [
+        "37:8A:8F:09:E2:18:85:91:FF:23:D6:65:71:9A:84:FD:2F:1D:76:AC:1A:6F:58:B1:59:30:F4:02:6E:38:AF:F3",
+        "A8:7C:1F:68:C2:C8:A4:8C:F8:AC:BB:44:0E:A4:6F:72:FE:FC:2B:FA:6F:68:0A:65:B0:A7:D6:99:7D:57:89:BB"
+      ]
+    }
+  }
+]
