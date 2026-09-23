@@ -99,7 +99,7 @@
   <!-- ============================ ENGLISH ============================ -->
   <div class="wrap" data-lang="en">
     <h1>Privacy Policy — RecipeTune</h1>
-    <p class="updated">Last updated: 28 July 2026</p>
+    <p class="updated">Last updated: 23 September 2026</p>
 
     <p class="lede">RecipeTune ("the app") turns recipe photos into structured recipes you can
     scale and cook from. It is developed by Koczan Craft ("we", "us"). This policy explains what
@@ -107,9 +107,10 @@
 
     <div class="callout">
       <p><strong>The short version.</strong> Your recipes live on your device and are visible only
-      to you — nothing in RecipeTune is shared with other users or made public. We do not use any
-      analytics or crash-reporting service, so we do not track which screens you visit or what you
-      cook. Ads can be personalised, but only if you allow it — you are asked, declining changes
+      to you — nothing in RecipeTune is shared with other users or made public. We use no
+      crash-reporting service. We do measure which screens are opened, so we can tell which
+      parts of the app are worth keeping, but never which recipe you opened or what you cook
+      (see §1a). Ads can be personalised, but only if you allow it — you are asked, declining changes
       nothing about how the app works, and you can change your answer later (see §6). The one time
       your data leaves your device by design is recipe import: the photo you choose is sent to
       OpenAI to be read (see §3).</p>
@@ -126,12 +127,29 @@
         <tr><td>Preferences — language, default servings, theme, display name, avatar</td><td>Your settings, applied across your devices</td><td>Cloud Firestore · Firebase Storage</td></tr>
         <tr><td>Import usage counter — a per-day count of imports</td><td>Rate limiting, to control cost and abuse</td><td>Cloud Firestore</td></tr>
         <tr><td>Advertising data — advertising identifier and ad-interaction data</td><td>Show and measure ads (see §6)</td><td>Google AdMob</td></tr>
+        <tr><td>Subscription status — whether you have an active Premium subscription, and which plan</td><td>Turn ads off and lift the scan limit for subscribers (see §6a)</td><td>RevenueCat · Apple App Store</td></tr>
       </table>
     </div>
-    <p><strong>What we do not collect:</strong> we use <strong>no analytics and no crash-reporting
-    service</strong> — no Google Analytics, no Firebase Analytics, no Crashlytics. We do not
-    collect your location or your contacts, we do not scan your photo library (you pick the
-    individual images yourself), and we do not sell your data.</p>
+    <p><strong>What we do not collect:</strong> we use <strong>no crash-reporting
+    service</strong>. We do not collect your location or your contacts, we do not scan your
+    photo library (you pick the individual images yourself), and we do not sell your data.</p>
+
+    <h2>1a. Usage measurement</h2>
+    <p>We measure how the app is used, through <strong>Firebase Analytics</strong>, so we can
+    see which parts of RecipeTune people actually use and which are not worth keeping. Two
+    kinds of measurement are recorded:</p>
+    <ul>
+      <li><strong>Which screen you opened.</strong> Each screen has a fixed name from a short
+      list written into the app, such as <code>recipe_list</code>, <code>recipe_detail</code>
+      or <code>settings</code>.</li>
+      <li><strong>A small set of named moments</strong> around scanning and payment, such as
+      <code>scan_started</code>, <code>free_quota_reached</code>, <code>paywall_viewed</code>
+      and <code>subscription_started</code>.</li>
+    </ul>
+    <p><strong>What these never carry.</strong> A measurement contains its own name and
+    nothing else. It never contains a recipe, an ingredient, a search, a photo, a file name, a
+    title, or any text you typed. Opening a recipe records that a recipe screen was opened; it
+    does not record <em>which</em> recipe. What you cook stays yours.</p>
 
     <h2>2. Accounts &amp; sign-in</h2>
     <p>RecipeTune is <strong>anonymous-first</strong>. On first launch the app creates an anonymous
@@ -180,6 +198,8 @@
         function. Google acts as our data processor.</li>
       <li><strong>OpenAI</strong> reads imported recipe images, as described in §3.</li>
       <li><strong>Google AdMob</strong> serves advertising in the app (see §6).</li>
+      <li><strong>RevenueCat</strong> records whether a subscription is active, on iOS only
+        (see §6a).</li>
     </ul>
 
     <h2>6. Advertising</h2>
@@ -201,12 +221,26 @@
       <li>If your choice cannot be determined — for example you are offline when the app starts —
         ads stay non-personalised.</li>
       <li>We profile you for nothing except advertising: your recipes, searches and cooking are
-        never used to target ads, and we still run no analytics or crash-reporting service.</li>
+        never used to target ads. What we do measure is described in §1a, and none of it is
+        used for advertising.</li>
       <li>Ads never appear over sign-in, and never while a cooking timer is running.</li>
     </ul>
     <p>Google's handling of ad data is described at
     <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>.
     We do not sell your personal data.</p>
+
+    <h2>6a. Subscriptions</h2>
+    <p>On iOS, RecipeTune offers an optional Premium subscription that removes ads and lifts
+    the limit on AI recipe scans. The Android version has no subscription.</p>
+    <p><strong>We never see your payment details.</strong> The purchase happens through the
+    Apple App Store, which handles the card and the billing. Apple tells us only whether a
+    subscription is active.</p>
+    <p>We use <strong>RevenueCat</strong> to keep track of that. RecipeTune sends it your
+    account identifier, the same anonymous one described in §2, so that your subscription
+    follows your account across your devices. It receives no recipes, no photos and no email
+    address.</p>
+    <p>Cancelling is done in your Apple ID settings, not in the app. Cancelling stops the
+    renewal; your recipes are untouched and the app keeps working on the free tier.</p>
 
     <h2>7. On-device data &amp; offline use</h2>
     <p>RecipeTune is <strong>local-first</strong>: your recipes are stored in a database on your
@@ -260,7 +294,7 @@
   <!-- ============================ 日本語 ============================ -->
   <div class="wrap" data-lang="ja" hidden>
     <h1>プライバシーポリシー — レシピチューン</h1>
-    <p class="updated">最終更新日：2026年7月28日</p>
+    <p class="updated">最終更新日：2026年9月23日</p>
 
     <p class="lede">レシピチューン（RecipeTune、以下「本アプリ」）は、レシピの写真を、分量調整や調理に使える形の
     レシピに変換するアプリであり、Koczan Craft（以下「当方」）が開発・提供しています。本ポリシーは、
@@ -269,8 +303,10 @@
 
     <div class="callout">
       <p><strong>要約。</strong>お客様のレシピは端末内に保存され、お客様ご本人のみが閲覧できます。
-      本アプリには他のユーザーとの共有機能も公開機能もありません。当方は解析ツールもクラッシュ
-      レポートツールも一切使用しておらず、どの画面を見たか、何を作ったかを追跡することはありません。
+      本アプリには他のユーザーとの共有機能も公開機能もありません。クラッシュレポートツールは
+      使用していません。どの画面が開かれたかは計測しており、アプリのどの部分が使われているかを
+      把握するために利用しますが、どのレシピを開いたか、何を作ったかを記録することはありません
+      （第1a項参照）。
       広告はパーソナライズされる場合がありますが、お客様が許可された場合に限ります。許可を求める
       確認が表示され、拒否してもアプリの動作は一切変わりません。後から変更することもできます
       （第6項参照）。データが端末外に送信されるのは、レシピの取り込み時のみです。
@@ -288,12 +324,28 @@
         <tr><td>設定（言語、既定の人数、テーマ、表示名、アバター）</td><td>お客様の設定を各端末に反映するため</td><td>Cloud Firestore・Firebase Storage</td></tr>
         <tr><td>取り込み回数のカウンタ（1日あたり）</td><td>コストと不正利用を抑えるための利用制限</td><td>Cloud Firestore</td></tr>
         <tr><td>広告データ（広告識別子・広告操作データ）</td><td>広告の表示と効果測定（第6項参照）</td><td>Google AdMob</td></tr>
+        <tr><td>サブスクリプションの状態（有効かどうか、どのプランか）</td><td>登録者の広告を非表示にし、読み取り回数の上限をなくすため（第6a項参照）</td><td>RevenueCat・Apple App Store</td></tr>
       </table>
     </div>
-    <p><strong>収集しないもの：</strong>当方は<strong>解析ツールもクラッシュレポートツールも一切
-    使用していません</strong>（Google Analytics、Firebase Analytics、Crashlytics のいずれも不使用）。
+    <p><strong>収集しないもの：</strong>当方は<strong>クラッシュレポートツールを使用していません</strong>。
     位置情報や連絡先を収集することはなく、フォトライブラリをスキャンすることもありません（画像は
     お客様ご自身が個別に選択します）。お客様のデータを販売することもありません。</p>
+
+    <h2>1a. 利用状況の計測</h2>
+    <p>アプリのどの部分が実際に使われているかを把握するため、<strong>Firebase Analytics</strong> を
+    使用して利用状況を計測しています。記録するのは次の2種類のみです。</p>
+    <ul>
+      <li><strong>開かれた画面。</strong>画面ごとにあらかじめ決められた名前があり、
+      <code>recipe_list</code>、<code>recipe_detail</code>、<code>settings</code> のように、
+      アプリ内に書かれた短い一覧の中から選ばれます。</li>
+      <li><strong>読み取りと課金に関する限られた出来事。</strong><code>scan_started</code>、
+      <code>free_quota_reached</code>、<code>paywall_viewed</code>、
+      <code>subscription_started</code> などです。</li>
+    </ul>
+    <p><strong>記録されないもの。</strong>計測に含まれるのはその名前だけです。レシピ、材料、検索語、
+    写真、ファイル名、タイトル、お客様が入力した文字は一切含まれません。レシピを開いたことは
+    「レシピ画面が開かれた」としてのみ記録され、<em>どの</em>レシピかは記録されません。
+    何を作るかはお客様のものです。</p>
 
     <h2>2. アカウントとサインイン</h2>
     <p>本アプリは<strong>匿名利用が前提</strong>です。初回起動時に匿名アカウントが自動的に作成され、
@@ -342,6 +394,8 @@
         Googleは当方のデータ処理者です。</li>
       <li><strong>OpenAI</strong> が、第3項に記載のとおり取り込んだレシピ画像を読み取ります。</li>
       <li><strong>Google AdMob</strong> がアプリ内の広告を配信します（第6項参照）。</li>
+      <li><strong>RevenueCat</strong> が、サブスクリプションが有効かどうかを記録します
+        （iOSのみ。第6a項参照）。</li>
     </ul>
 
     <h2>6. 広告</h2>
@@ -363,13 +417,25 @@
       <li>お客様の選択を判別できない場合（起動時にオフラインの場合など）、広告は非パーソナライズの
         ままとなります。</li>
       <li>広告以外の目的でプロファイリングを行うことはありません。レシピ・検索・調理の内容が広告の
-        ターゲティングに使われることはなく、解析ツールやクラッシュレポートツールも引き続き
-        一切使用しません。</li>
+        ターゲティングに使われることはありません。計測している内容は第1a項のとおりで、そのいずれも
+        広告には使用していません。</li>
       <li>サインイン画面や、調理タイマーの作動中に広告が表示されることはありません。</li>
     </ul>
     <p>Googleによる広告データの取り扱いは
     <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a>
     に記載されています。当方がお客様の個人データを販売することはありません。</p>
+
+    <h2>6a. サブスクリプション</h2>
+    <p>iOS版では、広告を非表示にし、AIによるレシピ読み取りの回数制限をなくす「Premium」
+    サブスクリプション（任意）をご利用いただけます。Android版にサブスクリプションはありません。</p>
+    <p><strong>お支払い情報を当方が受け取ることはありません。</strong>購入手続きは Apple App Store
+    が行い、カード情報と請求もAppleが扱います。当方が受け取るのは、サブスクリプションが有効か
+    どうかのみです。</p>
+    <p>その管理には <strong>RevenueCat</strong> を使用しています。お客様のサブスクリプションが
+    複数の端末でアカウントに紐づくよう、第2項に記載の匿名のアカウント識別子のみを送信します。
+    レシピ、写真、メールアドレスが送られることはありません。</p>
+    <p>解約はアプリ内ではなく、Apple IDの設定から行います。解約しても更新が停止するだけで、
+    レシピはそのまま残り、無料プランとしてアプリを引き続きご利用いただけます。</p>
 
     <h2>7. 端末内のデータとオフライン利用</h2>
     <p>本アプリは<strong>ローカルファースト</strong>です。レシピは端末内のデータベースに保存され、
