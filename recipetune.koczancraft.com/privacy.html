@@ -131,7 +131,9 @@
       </table>
     </div>
     <p><strong>What we do not collect:</strong> we use <strong>no crash-reporting
-    service</strong>. We do not collect your location or your contacts, we do not scan your
+    service</strong>. We never ask for your device's location (GPS) or your contacts. Google
+    Analytics and Google AdMob estimate a rough region, such as your country or city, from your
+    IP address (see §1a and §6). We do not scan your
     photo library (you pick the individual images yourself), and we do not sell your data.</p>
 
     <h2>1a. Usage measurement</h2>
@@ -150,6 +152,10 @@
     nothing else. It never contains a recipe, an ingredient, a search, a photo, a file name, a
     title, or any text you typed. Opening a recipe records that a recipe screen was opened; it
     does not record <em>which</em> recipe. What you cook stays yours.</p>
+    <p><strong>What Firebase adds on its own.</strong> Like any app using Firebase Analytics,
+    each measurement also carries a random app-install identifier, your device model and OS
+    version, the app version, and a rough region worked out from your IP address. None of this
+    is tied to your account or your email, and it is not used to track you across other apps.</p>
 
     <h2>2. Accounts &amp; sign-in</h2>
     <p>RecipeTune is <strong>anonymous-first</strong>. On first launch the app creates an anonymous
@@ -328,7 +334,8 @@
       </table>
     </div>
     <p><strong>収集しないもの：</strong>当方は<strong>クラッシュレポートツールを使用していません</strong>。
-    位置情報や連絡先を収集することはなく、フォトライブラリをスキャンすることもありません（画像は
+    端末の位置情報（GPS）や連絡先へのアクセスを求めることはありません。ただし、Google AnalyticsとGoogle AdMobは、
+    IPアドレスから国や都市程度のおおまかな地域を推定します（§1aと§6をご覧ください）。フォトライブラリをスキャンすることもありません（画像は
     お客様ご自身が個別に選択します）。お客様のデータを販売することもありません。</p>
 
     <h2>1a. 利用状況の計測</h2>
@@ -346,6 +353,10 @@
     写真、ファイル名、タイトル、お客様が入力した文字は一切含まれません。レシピを開いたことは
     「レシピ画面が開かれた」としてのみ記録され、<em>どの</em>レシピかは記録されません。
     何を作るかはお客様のものです。</p>
+    <p><strong>Firebaseが自動で付け加えるもの。</strong>Firebase Analyticsを使うアプリと同じく、
+    計測にはアプリのインストールごとのランダムなID、端末の機種とOSのバージョン、アプリのバージョン、
+    IPアドレスから推定したおおまかな地域が付きます。これらはお客様のアカウントやメールアドレスとは
+    結び付けられず、他のアプリをまたいだ追跡にも使われません。</p>
 
     <h2>2. アカウントとサインイン</h2>
     <p>本アプリは<strong>匿名利用が前提</strong>です。初回起動時に匿名アカウントが自動的に作成され、
