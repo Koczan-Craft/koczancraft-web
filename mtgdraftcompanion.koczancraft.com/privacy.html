@@ -60,7 +60,7 @@
   <!-- ============================ ENGLISH ============================ -->
   <div class="wrap" data-lang="en">
     <h1>Privacy Policy — <span class="accent">MTG</span> Draft Companion</h1>
-    <p class="updated">Last updated: 17 August 2026</p>
+    <p class="updated">Last updated: 22 September 2026</p>
 
     <p>MTG Draft Companion ("the app") is a companion app for Magic: The Gathering draft
     nights, developed by Koczan Craft ("we", "us"). This policy explains what
@@ -73,7 +73,7 @@
       <tr><td>Display name &amp; player color</td><td>Shown to members of your groups</td><td>Firebase / Firestore</td></tr>
       <tr><td>Groups, drafts, match results, deck lists</td><td>Core app features; shared only with members of the group they belong to</td><td>Cloud Firestore</td></tr>
       <tr><td>Push notification token</td><td>Notify you about activity in your groups, such as a new draft</td><td>Firebase Cloud Messaging / Firestore</td></tr>
-      <tr><td>Usage &amp; diagnostics — screens viewed and features used, app version, device model, coarse region, crash data</td><td>Improve the app and fix crashes (see §5)</td><td>Google Analytics for Firebase</td></tr>
+      <tr><td>Usage &amp; diagnostics — screens viewed and features used, app version, device model, coarse region, crash data</td><td>Improve the app and fix crashes (see §5)</td><td>Google Analytics for Firebase; Firebase Crashlytics (crash data)</td></tr>
       <tr><td>Advertising data — advertising identifier and ad-interaction data</td><td>Show and measure ads (see §5)</td><td>Google AdMob</td></tr>
       <tr><td>Purchase status — whether you bought the optional ad-free upgrade, and the store transaction identifier for it</td><td>Apply your ad-free purchase on every device you sign in on, and restore it if you reinstall</td><td>Apple App Store / Cloud Firestore</td></tr>
     </table>
@@ -109,14 +109,26 @@
         Card lookups are made from your device; no account data is sent to Scryfall.</li>
       <li><strong>Google Analytics for Firebase</strong> collects aggregate app-usage and
         diagnostic data (see §5).</li>
+      <li><strong>Firebase Crashlytics</strong> collects crash reports — the stack trace, app
+        version, and device model at the moment of a crash — so faults can be diagnosed and fixed
+        (see §5).</li>
       <li><strong>Google AdMob</strong> serves advertising in the app (see §5).</li>
     </ul>
 
     <h2>5. Advertising &amp; analytics</h2>
     <p><strong>Analytics.</strong> We use <strong>Google Analytics for Firebase</strong> to
-    understand how the app is used — which features and screens are popular, crash and
-    diagnostic information, and aggregate statistics such as active users and retention. This is
-    tied to an app-instance identifier, used in aggregate to improve the app, and not sold.</p>
+    understand how the app is used — which features and screens are popular, and aggregate
+    statistics such as active users and retention. This is tied to an app-instance identifier, used
+    in aggregate to improve the app, and not sold.</p>
+    <p><strong>Crash reports.</strong> We use <strong>Firebase Crashlytics</strong> to find and fix
+    faults. When the app crashes it sends a report containing the stack trace, the app version, and
+    the device model and operating-system version. We do not attach your name, email address, group
+    contents, deck lists, or any card or text you entered.</p>
+    <p><strong>Your choice governs both.</strong> Analytics and crash reporting are switched
+    <em>off</em> when the app starts and are enabled only if your privacy choice permits it. If you
+    decline — or if the consent prompt cannot be shown or fails — neither is enabled, and nothing is
+    collected by them. You can change this later from Account → Legal &amp; Privacy, and the change
+    takes effect immediately, without restarting the app.</p>
     <p><strong>Advertising.</strong> The app is free and supported by advertising through
     <strong>Google AdMob</strong>.
     AdMob may collect a device advertising identifier and limited device and ad-interaction
@@ -184,7 +196,7 @@
   <!-- ============================ 日本語 ============================ -->
   <div class="wrap" data-lang="ja" hidden>
     <h1>プライバシーポリシー — <span class="accent">MTG</span> Draft Companion</h1>
-    <p class="updated">最終更新日：2026年8月17日</p>
+    <p class="updated">最終更新日：2026年9月22日</p>
 
     <p>MTG Draft Companion（以下「本アプリ」）は、マジック：ザ・ギャザリングのドラフト用
     コンパニオンアプリであり、Koczan Craft（以下「当方」）が開発・提供しています。
@@ -198,7 +210,7 @@
       <tr><td>表示名・プレイヤーカラー</td><td>所属グループのメンバーに表示するため</td><td>Firebase / Firestore</td></tr>
       <tr><td>グループ、ドラフト、対戦結果、デッキリスト</td><td>本アプリの中核機能。所属グループのメンバー間でのみ共有</td><td>Cloud Firestore</td></tr>
       <tr><td>プッシュ通知トークン</td><td>新しいドラフトの作成など、グループ内のアクティビティを通知するため</td><td>Firebase Cloud Messaging / Firestore</td></tr>
-      <tr><td>アプリの利用状況・診断データ（閲覧画面や使用機能、アプリのバージョン、端末モデル、おおまかな地域、クラッシュ情報）</td><td>アプリの改善とクラッシュの修正のため（第5項参照）</td><td>Google Analytics for Firebase</td></tr>
+      <tr><td>アプリの利用状況・診断データ（閲覧画面や使用機能、アプリのバージョン、端末モデル、おおまかな地域、クラッシュ情報）</td><td>アプリの改善とクラッシュの修正のため（第5項参照）</td><td>Google Analytics for Firebase／Firebase Crashlytics（クラッシュ情報）</td></tr>
       <tr><td>広告データ（広告識別子・広告操作データ）</td><td>広告の表示と効果測定（第5項参照）</td><td>Google AdMob</td></tr>
       <tr><td>購入状況（任意の広告非表示の購入を行ったかどうか、およびストアの取引ID）</td><td>サインインしたすべての端末で広告非表示を適用し、再インストール時に復元するため</td><td>Apple App Store / Cloud Firestore</td></tr>
     </table>
@@ -233,14 +245,25 @@
         カード情報の取得はお客様の端末から行われ、アカウントデータがScryfallに送信されることはありません。</li>
       <li><strong>Google Analytics for Firebase</strong> が、集計されたアプリ利用状況・診断データを
         収集します（第5項参照）。</li>
+      <li><strong>Firebase Crashlytics</strong> が、クラッシュレポート（クラッシュ時のスタックトレース、
+        アプリのバージョン、端末モデル）を収集します。不具合の原因究明と修正のために利用します（第5項参照）。</li>
       <li><strong>Google AdMob</strong> がアプリ内の広告を配信します（第5項参照）。</li>
     </ul>
 
     <h2>5. 広告と解析</h2>
     <p><strong>解析。</strong>当方は <strong>Google Analytics for Firebase</strong> を使用し、
-    どの機能・画面がよく使われているか、クラッシュ・診断情報、アクティブユーザー数や継続率といった
-    集計統計など、アプリの利用状況を把握します。これはアプリインスタンス識別子に紐付き、集計データとして
+    どの機能・画面がよく使われているか、アクティブユーザー数や継続率といった集計統計など、
+    アプリの利用状況を把握します。これはアプリインスタンス識別子に紐付き、集計データとして
     アプリの改善に利用され、販売されることはありません。</p>
+    <p><strong>クラッシュレポート。</strong>当方は <strong>Firebase Crashlytics</strong> を使用し、
+    不具合の発見と修正を行います。アプリがクラッシュした際に、スタックトレース、アプリのバージョン、
+    端末モデルおよびOSのバージョンを含むレポートが送信されます。お名前・メールアドレス・グループの内容・
+    デッキリスト、お客様が入力したカード名やテキストが添付されることはありません。</p>
+    <p><strong>いずれもお客様の選択に従います。</strong>解析とクラッシュレポートは、アプリの起動時には
+    <em>オフ</em>の状態で、お客様のプライバシー設定が許可した場合にのみ有効になります。許可しなかった場合、
+    また同意フォームを表示できなかった場合や処理に失敗した場合は、どちらも有効にならず、これらによる
+    収集は行われません。設定は「アカウント → 法的情報とプライバシー」からいつでも変更でき、
+    変更はアプリを再起動しなくても直ちに反映されます。</p>
     <p><strong>広告。</strong>本アプリは無料で、<strong>Google AdMob</strong> による広告で
     支えられています。AdMobは、広告の
     配信・表示回数の制御・効果測定のために、端末の広告識別子や限定的な端末・広告操作情報を収集する場合が
