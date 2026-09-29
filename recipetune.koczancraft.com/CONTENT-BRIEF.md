@@ -1,5 +1,12 @@
 # RecipeTune landing page — content brief
 
+> **Superseded for copy on 29 Sep 2026.** The page was rewritten for launch (app in
+> App Store review): its claims now mirror the approved App Store listing in
+> `recipe-app-public/docs/release/v1.0.0/ios/store-listing.md`, and its gallery uses
+> the App Store images. The pre-launch framing below (no store badges, notify form)
+> no longer applies. When the app is live, turn the "Coming soon" pill into a link to
+> its App Store page.
+
 This is the source-of-truth brief for designing `recipetune.koczancraft.com`. It compresses
 everything from the app repo (`recipe-app-public`) that a designer/copywriter needs — one-liners,
 features, selling points, competitive framing, brand tokens, and copy — so a design pass (e.g.

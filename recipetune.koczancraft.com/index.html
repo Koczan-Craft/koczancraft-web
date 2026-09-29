@@ -1,723 +1,422 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RecipeTune | Turn a recipe screenshot into something you can cook</title>
-  <meta name="description" content="RecipeTune organizes recipe photos — Japanese included — into clean ingredients and steps, then adapts them to your servings, units, and kitchen. iOS &amp; Android." />
-  <link rel="canonical" href="https://recipetune.koczancraft.com/" />
-
-  <!-- Open Graph -->
+  <title>RecipeTune: screenshot a recipe, cook it for anyone</title>
+  <meta name="description" content="RecipeTune turns a screenshot or photo of any recipe into a clean recipe you can cook from, sized for however many people are eating. Coming soon to the App Store." />
+  <meta property="og:title" content="RecipeTune" />
+  <meta property="og:description" content="Screenshot a recipe, cook it for anyone. Servings, units, timers and a shopping list, in English and Japanese." />
+  <meta property="og:image" content="https://recipetune.koczancraft.com/assets/store/en/03.jpg" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Koczan Craft" />
-  <meta property="og:title" content="RecipeTune | Turn a recipe screenshot into something you can cook" />
-  <meta property="og:description" content="Reads your recipe photos in English or Japanese, organizes them into ingredients and steps, then scales them to your servings and units." />
-  <meta property="og:url" content="https://recipetune.koczancraft.com/" />
-  <meta property="og:image" content="https://recipetune.koczancraft.com/icon.png" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
-  <meta property="og:image:alt" content="RecipeTune" />
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="RecipeTune | Turn a recipe screenshot into something you can cook" />
-  <meta name="twitter:description" content="Reads your recipe photos in English or Japanese, organizes them into ingredients and steps, then scales them to your servings and units." />
-  <meta name="twitter:image" content="https://recipetune.koczancraft.com/icon.png" />
-
-  <link rel="icon" href="icon.png" type="image/png" />
+  <link rel="icon" href="icon.png" />
   <link rel="apple-touch-icon" href="icon.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
+      --bg: #FFFFFF;
+      --bg-subtle: #F6F6F4;
       --ink: #1A1A1A;
-      --muted: #6B6B6B;
-      --faint: #9A9A9A;
+      --ink-2: #6B6B6B;
       --line: #EDEDED;
-      --surface: #F6F6F4;
-      --coral: #F0674A;
-      --coral-dark: #D8543A;
-      --coral-tint: #FCEBE7;
-      --coral-deep: #8A3D2B;
-      --wrap: 1120px;
+      --accent: #F0674A;
+      --accent-tint: #FCEBE7;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+      --radius-lg: 20px;
+      --radius-xl: 24px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: #fff;
+      background: var(--bg);
       color: var(--ink);
-      font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Inter", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    ::selection { background: var(--coral-tint); color: var(--ink); }
-    a { color: var(--coral-dark); text-decoration: none; }
-    img { max-width: 100%; }
-    h1, h2 { text-wrap: balance; }
-    p { text-wrap: pretty; }
-    .wrap { max-width: var(--wrap); margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+    html[lang="ja"] body { font-family: "Noto Sans JP", "Inter", system-ui, sans-serif; }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    section { scroll-margin-top: 80px; }
 
-    /* ---- topbar ---- */
-    .topbar {
-      position: sticky; top: 0; z-index: 20;
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
       border-bottom: 1px solid var(--line);
     }
-    .topbar .wrap {
-      padding-top: 14px; padding-bottom: 14px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    header .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    header nav { display: flex; gap: 20px; margin-left: auto; font-size: 15px; color: var(--ink-2); }
+    header nav a { text-decoration: none; }
+    header nav a:hover { color: var(--ink); }
+    .lang { display: flex; background: var(--bg-subtle); border-radius: 999px; padding: 3px; }
+    .lang button {
+      border: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 500;
+      color: var(--ink-2); padding: 6px 12px; border-radius: 999px; cursor: pointer;
     }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand img { width: 32px; height: 32px; border-radius: 9px; display: block; }
-    .brand span { font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
-    .topbar-right { display: flex; align-items: center; gap: 28px; }
-    nav.links { display: flex; gap: 24px; font-size: 14.5px; font-weight: 500; }
-    nav.links a { color: var(--muted); }
-    nav.links a:hover { color: var(--ink); }
+    .lang button[aria-pressed="true"] { background: var(--bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 
-    .langs {
-      display: flex; border: 1px solid var(--line); border-radius: 999px;
-      padding: 3px; gap: 2px; background: var(--surface);
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding: 72px 20px 56px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500;
+      color: var(--accent); background: var(--accent-tint); padding: 6px 14px; border-radius: 999px;
     }
-    .langs button {
-      border: none; border-radius: 999px; padding: 7px 14px;
-      font-family: inherit; font-weight: 600; font-size: 13px; line-height: 1;
-      cursor: pointer; background: transparent; color: var(--faint);
+    .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: 52px; line-height: 1.1; letter-spacing: -0.02em; margin: 20px 0 16px; white-space: pre-line; }
+    html[lang="ja"] h1 { font-size: 44px; letter-spacing: 0; line-height: 1.25; }
+    .sub { font-size: 20px; color: var(--ink-2); margin: 0 0 28px; max-width: 34em; }
+    .store {
+      display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; border-radius: 999px;
+      background: var(--ink); color: #fff; font-weight: 600; font-size: 16px; text-decoration: none;
     }
-    .langs button.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(26,26,26,.10); }
-
-    /* ---- buttons ---- */
-    .btn-primary {
-      background: var(--coral); color: #fff; font-weight: 600; font-size: 16px;
-      padding: 16px 30px; border-radius: 999px; display: inline-block;
-    }
-    .btn-primary:hover { background: var(--coral-dark); color: #fff; }
-    .btn-ghost {
-      color: var(--ink); font-weight: 600; font-size: 16px;
-      padding: 16px 26px; border-radius: 999px; border: 1px solid var(--line); display: inline-block;
-    }
-    .btn-ghost:hover { background: var(--surface); color: var(--ink); }
-
-    /* ---- hero ---- */
-    .hero { padding-top: 88px; padding-bottom: 96px; display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: var(--coral-tint); color: var(--coral-dark);
-      font-weight: 600; font-size: 13px; padding: 8px 15px; border-radius: 999px; margin-bottom: 28px;
-    }
-    .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); display: block; }
-    .hero h1 { font-size: 56px; line-height: 1.08; letter-spacing: -.028em; font-weight: 700; margin: 0 0 24px; }
-    .hero .sub { font-size: 19px; line-height: 1.65; color: var(--muted); margin: 0 0 40px; max-width: 540px; }
-    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .hero-note { margin-top: 28px; font-size: 14px; color: var(--faint); }
-
-    /* ---- phone mockups ---- */
+    .store svg { width: 22px; height: 22px; fill: #fff; }
+    .note { font-size: 14px; color: var(--ink-2); margin-top: 14px; }
     .phone {
-      justify-self: center; width: 340px; max-width: 100%;
-      border-radius: 34px; background: #fff; border: 1px solid var(--line);
-      box-shadow: 0 30px 60px -30px rgba(26,26,26,.28), 0 4px 16px -6px rgba(26,26,26,.06);
-      padding: 14px;
+      width: 100%; max-width: 300px; border-radius: 44px; padding: 10px; background: #111;
+      box-shadow: var(--shadow); margin: 0 auto;
     }
-    .phone-inner { border-radius: 24px; background: var(--surface); padding: 20px 18px 22px; }
-    .mock-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .mock-head .t { font-weight: 600; font-size: 15px; }
-    .pill-flag { font-size: 12px; font-weight: 600; color: var(--coral-dark); background: var(--coral-tint); padding: 5px 10px; border-radius: 999px; }
-    .rows { display: flex; flex-direction: column; gap: 8px; }
-    .row {
-      display: flex; justify-content: space-between; align-items: center; gap: 12px;
-      background: #fff; border-radius: 12px; padding: 13px 14px; font-size: 14.5px;
-    }
-    .row .amt { color: var(--muted); }
-    .row.flagged { display: block; border: 1.5px solid var(--coral); }
-    .row.flagged .line { display: flex; justify-content: space-between; align-items: center; font-size: 14.5px; }
-    .row.flagged .amt { color: var(--ink); font-weight: 600; }
-    .row .hint { font-size: 12.5px; color: var(--coral-dark); margin-top: 7px; }
-    .row .scaled { font-weight: 600; white-space: nowrap; }
-    .mock-actions { display: flex; gap: 8px; margin-top: 18px; }
-    .mock-actions div { flex: 1; text-align: center; border-radius: 999px; padding: 12px; font-size: 14px; font-weight: 600; }
-    .mock-actions .discard { background: #fff; color: var(--muted); }
-    .mock-actions .save { background: var(--coral); color: #fff; }
+    .phone img { display: block; width: 100%; height: auto; border-radius: 34px; background: var(--bg-subtle); }
 
-    /* ---- sections ---- */
-    .band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .kicker { font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--coral-dark); margin-bottom: 16px; }
-    .split { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
-    .split h2 { font-size: 40px; line-height: 1.14; letter-spacing: -.024em; font-weight: 700; margin: 0 0 20px; }
-    .split .body { font-size: 17.5px; line-height: 1.7; color: var(--muted); margin: 0; }
-
-    .stack { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
-    .card {
-      background: #fff; border-radius: 18px; padding: 24px 26px;
-      box-shadow: 0 10px 24px -18px rgba(26,26,26,.35);
+    /* Gallery: the App Store images, swiped sideways */
+    .gallery { background: var(--bg-subtle); padding: 56px 0 48px; }
+    .gallery h2 { text-align: center; }
+    .strip {
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 12px max(20px, calc((100vw - 1080px) / 2 + 20px)) 28px;
+      scrollbar-width: thin;
     }
-    .card .t { font-weight: 600; font-size: 16.5px; margin-bottom: 7px; }
-    .card .d { font-size: 15px; line-height: 1.6; color: var(--muted); }
-
-    /* ---- adapt ---- */
-    .adapt { padding-top: 104px; padding-bottom: 104px; display: grid; grid-template-columns: 380px 1fr; gap: 72px; align-items: center; }
-    .adapt h2 { font-size: 40px; line-height: 1.14; letter-spacing: -.024em; font-weight: 700; margin: 0 0 20px; }
-    .adapt .body { font-size: 17.5px; line-height: 1.7; color: var(--muted); margin: 0 0 32px; max-width: 520px; }
-    .adapt .points { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 560px; }
-    .adapt .points .card { border: 1px solid var(--line); box-shadow: none; padding: 20px 22px; }
-    .adapt .points .card .t { font-size: 15.5px; margin-bottom: 6px; }
-    .adapt .points .card .d { font-size: 14.5px; }
-
-    .scale-recipe { font-weight: 600; font-size: 16px; margin-bottom: 16px; }
-    .stepper-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-    .stepper-row .lbl { font-size: 14.5px; color: var(--muted); }
-    .stepper { display: flex; align-items: center; gap: 4px; background: #fff; border-radius: 999px; padding: 4px; }
-    .stepper button {
-      width: 28px; height: 28px; border-radius: 999px; border: none; background: var(--surface);
-      color: var(--ink); font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1; cursor: pointer;
+    .strip figure { flex: 0 0 auto; width: 276px; margin: 0; scroll-snap-align: center; }
+    .strip img {
+      display: block; width: 100%; height: auto; border-radius: var(--radius-xl);
+      box-shadow: 0 6px 20px rgba(0,0,0,.06); background: var(--bg);
     }
-    .stepper button:hover:not(:disabled) { background: var(--coral-tint); color: var(--coral-dark); }
-    .stepper button:disabled { opacity: .35; cursor: default; }
-    .stepper .val { min-width: 78px; text-align: center; font-weight: 600; font-size: 14.5px; }
-    .scale-note { margin-top: 14px; background: var(--coral-tint); border-radius: 14px; padding: 13px 15px; font-size: 13px; line-height: 1.55; color: var(--coral-deep); }
+    .hint { text-align: center; font-size: 14px; color: var(--ink-2); margin: 0; }
 
-    /* ---- feature grid ---- */
-    .grid-sec { padding-top: 96px; padding-bottom: 96px; }
-    .grid-sec h2 { font-size: 34px; line-height: 1.16; letter-spacing: -.022em; font-weight: 700; margin: 0 0 12px; }
-    .grid-sec .lead { font-size: 17px; color: var(--muted); margin: 0 0 48px; max-width: 560px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .features .card { border-radius: 20px; padding: 28px 26px 30px; }
-    .features .mark {
-      width: 38px; height: 38px; border-radius: 11px; background: var(--coral-tint);
-      display: grid; place-items: center; margin-bottom: 20px;
-      font-weight: 700; font-size: 14px; color: var(--coral-dark);
-    }
-    .features .card .t { font-size: 17px; margin-bottom: 8px; }
-    .features .card .d { font-size: 15px; line-height: 1.65; }
+    /* Features */
+    .features { padding: 72px 20px; }
+    h2 { font-size: 36px; line-height: 1.2; letter-spacing: -0.01em; margin: 10px 0 16px; }
+    html[lang="ja"] h2 { font-size: 30px; letter-spacing: 0; line-height: 1.35; }
+    .kicker { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+    html[lang="ja"] .kicker { letter-spacing: .02em; }
+    .center { text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .grid.four { grid-template-columns: repeat(4, 1fr); }
+    .card { background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 24px; }
+    .card b { display: block; margin-bottom: 6px; font-size: 18px; }
+    .card span { color: var(--ink-2); font-size: 15px; }
+    .details { padding: 0 20px 72px; }
+    .details .card { background: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,.04); border: 1px solid var(--line); }
 
-    /* ---- why ---- */
-    .why { padding-top: 88px; padding-bottom: 88px; border-bottom: 1px solid var(--line); }
-    .why h2 { font-size: 34px; line-height: 1.16; letter-spacing: -.022em; font-weight: 700; margin: 0 0 44px; }
-    .whys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; }
-    .whys .rule { width: 34px; height: 3px; border-radius: 999px; background: var(--coral); margin-bottom: 18px; }
-    .whys .t { font-weight: 600; font-size: 18px; margin-bottom: 10px; }
-    .whys .d { font-size: 15.5px; line-height: 1.7; color: var(--muted); }
+    /* Pricing */
+    .pricing { padding: 72px 20px; text-align: center; background: var(--bg-subtle); }
+    .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 760px; margin: 36px auto 0; text-align: left; }
+    .plan { border-radius: var(--radius-xl); padding: 28px; background: var(--bg); }
+    .plan.premium { box-shadow: var(--shadow); }
+    .plan h3 { margin: 0 0 4px; font-size: 22px; }
+    .price { font-size: 15px; color: var(--ink-2); margin-bottom: 16px; }
+    .plan ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+    .plan li { margin-bottom: 6px; }
+    .plan.premium h3 { color: var(--accent); }
 
-    /* ---- CTA ---- */
-    .cta { padding-top: 104px; padding-bottom: 104px; text-align: center; }
-    .cta img { width: 72px; height: 72px; border-radius: 20px; display: block; margin: 0 auto 28px; }
-    .cta h2 { font-size: 38px; line-height: 1.14; letter-spacing: -.024em; font-weight: 700; margin: 0 0 14px; }
-    .cta .lead { font-size: 17.5px; line-height: 1.65; color: var(--muted); margin: 0 auto 36px; max-width: 480px; }
-    .notify { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; }
-    .notify input {
-      flex: 1; min-width: 0; font-family: inherit; font-size: 16px; padding: 15px 20px;
-      border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); outline: none;
-    }
-    .notify input:focus { border-color: var(--coral); background: #fff; }
-    .notify button {
-      background: var(--coral); color: #fff; border: none; font-family: inherit;
-      font-weight: 600; font-size: 16px; padding: 15px 28px; border-radius: 999px; cursor: pointer;
-    }
-    .notify button:hover:not(:disabled) { background: var(--coral-dark); }
-    .notify button:disabled { opacity: .6; cursor: default; }
-    .status { font-size: 13.5px; color: var(--faint); margin-top: 18px; }
-    .status.ok { color: var(--coral-dark); }
-    .status.err { color: #B4392B; }
+    /* CTA + footer */
+    .cta { text-align: center; padding: 72px 20px 88px; }
+    .cta img { width: 88px; height: 88px; border-radius: 20px; box-shadow: var(--shadow); }
+    footer { border-top: 1px solid var(--line); padding: 28px 20px; font-size: 14px; color: var(--ink-2); }
+    footer .wrap { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    footer nav { margin-left: auto; display: flex; gap: 20px; }
 
-    /* ---- footer ---- */
-    footer { border-top: 1px solid var(--line); }
-    footer .wrap {
-      padding-top: 34px; padding-bottom: 34px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 24px; font-size: 14px; color: var(--faint); flex-wrap: wrap;
+    @media (max-width: 860px) {
+      header nav { display: none; }
+      .lang { margin-left: auto; }
+      .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; padding-bottom: 48px; }
+      h1 { font-size: 38px; }
+      html[lang="ja"] h1 { font-size: 32px; }
+      h2 { font-size: 28px; }
+      html[lang="ja"] h2 { font-size: 24px; }
+      .grid, .grid.four { grid-template-columns: 1fr 1fr; }
+      .plans { grid-template-columns: 1fr; }
+      .strip figure { width: 232px; }
     }
-    footer nav { display: flex; gap: 24px; flex-wrap: wrap; }
-    footer a { color: var(--muted); }
-    footer a:hover { color: var(--ink); }
-
-    /* ---- responsive ---- */
-    @media (max-width: 980px) {
-      .hero, .split, .adapt { grid-template-columns: 1fr; gap: 56px; }
-      .adapt .phone { grid-row: 2; }
-      .features { grid-template-columns: repeat(2, 1fr); }
-      .whys { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-      .hero h1 { font-size: 44px; }
-      .split h2, .adapt h2 { font-size: 34px; }
-    }
-    @media (max-width: 680px) {
-      .wrap { padding-left: 20px; padding-right: 20px; }
-      nav.links { display: none; }
-      .topbar-right { gap: 0; }
-      .hero { padding-top: 56px; padding-bottom: 64px; }
-      .hero h1 { font-size: 34px; }
-      .hero .sub { font-size: 17px; margin-bottom: 32px; }
-      .hero-actions { gap: 12px; }
-      .btn-primary, .btn-ghost { padding: 14px 24px; font-size: 15px; }
-      .split, .grid-sec { padding-top: 64px; padding-bottom: 64px; }
-      .adapt, .cta { padding-top: 72px; padding-bottom: 72px; }
-      .why { padding-top: 64px; padding-bottom: 64px; }
-      .features, .adapt .points, .whys { grid-template-columns: 1fr; }
-      .split h2, .adapt h2, .cta h2 { font-size: 28px; }
-      .grid-sec h2, .why h2 { font-size: 26px; }
-      .notify { flex-direction: column; border-radius: 20px; }
-      .notify input, .notify button { width: 100%; }
-      footer .wrap { flex-direction: column; align-items: flex-start; gap: 16px; }
-    }
+    @media (max-width: 520px) { .grid, .grid.four { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
-  <div class="topbar">
+  <header>
     <div class="wrap">
-      <div class="brand">
-        <img src="icon.png" alt="RecipeTune" width="32" height="32" />
-        <span data-i18n="brand.name"></span>
-      </div>
-      <div class="topbar-right">
-        <nav class="links">
-          <a href="#import" data-i18n="nav.import"></a>
-          <a href="#adapt" data-i18n="nav.adapt"></a>
-          <a href="#features" data-i18n="nav.features"></a>
-          <a href="#why" data-i18n="nav.why"></a>
-        </nav>
-        <div class="langs">
-          <button type="button" data-setlang="en">EN</button>
-          <button type="button" data-setlang="ja">日本語</button>
-        </div>
+      <a class="brand" href="#top"><img src="icon.png" alt="" /><span data-i18n="name"></span></a>
+      <nav>
+        <a href="#look" data-i18n="nav.look"></a>
+        <a href="#features" data-i18n="nav.features"></a>
+        <a href="#pricing" data-i18n="nav.pricing"></a>
+      </nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ja">日本語</button>
       </div>
     </div>
-  </div>
+  </header>
 
-  <section class="wrap hero">
-    <div>
-      <div class="badge"><span class="dot"></span><span data-i18n="hero.badge"></span></div>
-      <h1 data-i18n="hero.title"></h1>
-      <p class="sub" data-i18n="hero.sub"></p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#notify" data-i18n="hero.cta"></a>
-        <a class="btn-ghost" href="#import" data-i18n="hero.cta2"></a>
-      </div>
-      <div class="hero-note" data-i18n="hero.note"></div>
-    </div>
-
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="mock-head">
-          <span class="t" data-i18n="mock.title"></span>
-          <span class="pill-flag" data-i18n="mock.flagged"></span>
-        </div>
-        <div class="rows">
-          <div class="row"><span data-i18n="mock.r1n"></span><span class="amt" data-i18n="mock.r1a"></span></div>
-          <div class="row"><span data-i18n="mock.r2n"></span><span class="amt" data-i18n="mock.r2a"></span></div>
-          <div class="row flagged">
-            <div class="line"><span data-i18n="mock.r3n"></span><span class="amt" data-i18n="mock.r3a"></span></div>
-            <div class="hint" data-i18n="mock.hint"></div>
-          </div>
-          <div class="row"><span data-i18n="mock.r4n"></span><span class="amt" data-i18n="mock.r4a"></span></div>
-        </div>
-        <div class="mock-actions">
-          <div class="discard" data-i18n="mock.discard"></div>
-          <div class="save" data-i18n="mock.save"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="band" id="import">
-    <section class="wrap split">
+  <main id="top">
+    <section class="wrap hero">
       <div>
-        <div class="kicker" data-i18n="flag.kicker"></div>
-        <h2 data-i18n="flag.title"></h2>
-        <p class="body" data-i18n="flag.body"></p>
+        <span class="pill" data-i18n="hero.badge"></span>
+        <h1 data-i18n="hero.title"></h1>
+        <p class="sub" data-i18n="hero.sub"></p>
+        <span class="store" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.6-1-2.6-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>
+          <span data-i18n="hero.store"></span>
+        </span>
+        <div class="note" data-i18n="hero.note"></div>
       </div>
-      <div class="stack" id="flagPoints"></div>
+      <div class="phone"><img id="heroShot" alt="" width="478" height="1040" /></div>
     </section>
-  </div>
 
-  <section class="wrap adapt" id="adapt">
-    <div class="phone">
-      <div class="phone-inner">
-        <div class="scale-recipe" data-i18n="scale.recipe"></div>
-        <div class="stepper-row">
-          <span class="lbl" data-i18n="scale.servings"></span>
-          <div class="stepper">
-            <button type="button" id="dec" aria-label="Fewer servings">−</button>
-            <span class="val" id="servingsLabel"></span>
-            <button type="button" id="inc" aria-label="More servings">+</button>
+    <section class="gallery" id="look">
+      <div class="wrap">
+        <div class="kicker center" data-i18n="look.kicker"></div>
+        <h2 data-i18n="look.title"></h2>
+      </div>
+      <div class="strip" id="strip"></div>
+      <p class="hint" data-i18n="look.hint"></p>
+    </section>
+
+    <section class="wrap features" id="features">
+      <div class="kicker center" data-i18n="features.kicker"></div>
+      <h2 class="center" data-i18n="features.title"></h2>
+      <div class="grid">
+        <div class="card"><b data-i18n="f.scan.t"></b><span data-i18n="f.scan.b"></span></div>
+        <div class="card"><b data-i18n="f.servings.t"></b><span data-i18n="f.servings.b"></span></div>
+        <div class="card"><b data-i18n="f.units.t"></b><span data-i18n="f.units.b"></span></div>
+        <div class="card"><b data-i18n="f.timers.t"></b><span data-i18n="f.timers.b"></span></div>
+        <div class="card"><b data-i18n="f.shop.t"></b><span data-i18n="f.shop.b"></span></div>
+        <div class="card"><b data-i18n="f.cats.t"></b><span data-i18n="f.cats.b"></span></div>
+      </div>
+    </section>
+
+    <section class="wrap details">
+      <div class="grid four">
+        <div class="card"><b data-i18n="d.lang.t"></b><span data-i18n="d.lang.b"></span></div>
+        <div class="card"><b data-i18n="d.sync.t"></b><span data-i18n="d.sync.b"></span></div>
+        <div class="card"><b data-i18n="d.ipad.t"></b><span data-i18n="d.ipad.b"></span></div>
+        <div class="card"><b data-i18n="d.dark.t"></b><span data-i18n="d.dark.b"></span></div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="wrap">
+        <div class="kicker" data-i18n="pricing.kicker"></div>
+        <h2 data-i18n="pricing.title"></h2>
+        <div class="plans">
+          <div class="plan">
+            <h3 data-i18n="pricing.free.t"></h3>
+            <div class="price" data-i18n="pricing.free.price"></div>
+            <ul>
+              <li data-i18n="pricing.free.l1"></li>
+              <li data-i18n="pricing.free.l2"></li>
+              <li data-i18n="pricing.free.l3"></li>
+            </ul>
+          </div>
+          <div class="plan premium">
+            <h3 data-i18n="pricing.prem.t"></h3>
+            <div class="price" data-i18n="pricing.prem.price"></div>
+            <ul>
+              <li data-i18n="pricing.prem.l1"></li>
+              <li data-i18n="pricing.prem.l2"></li>
+              <li data-i18n="pricing.prem.l3"></li>
+            </ul>
           </div>
         </div>
-        <div class="rows" id="scaledRows"></div>
-        <div class="scale-note" id="scaleNote"></div>
       </div>
-    </div>
-
-    <div>
-      <div class="kicker" data-i18n="scale.kicker"></div>
-      <h2 data-i18n="scale.title"></h2>
-      <p class="body" data-i18n="scale.body"></p>
-      <div class="points" id="scalePoints"></div>
-    </div>
-  </section>
-
-  <div class="band" id="features">
-    <section class="wrap grid-sec">
-      <h2 data-i18n="grid.title"></h2>
-      <p class="lead" data-i18n="grid.sub"></p>
-      <div class="features" id="featureGrid"></div>
     </section>
-  </div>
 
-  <section class="wrap why" id="why">
-    <h2 data-i18n="why.title"></h2>
-    <div class="whys" id="whyGrid"></div>
-  </section>
-
-  <section class="wrap cta" id="notify">
-    <img src="icon.png" alt="" width="72" height="72" />
-    <h2 data-i18n="cta.title"></h2>
-    <p class="lead" data-i18n="cta.sub"></p>
-    <form class="notify" id="notifyForm">
-      <input type="email" name="email" required autocomplete="email" id="notifyEmail" />
-      <button type="submit" data-i18n="cta.button"></button>
-    </form>
-    <div class="status" id="notifyStatus"></div>
-  </section>
+    <section class="cta">
+      <img src="icon.png" alt="" />
+      <h2 data-i18n="cta.title"></h2>
+      <p class="sub" style="margin: 0 auto 8px;" data-i18n="cta.sub"></p>
+    </section>
+  </main>
 
   <footer>
     <div class="wrap">
-      <span>© 2026 Koczan Craft</span>
+      <span>© 2026 KoczanCraft</span>
       <nav>
-        <a href="https://www.koczancraft.com">koczancraft.com</a>
-        <a href="https://apps.koczancraft.com" data-i18n="footer.apps"></a>
         <a href="privacy.html" data-i18n="footer.privacy"></a>
         <a href="mailto:hello@koczancraft.com" data-i18n="footer.contact"></a>
+        <a href="https://apps.koczancraft.com" data-i18n="footer.apps"></a>
       </nav>
     </div>
   </footer>
 
   <script>
-    // Launch-notify delivery — Web3Forms emails signups to the inbox bound to this access key,
-    // so no backend and no address exposed here. NOTE: this is currently the MTG Draft Companion
-    // key, so signups land in that destination. CONTENT-BRIEF.md §12 leaves the RecipeTune inbox
-    // an open decision — create a dedicated key and swap it here before this page goes live.
-    var WEB3FORMS_KEY = "1c325045-6bb1-4f6e-922b-e9b87cee7443";
-
+    // Claims here mirror the approved App Store listing
+    // (recipe-app-public/docs/release/v1.0.0/ios/store-listing.md): keep them in step.
+    // When the app is live, turn the .store pill into a link to its App Store page.
     var I18N = {
       en: {
-        "brand.name": "RecipeTune",
-        "nav.import": "Import", "nav.adapt": "Adapt", "nav.features": "Features", "nav.why": "Why RecipeTune",
-        "hero.badge": "Coming soon to iPhone &amp; Android",
-        "hero.title": "Turn a recipe screenshot into something you can actually cook.",
-        "hero.sub": "RecipeTune reads your recipe photos — in English or Japanese — organizes them into clean ingredients and steps, then tunes them to your servings, your units, your kitchen.",
-        "hero.cta": "Get notified at launch", "hero.cta2": "See how import works",
-        "hero.note": "Free. Works offline. Signing in is optional.",
-        "mock.title": "Review import", "mock.flagged": "1 to check", "mock.hint": "No amount here — tap to fill it in.",
-        "mock.discard": "Discard", "mock.save": "Save recipe",
-        "mock.r1n": "Chicken breast, cubed", "mock.r1a": "300 g",
-        "mock.r2n": "Soy sauce", "mock.r2a": "1 tbsp",
-        "mock.r3n": "Black pepper", "mock.r3a": "tsp",
-        "mock.r4n": "Garlic powder", "mock.r4a": "1 tbsp",
-        "flag.kicker": "Smart import",
-        "flag.title": "We show you what's worth checking — not everything.",
-        "flag.body": "Snap a photo or pick a screenshot from your gallery. RecipeTune organizes it into ingredients and steps, then flags only the parts that are genuinely unclear — an amount with no unit, a step pointing at a group that isn't there. Everything else is already right, so it stays quiet. Nothing saves until you say so.",
-        "scale.kicker": "Servings &amp; units",
-        "scale.recipe": "Chicken with sauce and rice noodles",
-        "scale.title": "Any recipe, exactly the right size.",
-        "scale.body": "Change the servings and every amount recalculates instantly, shown as the cooking fractions you'd actually read — and the recipe you saved never changes. Anything without a number, like &ldquo;to taste&rdquo;, is left alone. And 小さじ / 大さじ / cups convert to ml and g right inside the recipe, using each ingredient's density.",
-        "scale.servings": "Servings",
-        "grid.title": "The rest of the app, kept simple.",
-        "grid.sub": "Small things that matter while you're actually cooking.",
-        "why.title": "Why RecipeTune",
-        "cta.title": "Coming soon to iPhone &amp; Android.",
-        "cta.sub": "Leave your email and we'll tell you the day RecipeTune goes live. Nothing else, ever.",
-        "cta.button": "Notify me",
-        "footer.apps": "All apps", "footer.privacy": "Privacy Policy", "footer.contact": "Contact"
+        "name": "RecipeTune",
+        "nav.look": "A look inside", "nav.features": "Features", "nav.pricing": "Pricing",
+        "hero.badge": "Coming soon to the App Store",
+        "hero.title": "Screenshot a recipe.\nCook it for anyone.",
+        "hero.sub": "Recipes live in screenshots, photos of cookbook pages and messages from friends. RecipeTune turns any of them into a clean recipe you can cook from, sized for however many people are at the table.",
+        "hero.store": "Coming soon on the App Store",
+        "hero.note": "For iPhone and iPad, in English and Japanese.",
+        "look.kicker": "A look inside",
+        "look.title": "From screenshot to dinner",
+        "look.hint": "Swipe to see more",
+        "features.kicker": "Features",
+        "features.title": "Everything a recipe needs, nothing it doesn't",
+        "f.scan.t": "Screenshot or photo in, recipe out",
+        "f.scan.b": "RecipeTune reads the ingredients and the steps for you. A recipe that runs over several pages comes in as one, as text you can edit, with the original image kept alongside.",
+        "f.servings.t": "Cook for any number of people",
+        "f.servings.b": "Cooking for two tonight and eight on Sunday? Change the servings and every amount changes with it.",
+        "f.units.t": "Your units, and a converter",
+        "f.units.b": "Cups and spoons, grams and millilitres, or ounces. When a recipe uses cups, it asks which cup was meant instead of guessing. A converter is built in for everything else.",
+        "f.timers.t": "Timers from the steps",
+        "f.timers.b": "Tap a time in a step to start a timer. It stays in view on every screen and on your lock screen, and tells you which dish it belongs to.",
+        "f.shop.t": "A shopping list you can send",
+        "f.shop.b": "Tick off what you already have and send the rest, by copying it or sharing it to any messaging app.",
+        "f.cats.t": "Organised your way",
+        "f.cats.b": "Categories you name yourself, and search by title or by any ingredient.",
+        "d.lang.t": "English and Japanese", "d.lang.b": "Every screen in both, including recipes written in Japanese.",
+        "d.sync.t": "On all your devices", "d.sync.b": "Recipes sync across your devices when you sign in, and work offline.",
+        "d.ipad.t": "iPhone and iPad", "d.ipad.b": "Laid out for the larger screen, in any orientation.",
+        "d.dark.t": "Dark mode and larger text", "d.dark.b": "Comfortable in a dim kitchen, readable at arm's length.",
+        "pricing.kicker": "Pricing",
+        "pricing.title": "Free to cook with",
+        "pricing.free.t": "Free", "pricing.free.price": "Everything you need to cook",
+        "pricing.free.l1": "Your first five AI scans",
+        "pricing.free.l2": "Then one short ad per scan",
+        "pricing.free.l3": "Servings, units, converter, timers and shopping lists, always free",
+        "pricing.prem.t": "Premium", "pricing.prem.price": "¥300 a month or ¥3,000 a year",
+        "pricing.prem.l1": "Unlimited AI scans",
+        "pricing.prem.l2": "No ads",
+        "pricing.prem.l3": "Cancel any time in your Apple ID settings",
+        "cta.title": "Coming soon to the App Store",
+        "cta.sub": "RecipeTune is in review with Apple. Check back soon.",
+        "footer.privacy": "Privacy", "footer.contact": "Contact", "footer.apps": "More apps"
       },
       ja: {
-        "brand.name": "レシピチューン",
-        "nav.import": "取り込み", "nav.adapt": "調整", "nav.features": "機能", "nav.why": "特長",
-        "hero.badge": "iPhone・Android で近日公開",
-        "hero.title": "スクショしたレシピを、作れる形に。",
-        "hero.sub": "レシピの写真を読み取って、材料と手順を自動整理。人数・単位・手持ちの道具に合わせて、安全に調整します。",
-        "hero.cta": "リリース通知を受け取る", "hero.cta2": "取り込みの流れを見る",
-        "hero.note": "無料。オフライン対応。サインインは任意です。",
-        "mock.title": "取り込みの確認", "mock.flagged": "要確認 1件", "mock.hint": "単位がありません — 小さじ？",
-        "mock.discard": "破棄", "mock.save": "保存する",
-        "mock.r1n": "きゅうり", "mock.r1a": "2本",
-        "mock.r2n": "☆しょうゆ", "mock.r2a": "大さじ1",
-        "mock.r3n": "☆すし酢", "mock.r3a": "2",
-        "mock.r4n": "☆ごま油", "mock.r4a": "小さじ2",
-        "flag.kicker": "スマート取り込み",
-        "flag.title": "確認が必要なところだけ、お知らせします。",
-        "flag.body": "写真を撮るか、ギャラリーのスクショを選ぶだけ。材料と手順に自動で整理し、本当にあいまいな箇所だけに印をつけます。単位のない分量、存在しないグループを参照する手順など。ほかは正しく読めているので、静かなままです。保存はあなたが決めるまで行いません。",
-        "scale.kicker": "人数と単位",
-        "scale.recipe": "きゅうりの和え物",
-        "scale.title": "人数に合わせて、ちょうどいい量に。",
-        "scale.body": "人数を変えるだけで、すべての分量が自動で計算し直されます。表示は「½」「⅓」といった読みやすい分数なので扱いやすく、保存したレシピ自体は変わりません。「適量」のように数値のない材料はそのまま。小さじ・大さじ・カップは、レシピの中でそのまま ml・g に変換できます（材料ごとの比重を使用）。",
-        "scale.servings": "人数",
-        "grid.title": "ほかの機能は、あくまで静かに。",
-        "grid.sub": "実際に料理をしている最中に効いてくる、小さな工夫。",
-        "why.title": "レシピチューンを選ぶ理由",
-        "cta.title": "iPhone・Android で近日公開。",
-        "cta.sub": "メールアドレスをご登録いただくと、レシピチューンの公開日にお知らせします。それ以外の配信はありません。",
-        "cta.button": "通知を受け取る",
-        "footer.apps": "アプリ一覧", "footer.privacy": "プライバシーポリシー", "footer.contact": "お問い合わせ"
+        "name": "レシピチューン",
+        "nav.look": "アプリの中身", "nav.features": "機能", "nav.pricing": "料金",
+        "hero.badge": "App Storeで近日公開",
+        "hero.title": "スクショから、\n人数に合わせて料理。",
+        "hero.sub": "レシピは、スクリーンショットや料理本の写真、友達から届いたメッセージの中にあります。レシピチューンは、そのどれもを、食べる人数に合わせてそのまま作れるレシピに変えます。",
+        "hero.store": "App Storeで近日公開",
+        "hero.note": "iPhone・iPad対応。日本語と英語で使えます。",
+        "look.kicker": "アプリの中身",
+        "look.title": "スクショから、今夜のごはんまで",
+        "look.hint": "横にスワイプしてご覧ください",
+        "features.kicker": "機能",
+        "features.title": "レシピに必要なものを、必要なだけ",
+        "f.scan.t": "スクショや写真から、レシピに",
+        "f.scan.b": "材料と作り方を読み取ります。何ページにもわたるレシピも一つにまとまり、自由に直せる文字として、元の画像と一緒に残ります。",
+        "f.servings.t": "人数に合わせて",
+        "f.servings.b": "今夜は2人分、日曜日は8人分。人数を変えれば、材料の分量もまとめて変わります。",
+        "f.units.t": "好きな単位で、換算も",
+        "f.units.b": "カップと大さじ、グラムとミリリットル、オンスなど。カップのレシピは、どのカップのことかを勝手に決めずに確認します。換算ツールも入っています。",
+        "f.timers.t": "作り方から、そのままタイマー",
+        "f.timers.b": "作り方の中の時間をタップすればタイマーが始まります。どの画面でもロック画面でも見えて、どの料理のものかもわかります。",
+        "f.shop.t": "そのまま送れる買い物リスト",
+        "f.shop.b": "家にあるものを外して、残りをリストとして送れます。コピーしても、メッセージアプリに共有しても。",
+        "f.cats.t": "自分だけのカテゴリで整理",
+        "f.cats.b": "自分で名前をつけたカテゴリと、料理名や材料からの検索。",
+        "d.lang.t": "日本語と英語", "d.lang.b": "すべての画面が両方に対応。日本語で書かれたレシピも読み取れます。",
+        "d.sync.t": "すべての端末で", "d.sync.b": "サインインすれば端末をまたいで同期。オフラインでも使えます。",
+        "d.ipad.t": "iPhoneとiPad", "d.ipad.b": "大きな画面に合わせたレイアウト。縦でも横でも。",
+        "d.dark.t": "ダークモードと文字サイズ", "d.dark.b": "暗いキッチンでも見やすく、離れていても読みやすく。",
+        "pricing.kicker": "料金",
+        "pricing.title": "料理は無料で",
+        "pricing.free.t": "無料", "pricing.free.price": "料理に必要なものはすべて",
+        "pricing.free.l1": "AIの読み取りは最初の5回が無料",
+        "pricing.free.l2": "そのあとは読み取りごとに短い広告",
+        "pricing.free.l3": "人数の変更、単位、換算、タイマー、買い物リストはずっと無料",
+        "pricing.prem.t": "Premium", "pricing.prem.price": "月額300円、または年額3,000円",
+        "pricing.prem.l1": "AIの読み取りが無制限",
+        "pricing.prem.l2": "広告なし",
+        "pricing.prem.l3": "Apple IDの設定からいつでも解約できます",
+        "cta.title": "App Storeで近日公開",
+        "cta.sub": "現在Appleの審査中です。もうしばらくお待ちください。",
+        "footer.privacy": "プライバシー", "footer.contact": "お問い合わせ", "footer.apps": "ほかのアプリ"
       }
     };
 
-    // Repeated blocks + anything computed (scaling, form status) lives here rather than in
-    // the markup, so a language switch re-renders them from one source.
-    var CONTENT = {
-      en: {
-        emailPlaceholder: "you@example.com",
-        statusIdle: "One email at launch. No newsletter.",
-        statusSending: "Sending…",
-        statusSent: "You're on the list — thanks. We'll be in touch at launch.",
-        statusError: "Sorry, something went wrong. Please email hello@koczancraft.com.",
-        servingsUnit: function (n) { return n + " servings"; },
-        noteSmall: "Amounts show as cooking fractions — ½, ⅓, ¾ — not decimals.",
-        noteBig: function (n) { return "Cooking for " + n + ": amounts are scaled for the view only. Your saved recipe still says 2 servings."; },
-        flagPoints: [
-          { title: "Handles the messy bits", body: "Ingredient subgroups, cross-referenced steps and fraction glyphs — parsed properly, not guessed at. Japanese conventions like ☆ / ● groups and ①②③ step numbers included." },
-          { title: "Fix it in place", body: "Tap a flagged field to see the crop of the original photo next to it, and correct it in a second." },
-          { title: "The photo stays", body: "Multi-image import for long recipes, and the original picture is kept with the recipe so you can always double-check." }
-        ],
-        scalePoints: [
-          { title: "Written the way recipes are", body: "Amounts display as common cooking fractions — ½ tbsp, not 0.5 — in whichever language you're reading." },
-          { title: "“To taste” stays to taste", body: "Ingredients with no number pass through untouched, and 分量外 keeps its note instead of being multiplied." },
-          { title: "Your saved recipe is safe", body: "Scaling is a view on the recipe. The original stays exactly as you imported it." },
-          { title: "Units, inline", body: "小さじ / 大さじ / cup ⇄ ml / g on Japanese-standard ratios, with weight and volume cross-converting by ingredient density. In any recipe, or as a standalone tab." }
-        ],
-        features: [
-          { mark: "⏱", title: "Timers inside the steps", body: "Tap a time mentioned in a step to start a timer. Run several at once. No separate cook mode to switch into." },
-          { mark: "☆", title: "Nothing to scroll back for", body: "Tap a ☆ or a step number inside a step to see those ingredients, already scaled to your servings." },
-          { mark: "⌂", title: "Yours, offline", body: "Recipes live on your device and work without a connection. Signing in is optional, always." },
-          { mark: "あ", title: "Bilingual all the way down", body: "Every screen in English and 日本語 — not a translated menu over an English app." },
-          { mark: "⌕", title: "Find it fast", body: "Search titles and ingredient names in both languages. One simple category per recipe, no tag jungle." },
-          { mark: "○", title: "Free, and quiet", body: "Light ads that stay out of the cooking flow — never over a running timer, never over sign-in." }
-        ],
-        whys: [
-          { title: "Built for the recipes you have", body: "English and Japanese recipes alike — including the Japanese conventions generic scanners flatten. (Other languages aren't supported yet.)" },
-          { title: "Honest by default", body: "A review step instead of a silent auto-save. You always know what the app was sure about — and what it wasn't." },
-          { title: "Scaling that leaves the original alone", body: "Change the servings to see new amounts in readable fractions. The recipe you saved is never rewritten underneath you." },
-          { title: "A recipe box, not a feed", body: "No discovery, no algorithm. A calm place for the recipes you already have, on whichever phone you own." }
-        ]
-      },
-      ja: {
-        emailPlaceholder: "you@example.com",
-        statusIdle: "公開時に1通のみ。ニュースレターの配信はありません。",
-        statusSending: "送信中…",
-        statusSent: "登録ありがとうございます。公開時にご連絡します。",
-        statusError: "送信に失敗しました。hello@koczancraft.com までご連絡ください。",
-        servingsUnit: function (n) { return n + "人分"; },
-        noteSmall: "分量は「½」「⅓」「¾」など、読みやすい分数で表示されます。",
-        noteBig: function (n) { return n + "人分：調整されるのは表示だけです。保存されたレシピは2人分のままです。"; },
-        flagPoints: [
-          { title: "日本語のレシピ表現に対応", body: "☆・●の調味料グループ、①②③の手順参照、くっついた参照表記や分数記号も、推測ではなく正しく解析します。" },
-          { title: "その場で直せる", body: "印のついた項目をタップすると、元の写真の該当部分が並んで表示。数秒で修正できます。" },
-          { title: "写真はレシピと一緒に", body: "長いレシピは複数枚で取り込み。元の写真はレシピと一緒に残るので、いつでも見返せます。" }
-        ],
-        scalePoints: [
-          { title: "レシピらしい表記で", body: "分量は「小さじ½」のような一般的な分数で表示。0.5 のような小数にはなりません。" },
-          { title: "「適量」は「適量」のまま", body: "数値のない材料はそのまま通します。「分量外」も掛け算されず、注記が残ります。" },
-          { title: "元のレシピはそのまま", body: "調整はあくまで表示上のもの。保存したレシピは取り込んだときのままです。" },
-          { title: "単位もその場で", body: "小さじ・大さじ・カップ ⇄ ml / g を日本の標準換算で。重さと容量は材料ごとの比重で相互変換します。レシピ内でも、単体のタブとしても。" }
-        ],
-        features: [
-          { mark: "⏱", title: "手順の中でタイマー", body: "手順に書かれた時間をタップするだけで起動。複数同時に使えます。専用の調理モードは不要です。" },
-          { mark: "☆", title: "行き来しなくていい", body: "手順内の☆や手順番号をタップすれば、人数調整済みの材料をその場で確認できます。" },
-          { mark: "⌂", title: "端末の中に、オフラインでも", body: "レシピは端末内に保存され、通信がなくても使えます。サインインはいつでも任意です。" },
-          { mark: "あ", title: "すみずみまで二言語", body: "メニューだけの翻訳ではなく、すべての画面が英語と日本語に対応しています。" },
-          { mark: "⌕", title: "すぐ見つかる", body: "レシピ名も材料名も、日本語・英語のどちらでも検索。カテゴリは1つだけのシンプルな設計です。" },
-          { mark: "○", title: "無料、でも静か", body: "広告は調理の邪魔をしません。タイマー作動中やサインイン画面には表示されません。" }
-        ],
-        whys: [
-          { title: "日本語のレシピのために", body: "翻訳をかぶせただけの汎用OCRではありません。日本語レシピの実際の書き方を理解して読み取ります。" },
-          { title: "正直な作りに", body: "黙って自動保存せず、確認のステップを挟みます。何が確実で、何が不確実だったのかが、いつでも分かります。" },
-          { title: "元を書き換えない分量調整", body: "人数を変えれば、読みやすい分数で新しい分量が表示されます。保存したレシピが勝手に書き換わることはありません。" },
-          { title: "フィードではなく、レシピ箱", body: "発見機能もアルゴリズムもありません。手持ちのレシピのための、静かな場所です。" }
-        ]
-      }
+    // The App Store images, in upload order (image 01 is the page's own hero).
+    var SHOTS = {
+      en: [
+        ["02", "Screenshot in. Recipe out. Or a photo of any page."],
+        ["03", "Cook for two, or ten."],
+        ["04", "Cups or grams, your call. It asks which cup, instead of guessing."],
+        ["05", "A kitchen converter, built in."],
+        ["06", "Timers from the steps. Visible on every screen and the lock screen."],
+        ["07", "Your shopping list, sent."],
+        ["08", "Organised your way."],
+        ["09", "Search by any ingredient."],
+        ["10", "Unlimited scans with Premium. Five ad-free scans, then free with a short ad."]
+      ],
+      ja: [
+        ["02", "スクショが、そのままレシピに。写真からも読み取れます。"],
+        ["03", "2人分でも、10人分でも。"],
+        ["04", "カップでも、グラムでも。カップの大きさは確認してから換算。"],
+        ["05", "換算ツールも、ひとつに。"],
+        ["06", "作り方から、そのままタイマー。どの画面でも、ロック画面でも。"],
+        ["07", "買い物リストも、すぐ送れる。"],
+        ["08", "自分だけのカテゴリで整理。"],
+        ["09", "材料からも、すぐ探せる。"],
+        ["10", "Premiumで読み取り無制限。最初の5回は広告なし。"]
+      ]
     };
 
-    var MIN_SERVINGS = 1, MAX_SERVINGS = 12, BASE_SERVINGS = 2;
-    var servings = 4;
-    var currentLang = "en";
-    var sent = false;
-
-    function esc(s) {
-      return String(s).replace(/[&<>"]/g, function (c) {
-        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
-      });
-    }
-
-    // Amounts scale linearly (amount * target / base) and are never rounded — the display
-    // just writes the exact value as a cooking fraction, which is what the app does.
-    var FRACTIONS = [
-      [1 / 8, "⅛"], [1 / 4, "¼"], [1 / 3, "⅓"], [3 / 8, "⅜"], [1 / 2, "½"],
-      [5 / 8, "⅝"], [2 / 3, "⅔"], [3 / 4, "¾"], [7 / 8, "⅞"]
-    ];
-    function frac(v) {
-      var whole = Math.floor(v + 1e-9);
-      var rest = v - whole;
-      if (rest < 1e-9) return String(whole);
-      for (var i = 0; i < FRACTIONS.length; i++) {
-        if (Math.abs(rest - FRACTIONS[i][0]) < 1e-9) {
-          return (whole ? whole : "") + FRACTIONS[i][1];
-        }
-      }
-      return String(Math.round(v * 100) / 100);
-    }
-    function grams(v) {
-      return v >= 1000
-        ? String(Math.round(v / 10) / 100).replace(/\.?0+$/, "") + " kg"
-        : frac(v) + " g";
-    }
-
-    function scaledRows() {
-      var f = servings / BASE_SERVINGS;
-      if (currentLang === "ja") {
-        return [
-          { name: "きゅうり", now: frac(2 * f) + "本" },
-          { name: "塩", now: "小さじ" + frac(0.5 * f) },
-          { name: "☆しょうゆ", now: "大さじ" + frac(1 * f) },
-          { name: "☆ごま油", now: "小さじ" + frac(2 * f) },
-          { name: "こしょう", now: "適量", flat: true }
-        ];
-      }
-      return [
-        { name: "Chicken breast, cubed", now: grams(300 * f) },
-        { name: "Soy sauce", now: frac(1 * f) + " tbsp" },
-        { name: "Garlic powder", now: frac(1 * f) + " tbsp" },
-        { name: "Rice noodles, uncooked", now: grams(100 * f) },
-        { name: "Black pepper", now: "to taste", flat: true }
-      ];
-    }
-
-    function renderScaling() {
-      var c = CONTENT[currentLang];
-      document.getElementById("servingsLabel").textContent = c.servingsUnit(servings);
-      document.getElementById("scaledRows").innerHTML = scaledRows().map(function (r) {
-        var cls = r.flat ? "amt" : "scaled";
-        return '<div class="row"><span>' + esc(r.name) + '</span><span class="' + cls + '">' + esc(r.now) + "</span></div>";
-      }).join("");
-      document.getElementById("scaleNote").textContent = servings > 4 ? c.noteBig(servings) : c.noteSmall;
-      document.getElementById("dec").disabled = servings <= MIN_SERVINGS;
-      document.getElementById("inc").disabled = servings >= MAX_SERVINGS;
-    }
-
-    function renderLists() {
-      var c = CONTENT[currentLang];
-      function cards(list) {
-        return list.map(function (p) {
-          return '<div class="card"><div class="t">' + esc(p.title) + '</div><div class="d">' + esc(p.body) + "</div></div>";
-        }).join("");
-      }
-      document.getElementById("flagPoints").innerHTML = cards(c.flagPoints);
-      document.getElementById("scalePoints").innerHTML = cards(c.scalePoints);
-      document.getElementById("featureGrid").innerHTML = c.features.map(function (f) {
-        return '<div class="card"><div class="mark">' + esc(f.mark) + '</div><div class="t">' + esc(f.title) + '</div><div class="d">' + esc(f.body) + "</div></div>";
-      }).join("");
-      document.getElementById("whyGrid").innerHTML = c.whys.map(function (w) {
-        return '<div><div class="rule"></div><div class="t">' + esc(w.title) + '</div><div class="d">' + esc(w.body) + "</div></div>";
-      }).join("");
-    }
-
-    function applyLang(lang) {
-      currentLang = I18N[lang] ? lang : "en";
-      var dict = I18N[currentLang];
-      var c = CONTENT[currentLang];
-      document.documentElement.lang = currentLang;
+    function apply(lang) {
+      var t = I18N[lang];
+      document.documentElement.lang = lang;
       document.querySelectorAll("[data-i18n]").forEach(function (el) {
-        var key = el.getAttribute("data-i18n");
-        if (dict[key] != null) el.innerHTML = dict[key];
+        var v = t[el.getAttribute("data-i18n")];
+        if (v != null) el.textContent = v;
       });
-      document.querySelectorAll("[data-setlang]").forEach(function (b) {
-        b.classList.toggle("active", b.getAttribute("data-setlang") === currentLang);
+      var hero = document.getElementById("heroShot");
+      hero.src = "assets/screens/" + lang + "/01_library.jpg";
+      hero.alt = lang === "ja" ? "レシピチューンのレシピ一覧" : "The recipe list in RecipeTune";
+      var strip = document.getElementById("strip");
+      strip.innerHTML = "";
+      SHOTS[lang].forEach(function (s) {
+        var fig = document.createElement("figure");
+        var img = document.createElement("img");
+        img.src = "assets/store/" + lang + "/" + s[0] + ".jpg";
+        img.alt = s[1];
+        img.width = 552; img.height = 1200;
+        img.loading = "lazy";
+        fig.appendChild(img);
+        strip.appendChild(fig);
       });
-      document.getElementById("notifyEmail").placeholder = c.emailPlaceholder;
-      if (!sent) setStatus(c.statusIdle, "");
-      renderLists();
-      renderScaling();
-      try { localStorage.setItem("lang", currentLang); } catch (e) {}
-    }
-
-    function setStatus(msg, cls) {
-      var el = document.getElementById("notifyStatus");
-      el.textContent = msg;
-      el.className = "status " + cls;
-    }
-
-    // /en and /jp are shareable, language-pinned URLs (see vercel.json rewrites).
-    function pathForLang(lang) { return lang === "ja" ? "/jp" : "/en"; }
-    function langFromPath() {
-      var path = window.location.pathname.replace(/\/+$/, "");
-      if (path === "/en") return "en";
-      if (path === "/jp") return "ja";
-      return null;
-    }
-
-    document.querySelectorAll("[data-setlang]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var lang = b.getAttribute("data-setlang");
-        applyLang(lang);
-        var target = pathForLang(lang);
-        if (window.location.pathname.replace(/\/+$/, "") !== target) {
-          history.pushState({ lang: lang }, "", target);
-        }
+      document.querySelectorAll(".lang button").forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
       });
-    });
-    window.addEventListener("popstate", function () {
-      applyLang(langFromPath() || detectLang());
-    });
-
-    document.getElementById("inc").addEventListener("click", function () {
-      servings = Math.min(MAX_SERVINGS, servings + 1);
-      renderScaling();
-    });
-    document.getElementById("dec").addEventListener("click", function () {
-      servings = Math.max(MIN_SERVINGS, servings - 1);
-      renderScaling();
-    });
-
-    document.getElementById("notifyForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var c = CONTENT[currentLang];
-      var form = e.target;
-      var btn = form.querySelector("button");
-      btn.disabled = true;
-      setStatus(c.statusSending, "");
-      fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: "[RecipeTune] Launch notify signup",
-          from_name: "RecipeTune site",
-          email: form.email.value,
-          message: "Launch notification signup (" + currentLang + ")"
-        })
-      })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (data && data.success) {
-            sent = true;
-            setStatus(c.statusSent, "ok");
-            form.reset();
-          } else {
-            setStatus(c.statusError, "err");
-          }
-        })
-        .catch(function () { setStatus(c.statusError, "err"); })
-        .finally(function () { btn.disabled = false; });
-    });
-
-    // initial language: URL path (/en, /jp) → saved → browser → en
-    function detectLang() {
-      var saved;
-      try { saved = localStorage.getItem("lang"); } catch (e) {}
-      return saved || ((navigator.language || "en").toLowerCase().indexOf("ja") === 0 ? "ja" : "en");
+      document.title = lang === "ja"
+        ? "レシピチューン：スクショから、人数に合わせて料理"
+        : "RecipeTune: screenshot a recipe, cook it for anyone";
+      try { localStorage.setItem("rt-lang", lang); } catch (e) {}
     }
-    applyLang(langFromPath() || detectLang());
+
+    function initial() {
+      if (location.pathname.indexOf("/jp") === 0) return "ja";
+      if (location.pathname.indexOf("/en") === 0) return "en";
+      try { var s = localStorage.getItem("rt-lang"); if (s === "en" || s === "ja") return s; } catch (e) {}
+      return (navigator.language || "").toLowerCase().indexOf("ja") === 0 ? "ja" : "en";
+    }
+
+    document.querySelectorAll(".lang button").forEach(function (b) {
+      b.addEventListener("click", function () { apply(b.getAttribute("data-lang")); });
+    });
+    apply(initial());
   </script>
 </body>
 </html>
