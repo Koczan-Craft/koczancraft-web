@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RecipeTune: your recipes, ready to cook</title>
-  <meta name="description" content="RecipeTune turns a screenshot or photo of any recipe into a clean recipe you can cook from, sized for however many people are eating. Coming soon to the App Store." />
+  <meta name="description" content="RecipeTune turns a screenshot or photo of any recipe into a clean recipe you can cook from, sized for however many people are eating. Now on the App Store." />
   <meta property="og:title" content="RecipeTune" />
   <meta property="og:description" content="Your recipes, ready to cook. Scan screenshots, cook for any number of people, in the units you use." />
   <meta property="og:image" content="https://recipetune.koczancraft.com/assets/dishes/spaghetti-bolognese.jpg" />
@@ -68,7 +68,7 @@
     html[lang="ja"] .kicker { letter-spacing: .04em; }
     h1, h2 { letter-spacing: -0.025em; margin: 0; }
     html[lang="ja"] h1, html[lang="ja"] h2 { letter-spacing: 0; }
-    .store { display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; font-size: 16px; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+    .store { display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; font-size: 16px; box-shadow: 0 10px 24px rgba(0,0,0,.18); text-decoration: none; }
     .store svg { width: 22px; height: 22px; fill: #fff; }
     .note { font-size: 14px; color: var(--ink-2); margin-top: 14px; }
 
@@ -224,10 +224,10 @@
           <span class="pill" data-i18n="hero.badge"></span>
           <h1 data-i18n="hero.title"></h1>
           <p class="sub" data-i18n="hero.sub"></p>
-          <span class="store" aria-disabled="true">
+          <a class="store" href="https://apps.apple.com/app/id6808509553" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.6-1-2.6-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>
             <span data-i18n="hero.store"></span>
-          </span>
+          </a>
           <div class="note" data-i18n="hero.note"></div>
         </div>
         <div class="hero-visual reveal">
@@ -406,10 +406,10 @@
       <img class="icon reveal" src="icon.png" alt="" />
       <h2 class="reveal" data-i18n="cta.t"></h2>
       <p class="reveal" data-i18n="cta.p"></p>
-      <span class="store reveal" aria-disabled="true">
+      <a class="store reveal" href="https://apps.apple.com/app/id6808509553" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.6-1-2.6-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>
         <span data-i18n="hero.store"></span>
-      </span>
+      </a>
     </section>
   </main>
 
@@ -427,15 +427,15 @@
   <script>
     // Claims mirror the approved App Store listing
     // (recipe-app-public/docs/release/v1.0.0/ios/store-listing.md); keep them true.
-    // When the app is live, make the .store pills links to its App Store page.
+    // The .store pills link to the App Store page (live since 2026-10-27).
     var I18N = {
       en: {
         "name": "RecipeTune",
         "nav.features": "Features", "nav.devices": "iPad", "nav.pricing": "Pricing",
-        "hero.badge": "Coming soon to the App Store",
+        "hero.badge": "Now on the App Store",
         "hero.title": "Your recipes,\n<em>ready to cook.</em>",
         "hero.sub": "Screenshot a recipe or photograph a cookbook page. RecipeTune turns it into a clean recipe you can cook from, sized for however many people are at the table.",
-        "hero.store": "Coming soon on the App Store",
+        "hero.store": "Download on the App Store",
         "hero.note": "For iPhone and iPad, in English and Japanese.",
         "scan.k": "Scan",
         "scan.t": "Screenshot in.\n<em>Recipe out.</em>",
@@ -490,17 +490,17 @@
         "pro.1": "Unlimited AI scans",
         "pro.2": "No ads",
         "pro.3": "Cancel any time in your Apple ID settings",
-        "cta.t": "Coming soon to the App Store",
-        "cta.p": "RecipeTune is in review with Apple. It won't be long.",
+        "cta.t": "Get RecipeTune",
+        "cta.p": "Available now for iPhone and iPad.",
         "f.privacy": "Privacy", "f.contact": "Contact", "f.apps": "More apps"
       },
       ja: {
         "name": "レシピチューン",
         "nav.features": "機能", "nav.devices": "iPad", "nav.pricing": "料金",
-        "hero.badge": "App Storeで近日公開",
+        "hero.badge": "App Storeで配信中",
         "hero.title": "どのレシピも、\n<em>すぐ作れる。</em>",
         "hero.sub": "レシピのスクショや料理本の写真から、食べる人数に合わせてそのまま作れるレシピに。",
-        "hero.store": "App Storeで近日公開",
+        "hero.store": "App Storeからダウンロード",
         "hero.note": "iPhone・iPad対応。日本語と英語で使えます。",
         "scan.k": "読み取り",
         "scan.t": "スクショが、\n<em>そのままレシピに。</em>",
@@ -555,8 +555,8 @@
         "pro.1": "AIの読み取りが無制限",
         "pro.2": "広告なし",
         "pro.3": "Apple IDの設定からいつでも解約できます",
-        "cta.t": "App Storeで近日公開",
-        "cta.p": "現在Appleの審査中です。もうすぐお届けします。",
+        "cta.t": "レシピチューンを始めよう",
+        "cta.p": "iPhone・iPadで配信中です。",
         "f.privacy": "プライバシー", "f.contact": "お問い合わせ", "f.apps": "ほかのアプリ"
       }
     };
